@@ -8,3 +8,4 @@ build-enc.js
 update.cmd
 node_modules/
 secret.passcode*
+run-update.cmd
