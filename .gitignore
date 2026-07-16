@@ -2,3 +2,8 @@
 Thumbs.db
 # 平文の成績データはコミットしない（暗号化した data.enc.js のみ公開）
 data.js
+secret.passcode
+*.bak
+build-enc.js
+update.cmd
+node_modules/
