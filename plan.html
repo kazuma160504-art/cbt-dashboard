@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT 学習プラン</title>
+<style>
+  :root{--bg:#f4f7fc;--card:#fff;--ink:#1f2a44;--sub:#6b7896;--line:#e6ecf5;
+    --indigo:#5b6cff;--teal:#17b4a6;--amber:#f6a623;--rose:#f2547b;--green:#28c07a;--shadow:0 6px 20px rgba(40,60,120,.08);}
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,#eef2fb,#f4f7fc);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Meiryo",system-ui,sans-serif;line-height:1.75}
+  a{color:var(--indigo);text-decoration:none}
+  .top{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;gap:14px}
+  .brand{font-weight:800;font-size:17px}
+  .nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .nav a{padding:8px 15px;border-radius:999px;font-size:13px;font-weight:700;color:var(--sub);background:#eef1f8}
+  .nav a.active{background:var(--indigo);color:#fff}
+  .wrap{max-width:960px;margin:0 auto;padding:22px 20px 90px}
+  .hero{background:linear-gradient(135deg,#5b6cff,#17b4a6);border-radius:20px;color:#fff;padding:22px 24px;box-shadow:var(--shadow);display:flex;flex-wrap:wrap;gap:22px;align-items:center;margin-bottom:20px}
+  .hero .big{font-size:52px;font-weight:900;line-height:1}
+  .hero .sub{font-size:14px;opacity:.95}
+  .hero .msg{flex:1;min-width:220px;font-size:14px;background:rgba(255,255,255,.15);border-radius:12px;padding:12px 15px}
+  .weaknow{background:#fff4f7;border:1px solid #ffd7e1;border-radius:14px;padding:12px 16px;font-size:13px;margin-bottom:20px}
+  h2{font-size:18px;margin:24px 0 10px}
+  .timeline{position:relative;padding-left:24px}
+  .timeline::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:3px;background:linear-gradient(#5b6cff,#17b4a6)}
+  .phase{background:var(--card);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);margin-bottom:14px;position:relative}
+  .phase::before{content:'';position:absolute;left:-21px;top:20px;width:13px;height:13px;border-radius:50%;background:#5b6cff;border:3px solid #fff;box-shadow:0 0 0 2px #5b6cff}
+  .phase.p2::before{background:#17b4a6;box-shadow:0 0 0 2px #17b4a6}
+  .phase.p3::before{background:#f6a623;box-shadow:0 0 0 2px #f6a623}
+  .phase.exam::before{background:#f2547b;box-shadow:0 0 0 2px #f2547b}
+  .phase h3{margin:0 0 2px;font-size:16px}
+  .phase .range{color:var(--sub);font-size:13px;font-weight:700}
+  .phase ul{margin:8px 0 0;padding-left:20px}.phase li{margin:3px 0;font-size:14px}
+  .routine{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:8px 0}
+  .rc{background:var(--card);border-radius:14px;padding:14px;box-shadow:var(--shadow);border-top:4px solid var(--indigo)}
+  .rc:nth-child(2){border-top-color:var(--teal)}.rc:nth-child(3){border-top-color:var(--amber)}
+  .rc b{display:block;margin-bottom:3px}
+  .tip{background:#eef4ff;border-radius:12px;padding:12px 15px;font-size:13px;margin-top:10px}
+  .prio{background:var(--card);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;margin-top:8px}
+  .prio .row{display:flex;gap:12px;padding:12px 15px;border-bottom:1px solid var(--line);align-items:center}
+  .prio .row:last-child{border-bottom:0}
+  .tag{flex:0 0 auto;padding:3px 10px;border-radius:999px;color:#fff;font-weight:800;font-size:12px}
+  .foot{color:var(--sub);font-size:12px;text-align:center;margin-top:26px}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand">🩺 CBT 学習ダッシュボード</div>
+  <nav class="nav">
+    <a href="index.html">ホーム</a>
+    <a href="plan.html" class="active">学習プラン</a>
+    <a href="tracker.html">復習トラッカー</a>
+  </nav>
+</div>
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <div class="sub">本番まで</div>
+      <div class="big"><span id="days">—</span><span style="font-size:22px">日</span></div>
+      <div class="sub">📅 2026年9月25日(金)</div>
+    </div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="weaknow" id="weaknow"></div>
+
+  <h2>🎯 3フェーズ設計（全10週）</h2>
+  <div class="timeline">
+    <div class="phase p1">
+      <h3>Phase 1 ｜ 弱点つぶし＋本番形式の導入</h3>
+      <div class="range">7/17 〜 8/13（約4週間）</div>
+      <ul>
+        <li><b>弱点の集中攻略</b>：正答率が低い分野から（具体的な分野は上の「🔓弱点データ」／ホームの弱点分析で確認）。間違えた問題中心に</li>
+        <li><b>基礎(1)の未着手を開始</b>：1C生理 → 1I薬理 → 1J病理 → 1H免疫…</li>
+        <li><b>本番形式に慣れる</b>：4B4連問・4A多選択肢を毎日少しずつ</li>
+      </ul>
+    </div>
+    <div class="phase p2">
+      <h3>Phase 2 ｜ 2周目（間違い中心）＋形式強化</h3>
+      <div class="range">8/14 〜 9/10（約4週間）</div>
+      <ul>
+        <li><b>×だった問題の2周目</b>を分野横断で回収</li>
+        <li><b>数が多い弱点の底上げ</b>：問題数が多く伸びしろの大きい分野（詳細は「🔓弱点データ」で確認）</li>
+        <li>4連問・多選択肢を本格化＋5A追加、基礎(1)を完了</li>
+      </ul>
+    </div>
+    <div class="phase p3">
+      <h3>Phase 3 ｜ 総仕上げ・最終確認</h3>
+      <div class="range">9/11 〜 9/24（約2週間）</div>
+      <ul>
+        <li><b>SM-2の復習を最優先で回収</b>（忘却曲線のピークを本番に合わせる）</li>
+        <li>低正答率の分野だけ最終確認。新規は増やしすぎない</li>
+        <li>本番想定のランダム演習・時間感覚の調整。前日は睡眠優先</li>
+      </ul>
+    </div>
+    <div class="phase exam">
+      <h3>🎓 CBT本番</h3>
+      <div class="range">9/25(金)</div>
+    </div>
+  </div>
+
+  <h2>🔁 毎日の型</h2>
+  <div class="routine">
+    <div class="rc"><b>① 今日の復習</b>SM-2トラッカーの「今日の復習」を先に。思い出す→解説の順。</div>
+    <div class="rc"><b>② 新規3分野ミックス</b>毎日ちがう3分野（例：2系弱点＋1系基礎＋4系本番形式）。</div>
+    <div class="rc"><b>③ 原理1問 深掘り</b>間違えた1問を機序→鑑別表→穴埋めカード化。</div>
+  </div>
+  <div class="tip">💡 量が日によりバラバラでもOK。<b>「①は毎日／②③はできる分だけ」</b>が最低ライン。忙しい日は①だけでも回しましょう。</div>
+
+  <h2>📌 分野の優先順位（今の数字から）</h2>
+  <div class="prio">
+    <div class="row"><span class="tag" style="background:#f2547b">最優先</span><div>正答率が最も低い分野 ── <span style="color:#6b7896">落としている点が大きい。具体名は「🔓弱点データ」参照</span></div></div>
+    <div class="row"><span class="tag" style="background:#f6a623">高</span><div>問題数が多い弱点分野 ── <span style="color:#6b7896">間違い"数"が最大＝伸びしろ最大。具体名は「🔓弱点データ」参照</span></div></div>
+    <div class="row"><span class="tag" style="background:#17b4a6">高</span><div>4B4連問・4A多選択肢 ── <span style="color:#6b7896">本番の出題形式。未着手なので早めに</span></div></div>
+    <div class="row"><span class="tag" style="background:#5b6cff">中</span><div>基礎(1)の未着手8分野 ── <span style="color:#6b7896">臨床理解の土台。復習と混ぜて消化</span></div></div>
+  </div>
+
+  <div class="foot" id="foot"></div>
+</div>
+<script src="crypto.js"></script>
+<script src="data.enc.js"></script>
+<script>
+const EXAM=new Date('2026-09-25T00:00:00+09:00');
+const days=Math.max(0,Math.ceil((EXAM-new Date())/86400000));
+document.getElementById('days').textContent=days;
+document.getElementById('msg').innerHTML=`残り <b>約${Math.ceil(days/7)}週間</b>。<br>このプランは目安です。遅れたら翌週で調整、を繰り返せば大丈夫。`;
+async function showWeak(force){
+  if(!window.CBT_ENC){ document.getElementById('weaknow').textContent='暗号化データ(data.enc.js)がありません。'; return; }
+  let pass=sessionStorage.getItem('cbt_pass');
+  if(!pass){ if(!force) return; pass=prompt('🔐 パスコードを入力してください'); if(pass===null) return; }
+  try{
+    const data=await cbtDecrypt(window.CBT_ENC.blob, pass); sessionStorage.setItem('cbt_pass',pass);
+    const rows=data.map(d=>{const[c,n,t,s]=d;if(!s)return null;const a=s[0]+s[1]+s[2]+s[3];if(!a)return null;return{c,n,t,rate:Math.round((s[0]+s[1]+s[2])/a*100),wrong:Math.round(s[3]/100*t)};}).filter(Boolean);
+    const lr=[...rows].sort((a,b)=>a.rate-b.rate).slice(0,4);
+    const hw=[...rows].sort((a,b)=>b.wrong-a.wrong).slice(0,4);
+    document.getElementById('weaknow').innerHTML=`<b>いまの弱点（自動反映）</b><br>正答率が低い：${lr.map(r=>r.c+r.n+'('+r.rate+'%)').join('、')}<br>間違いが多い：${hw.map(r=>r.c+r.n+'(約'+r.wrong+'問)').join('、')}`;
+    document.getElementById('foot').textContent=`最終更新 ${data.__updated||window.CBT_ENC.updated||'—'}｜数値はdata.jsを更新→setup.htmlで再暗号化`;
+  }catch(e){ sessionStorage.removeItem('cbt_pass'); alert('パスコードが違います。'); }
+}
+if(sessionStorage.getItem('cbt_pass')) showWeak(false);
+else document.getElementById('weaknow').innerHTML='<button onclick="showWeak(true)" style="cursor:pointer;border:none;background:#5b6cff;color:#fff;font-weight:800;border-radius:10px;padding:8px 14px">🔓 弱点データを表示（パスコード）</button>';
+document.getElementById('foot').textContent=`このプランは弱点分析(ホーム)と連動｜パスコード保護`;
+</script>
+</body>
+</html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT 復習トラッカー（SM-2 / Anki方式）</title>
+<style>
+  :root{
+    --bg:#0f1420; --panel:#171e2e; --panel2:#1e2740; --line:#2a3550;
+    --txt:#e6ebf5; --sub:#93a1bd; --accent:#4f8cff; --accent2:#37c9a3;
+    --warn:#ffb454; --bad:#ff6b6b; --good:#37c9a3; --chip:#243252;
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;
+    background:var(--bg);color:var(--txt);line-height:1.6}
+  header{padding:16px 20px;background:linear-gradient(120deg,#1a2540,#101728);border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+  header h1{font-size:18px;margin:0;font-weight:700}
+  header .exam{font-size:13px;color:var(--sub)}
+  header .exam b{color:var(--warn)}
+  .wrap{max-width:1120px;margin:0 auto;padding:18px 20px 80px}
+  .tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+  .tab{padding:8px 16px;border:1px solid var(--line);background:var(--panel);color:var(--sub);
+    border-radius:999px;cursor:pointer;font-size:14px}
+  .tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:16px}
+  .card h2{margin:0 0 12px;font-size:16px;display:flex;align-items:center;gap:8px}
+  .muted{color:var(--sub);font-size:13px}
+  .grid{display:grid;gap:12px}
+  label{display:block;font-size:13px;color:var(--sub);margin-bottom:4px}
+  input,select,textarea{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--txt);
+    border-radius:8px;padding:9px 11px;font-size:14px;font-family:inherit}
+  textarea{min-height:90px;resize:vertical}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .row>*{flex:1;min-width:140px}
+  button{cursor:pointer;border:none;border-radius:8px;padding:9px 16px;font-size:14px;font-weight:600;font-family:inherit}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-ghost{background:var(--panel2);color:var(--txt);border:1px solid var(--line)}
+  .btn-sm{padding:6px 12px;font-size:13px}
+  .chip{display:inline-block;background:var(--chip);color:#b9c8ee;border-radius:6px;padding:2px 9px;font-size:12px;margin-right:4px}
+  .chip.code{background:#2b3d63;color:#cfe0ff;font-weight:700}
+  .empty{text-align:center;color:var(--sub);padding:36px 10px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--sub);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  tr:hover td{background:#1a2237}
+  .due-badge{font-size:12px;padding:2px 8px;border-radius:999px;white-space:nowrap}
+  .due-today{background:#3a2a1a;color:var(--warn)}
+  .due-over{background:#3a1e1e;color:var(--bad)}
+  .due-future{background:#1c2f2a;color:var(--good)}
+  .warnbox{background:#2a2113;border:1px solid #4a3a18;color:#ffd79a;border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:14px}
+  .guard{background:#152a24;border:1px solid #1f4a3d;color:#9fe6cf;border-radius:8px;padding:10px 12px;font-size:12.5px;margin-bottom:14px}
+  /* review flow */
+  .review-stage{text-align:center;padding:12px}
+  .review-front{font-size:22px;font-weight:700;margin:10px 0}
+  .review-meta{margin-bottom:14px}
+  .answer{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:16px;text-align:left;
+    white-space:pre-wrap;margin:14px 0;font-size:15px;line-height:1.75}
+  .grade-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+  .grade{min-width:110px;padding:12px 10px;border-radius:10px;color:#fff;display:flex;flex-direction:column;align-items:center;gap:2px}
+  .grade small{font-weight:400;opacity:.85;font-size:11px}
+  .g-again{background:#c0453f}.g-hard{background:#c07a2c}.g-good{background:#2f8f6f}.g-easy{background:#3568c0}
+  .progress{color:var(--sub);font-size:13px;margin-top:10px}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+  .stat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+  .stat .n{font-size:26px;font-weight:800}
+  .stat .l{font-size:12px;color:var(--sub)}
+  .bar-row{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:13px}
+  .bar-code{width:52px;font-weight:700;color:#cfe0ff}
+  .bar-track{flex:1;background:var(--panel2);border-radius:6px;overflow:hidden;height:16px}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+  .bar-num{width:80px;text-align:right;color:var(--sub);font-size:12px}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .hide{display:none}
+  .del{color:var(--bad);background:none;border:none;cursor:pointer;font-size:13px;padding:2px 6px}
+  .edit{color:var(--accent);background:none;border:none;cursor:pointer;font-size:13px;padding:2px 6px}
+  .filter-row{display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin-bottom:12px}
+  .filter-row>div{flex:0 0 auto}
+  footer{color:var(--sub);font-size:12px;text-align:center;padding:20px}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧠 CBT 復習トラッカー</h1>
+  <span style="display:flex;gap:6px;margin-left:6px">
+    <a href="index.html" style="padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--txt);text-decoration:none;font-size:12px;background:var(--panel)">弱点分析</a>
+    <a href="plan.html" style="padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--txt);text-decoration:none;font-size:12px;background:var(--panel)">逆算プラン</a>
+  </span>
+  <span class="exam" id="examInfo"></span>
+  <span style="margin-left:auto"></span>
+  <button class="btn-ghost btn-sm" onclick="exportJSON()">⬇ JSON書出</button>
+  <label class="btn-ghost btn-sm" style="display:inline-block;margin:0;cursor:pointer">⬆ JSON読込
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+  </label>
+  <button class="btn-ghost btn-sm" onclick="exportCSV()">⬇ CSV</button>
+</header>
+
+<div class="wrap">
+  <div class="guard">
+    🔒 <b>著作権ガードレール</b>：QBの問題文・公式解説の全文はここに保存しないでください。「解説・メモ」欄には
+    <b>あなた自身の言葉の要約</b> か <b>原理からの解説</b> のみを入れます。成績データはこの端末のブラウザ内（localStorage）だけに保存され、外部送信されません。
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="review" onclick="switchTab('review')">📅 今日の復習</div>
+    <div class="tab" data-tab="add" onclick="switchTab('add')">➕ 項目を登録</div>
+    <div class="tab" data-tab="list" onclick="switchTab('list')">📚 全項目</div>
+    <div class="tab" data-tab="stats" onclick="switchTab('stats')">📊 弱点ダッシュボード</div>
+    <div class="tab" data-tab="settings" onclick="switchTab('settings')">⚙ 設定</div>
+  </div>
+
+  <!-- ============ REVIEW ============ -->
+  <section id="tab-review">
+    <div class="card" id="reviewSummary"></div>
+    <div class="card" id="reviewPlayer"></div>
+  </section>
+
+  <!-- ============ ADD ============ -->
+  <section id="tab-add" class="hide">
+    <div class="card">
+      <h2>➕ 復習項目を登録</h2>
+      <p class="muted">間違えた項目・覚えたい知識を1つずつ登録します。「まず自分で思い出す→解説を表示」で使うため、
+        <b>表面（問い/思い出したいこと）</b> と <b>解説・メモ（自分の言葉 or 原理）</b> を分けて入れます。</p>
+      <div class="grid">
+        <div class="row">
+          <div style="flex:0 0 180px">
+            <label>分野コード</label>
+            <select id="f-code"></select>
+          </div>
+          <div>
+            <label>項目名 / 一言タイトル（表面に大きく表示）</label>
+            <input id="f-title" placeholder="例：右心不全で頸静脈怒張が起きる理由">
+          </div>
+        </div>
+        <div>
+          <label>思い出したい問い（任意・表面のヒント）</label>
+          <input id="f-front" placeholder="例：なぜ右心不全→体静脈系うっ血→頸静脈怒張？機序を『だから』で説明せよ">
+        </div>
+        <div>
+          <label>解説・メモ（自分の言葉の要約 or 原理解説。※QB公式解説の貼付け禁止）</label>
+          <textarea id="f-note" placeholder="ここは後から編集できます。まず自分で埋め、詰まった所はClaudeに補完してもらう運用でOK。"></textarea>
+        </div>
+        <div class="row">
+          <div style="flex:0 0 220px">
+            <label>タグ（カンマ区切り・任意）</label>
+            <input id="f-tags" placeholder="循環器, 病態生理, 頻出">
+          </div>
+          <div style="flex:0 0 200px">
+            <label>初回の状態</label>
+            <select id="f-init">
+              <option value="new">新規（今日から復習開始）</option>
+              <option value="wrong">間違えた（最優先で明日）</option>
+            </select>
+          </div>
+          <div style="align-self:end">
+            <button class="btn-primary" onclick="addItem()">登録する</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LIST ============ -->
+  <section id="tab-list" class="hide">
+    <div class="card">
+      <h2>📚 全項目</h2>
+      <div class="filter-row">
+        <div><label>分野で絞込</label><select id="listFilter" onchange="renderList()"><option value="">すべて</option></select></div>
+        <div><label>並び順</label><select id="listSort" onchange="renderList()">
+          <option value="due">次回復習日が近い順</option>
+          <option value="ef">難しい順（EF低い）</option>
+          <option value="new">登録が新しい順</option>
+        </select></div>
+        <div><label>キーワード</label><input id="listSearch" oninput="renderList()" placeholder="タイトル/タグ"></div>
+      </div>
+      <div id="listBody"></div>
+    </div>
+  </section>
+
+  <!-- ============ STATS ============ -->
+  <section id="tab-stats" class="hide">
+    <div class="card">
+      <h2>📊 弱点ダッシュボード</h2>
+      <p class="muted">このトラッカーに登録した項目ベースの分布です。分野別の「登録数」「要復習数」「平均EF（＝定着の悪さ）」で
+        <b>手薄・苦手</b>を可視化します。QBの分野別正答率を貼れば、より本格的なヒートマップ（優先度＝正答率の低さ×問題量）に拡張できます。</p>
+      <div class="stat-grid" id="statCards"></div>
+      <h2 style="margin-top:22px">分野別 登録数</h2>
+      <div id="statBars"></div>
+      <h2 style="margin-top:22px">🔥 定着が悪い項目 TOP（平均より難しい＝EFが低い順）</h2>
+      <div id="statWeak"></div>
+    </div>
+  </section>
+
+  <!-- ============ SETTINGS ============ -->
+  <section id="tab-settings" class="hide">
+    <div class="card">
+      <h2>⚙ 設定</h2>
+      <div class="grid">
+        <div class="row">
+          <div style="flex:0 0 220px">
+            <label>CBT試験日</label>
+            <input type="date" id="s-exam" onchange="saveSettings()">
+          </div>
+          <div style="flex:0 0 220px">
+            <label>1日の復習上限（項目数・0=無制限）</label>
+            <input type="number" id="s-max" min="0" value="0" onchange="saveSettings()">
+          </div>
+        </div>
+        <p class="muted">試験日を設定すると、SM-2の間隔が試験日を跨がないよう自動でキャップされます（直前期は最短1日で回します）。</p>
+      </div>
+    </div>
+    <div class="card">
+      <h2>🗄 データ管理</h2>
+      <div class="toolbar">
+        <button class="btn-ghost btn-sm" onclick="exportJSON()">⬇ 全データをJSONで書き出し（バックアップ）</button>
+        <label class="btn-ghost btn-sm" style="display:inline-block;margin:0;cursor:pointer">⬆ JSONを読み込み（復元/統合）
+          <input type="file" accept=".json" style="display:none" onchange="importJSON(event)">
+        </label>
+        <button class="btn-ghost btn-sm" style="color:var(--bad)" onclick="wipeAll()">🗑 全消去</button>
+      </div>
+      <p class="muted">読み込みは既存データと<b>統合</b>（同じIDは上書き）します。ブラウザのデータ消去やPC移行に備えて定期的に書き出してください。</p>
+    </div>
+  </section>
+</div>
+
+<footer>
+  CBT復習トラッカー v1 — SM-2(Anki方式) / データはこの端末のブラウザ内のみに保存。
+</footer>
+
+<script>
+/* ================= State ================= */
+const LS_ITEMS='cbt_items_v1', LS_SET='cbt_settings_v1';
+let items = load(LS_ITEMS, []);
+let settings = load(LS_SET, {exam:'2026-09-25', dailyMax:0});
+let reviewQueue = [], reviewIdx = 0, answerShown=false;
+
+function load(k,def){try{return JSON.parse(localStorage.getItem(k))||def}catch(e){return def}}
+function save(){localStorage.setItem(LS_ITEMS,JSON.stringify(items));localStorage.setItem(LS_SET,JSON.stringify(settings));}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function todayStr(){return new Date().toISOString().slice(0,10)}
+function addDays(dateStr,n){const d=new Date(dateStr+'T00:00:00');d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
+function daysBetween(a,b){return Math.round((new Date(b+'T00:00:00')-new Date(a+'T00:00:00'))/86400000)}
+
+/* ============ 分野コード一覧（ドライブのファイル名から） ============ */
+function buildCodes(){
+  const codes=[];
+  ['A','B','C','D','E','F','G','H','I','J'].forEach(x=>codes.push('1'+x));
+  'ABCDEFGHIJKLMNOPQRSTUVWX'.split('').forEach(x=>codes.push('2'+x));
+  ['A','B','C','D'].forEach(x=>codes.push('3'+x));
+  ['4A-01','4A-02','4A-03','4A-04','4B-01','4B-02','4B-03'].forEach(x=>codes.push(x));
+  ['5A-01','5A-02','5A-03','5A-04','5A-05','5A-06'].forEach(x=>codes.push(x));
+  return codes;
+}
+const CODES = buildCodes();
+
+/* ================= SM-2 ================= */
+// quality: 5=かんたん 4=できた 3=むずかしい 1=もう一度(不正解)
+function sm2(item, q){
+  let ef = item.ef ?? 2.5;
+  let reps = item.reps ?? 0;
+  let interval = item.interval ?? 0;
+  if(q < 3){ reps = 0; interval = 1; }
+  else {
+    if(reps===0) interval = 1;
+    else if(reps===1) interval = 6;
+    else interval = Math.round(interval * ef);
+    reps += 1;
+  }
+  ef = ef + (0.1 - (5-q)*(0.08 + (5-q)*0.02));
+  if(ef < 1.3) ef = 1.3;
+  // 試験日キャップ：復習が試験日を越えないよう短縮（直前期ほど頻回）
+  if(settings.exam){
+    const room = daysBetween(todayStr(), settings.exam) - 1;
+    if(room >= 1 && interval > room) interval = room;
+    if(room < 1) interval = 1;
+  }
+  item.ef = Math.round(ef*100)/100;
+  item.reps = reps;
+  item.interval = interval;
+  item.due = addDays(todayStr(), interval);
+  item.lastGrade = q;
+  item.reviewedAt = todayStr();
+  item.history = item.history || [];
+  item.history.push({date:todayStr(), q, interval, ef:item.ef});
+  return item;
+}
+
+/* ================= Tabs ================= */
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===name));
+  ['review','add','list','stats','settings'].forEach(s=>
+    document.getElementById('tab-'+s).classList.toggle('hide',s!==name));
+  if(name==='review') startReview();
+  if(name==='list') renderList();
+  if(name==='stats') renderStats();
+}
+
+/* ================= Add ================= */
+function fillSelects(){
+  const opt = CODES.map(c=>`<option value="${c}">${c}</option>`).join('');
+  document.getElementById('f-code').innerHTML = opt;
+  document.getElementById('f-code').value='2A';
+  document.getElementById('listFilter').innerHTML = '<option value="">すべて</option>'+opt;
+}
+function addItem(){
+  const code=document.getElementById('f-code').value;
+  const title=document.getElementById('f-title').value.trim();
+  if(!title){alert('項目名を入れてください');return;}
+  const init=document.getElementById('f-init').value;
+  const it={
+    id:uid(), code, title,
+    front:document.getElementById('f-front').value.trim(),
+    note:document.getElementById('f-note').value.trim(),
+    tags:document.getElementById('f-tags').value.split(',').map(s=>s.trim()).filter(Boolean),
+    ef:2.5, reps:0, interval:0,
+    due: init==='wrong'? addDays(todayStr(),1) : todayStr(),
+    createdAt:todayStr(), history:[]
+  };
+  items.push(it); save();
+  ['f-title','f-front','f-note','f-tags'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('f-title').focus();
+  toast('登録しました：'+code+' / '+title);
+  updateHeader();
+}
+
+/* ================= Review ================= */
+function dueItems(){
+  const t=todayStr();
+  return items.filter(it=> it.due <= t).sort((a,b)=> a.due.localeCompare(b.due) || (a.ef-b.ef));
+}
+function startReview(){
+  reviewQueue = dueItems();
+  if(settings.dailyMax>0) reviewQueue = reviewQueue.slice(0, settings.dailyMax);
+  reviewIdx=0; answerShown=false;
+  renderReviewSummary();
+  renderPlayer();
+}
+function renderReviewSummary(){
+  const all=dueItems();
+  const byCode={};
+  all.forEach(it=>byCode[it.code]=(byCode[it.code]||0)+1);
+  const chips=Object.keys(byCode).sort().map(c=>`<span class="chip code">${c}</span><span class="chip">${byCode[c]}</span>`).join(' ');
+  const capNote = settings.dailyMax>0 ? `（本日上限 ${settings.dailyMax} 件）` : '';
+  document.getElementById('reviewSummary').innerHTML=`
+    <h2>📅 今日の復習</h2>
+    <div class="stat-grid">
+      <div class="stat"><div class="n" style="color:var(--warn)">${all.length}</div><div class="l">要復習（今日期限まで）</div></div>
+      <div class="stat"><div class="n">${items.length}</div><div class="l">登録総数</div></div>
+      <div class="stat"><div class="n" style="color:var(--good)">${reviewQueue.length}</div><div class="l">今回のセッション${capNote}</div></div>
+    </div>
+    ${all.length? `<p class="muted" style="margin-top:12px">内訳：${chips}</p>`:''}
+  `;
+}
+function renderPlayer(){
+  const el=document.getElementById('reviewPlayer');
+  if(reviewQueue.length===0){
+    el.innerHTML=`<div class="empty">🎉 今日の復習はありません。<br>「➕ 項目を登録」で追加するか、間違えた1問を原理から登録しましょう。</div>`;
+    return;
+  }
+  if(reviewIdx>=reviewQueue.length){
+    el.innerHTML=`<div class="empty">✅ お疲れさま！本セッション ${reviewQueue.length} 件を復習しました。<br>
+      <button class="btn-primary" style="margin-top:12px" onclick="startReview()">再チェック</button></div>`;
+    updateHeader(); return;
+  }
+  const it=reviewQueue[reviewIdx];
+  const front = it.front? `<div class="muted" style="font-size:14px">${escapeHtml(it.front)}</div>`:'';
+  const answer = answerShown? `
+    <div class="answer">${it.note? escapeHtml(it.note) : '<span class="muted">（解説・メモ未入力。まず自分の言葉で埋めましょう。詰まったらClaudeに機序解説を依頼）</span>'}</div>
+    <div class="grade-row">
+      <button class="grade g-again" onclick="grade(1)">もう一度<small>不正解 → 明日</small></button>
+      <button class="grade g-hard" onclick="grade(3)">むずかしい<small>正解だが不安</small></button>
+      <button class="grade g-good" onclick="grade(4)">できた<small>普通に正解</small></button>
+      <button class="grade g-easy" onclick="grade(5)">かんたん<small>余裕</small></button>
+    </div>`
+   : `<button class="btn-primary" style="margin-top:14px" onclick="showAnswer()">🔎 解説を表示</button>
+      <p class="muted" style="margin-top:8px">まず頭の中で「だから→だから」で機序を再構成してから開いてください。</p>`;
+  el.innerHTML=`
+    <div class="review-stage">
+      <div class="review-meta"><span class="chip code">${it.code}</span>
+        ${it.tags.map(t=>`<span class="chip">${escapeHtml(t)}</span>`).join('')}</div>
+      <div class="review-front">${escapeHtml(it.title)}</div>
+      ${front}
+      ${answer}
+      <div class="progress">${reviewIdx+1} / ${reviewQueue.length}　|　EF ${it.ef}　次回間隔候補あり</div>
+    </div>`;
+}
+function showAnswer(){answerShown=true;renderPlayer();}
+function grade(q){
+  const it=reviewQueue[reviewIdx];
+  sm2(it,q); save();
+  reviewIdx++; answerShown=false;
+  renderReviewSummary();
+  renderPlayer();
+}
+
+/* ================= List ================= */
+function dueBadge(it){
+  const d=daysBetween(todayStr(), it.due);
+  if(d<0) return `<span class="due-badge due-over">超過 ${-d}日</span>`;
+  if(d===0) return `<span class="due-badge due-today">今日</span>`;
+  return `<span class="due-badge due-future">${it.due}（${d}日後）</span>`;
+}
+function renderList(){
+  const f=document.getElementById('listFilter').value;
+  const sort=document.getElementById('listSort').value;
+  const q=document.getElementById('listSearch').value.trim().toLowerCase();
+  let arr=items.slice();
+  if(f) arr=arr.filter(i=>i.code===f);
+  if(q) arr=arr.filter(i=>(i.title+' '+i.tags.join(' ')).toLowerCase().includes(q));
+  if(sort==='due') arr.sort((a,b)=>a.due.localeCompare(b.due));
+  if(sort==='ef') arr.sort((a,b)=>(a.ef-b.ef));
+  if(sort==='new') arr.sort((a,b)=>b.createdAt.localeCompare(a.createdAt)||b.id.localeCompare(a.id));
+  const body=document.getElementById('listBody');
+  if(arr.length===0){body.innerHTML='<div class="empty">項目がありません。</div>';return;}
+  body.innerHTML=`<table><thead><tr><th>分野</th><th>項目名</th><th>次回</th><th>EF</th><th>復習回数</th><th></th></tr></thead><tbody>`+
+    arr.map(it=>`<tr>
+      <td><span class="chip code">${it.code}</span></td>
+      <td><b>${escapeHtml(it.title)}</b><br><span class="muted">${it.tags.map(t=>'#'+escapeHtml(t)).join(' ')}</span></td>
+      <td>${dueBadge(it)}</td>
+      <td>${it.ef}</td>
+      <td>${(it.history||[]).length}</td>
+      <td style="white-space:nowrap">
+        <button class="edit" onclick="editItem('${it.id}')">編集</button>
+        <button class="del" onclick="delItem('${it.id}')">削除</button>
+      </td></tr>`).join('')+`</tbody></table>`;
+}
+function editItem(id){
+  const it=items.find(i=>i.id===id); if(!it)return;
+  const title=prompt('項目名', it.title); if(title===null)return;
+  const front=prompt('思い出したい問い（表面ヒント）', it.front||''); if(front===null)return;
+  const note=prompt('解説・メモ（自分の言葉/原理。公式解説の貼付け禁止）', it.note||''); if(note===null)return;
+  const tags=prompt('タグ（カンマ区切り）', (it.tags||[]).join(', ')); if(tags===null)return;
+  it.title=title.trim(); it.front=front.trim(); it.note=note.trim();
+  it.tags=tags.split(',').map(s=>s.trim()).filter(Boolean);
+  save(); renderList(); toast('更新しました');
+}
+function delItem(id){
+  if(!confirm('この項目を削除しますか？'))return;
+  items=items.filter(i=>i.id!==id); save(); renderList(); updateHeader();
+}
+
+/* ================= Stats ================= */
+function renderStats(){
+  const t=todayStr();
+  const total=items.length;
+  const due=items.filter(i=>i.due<=t).length;
+  const avgEf= total? (items.reduce((s,i)=>s+(i.ef||2.5),0)/total).toFixed(2):'—';
+  const mature=items.filter(i=>(i.interval||0)>=21).length;
+  document.getElementById('statCards').innerHTML=`
+    <div class="stat"><div class="n">${total}</div><div class="l">登録総数</div></div>
+    <div class="stat"><div class="n" style="color:var(--warn)">${due}</div><div class="l">要復習</div></div>
+    <div class="stat"><div class="n">${avgEf}</div><div class="l">平均EF（低いほど苦手）</div></div>
+    <div class="stat"><div class="n" style="color:var(--good)">${mature}</div><div class="l">定着（間隔21日+）</div></div>`;
+  // bars by code
+  const byCode={};
+  items.forEach(i=>byCode[i.code]=(byCode[i.code]||0)+1);
+  const keys=Object.keys(byCode).sort();
+  const max=Math.max(1,...Object.values(byCode));
+  document.getElementById('statBars').innerHTML = keys.length? keys.map(c=>`
+    <div class="bar-row"><div class="bar-code">${c}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${byCode[c]/max*100}%"></div></div>
+      <div class="bar-num">${byCode[c]}件</div></div>`).join('') : '<div class="empty">データなし</div>';
+  // weakest
+  const weak=items.filter(i=>(i.history||[]).length>0).sort((a,b)=>a.ef-b.ef).slice(0,10);
+  document.getElementById('statWeak').innerHTML = weak.length? '<table><tbody>'+weak.map(i=>`
+    <tr><td><span class="chip code">${i.code}</span></td><td><b>${escapeHtml(i.title)}</b></td>
+    <td>EF ${i.ef}</td><td class="muted">${(i.history||[]).length}回復習</td></tr>`).join('')+'</tbody></table>'
+    : '<div class="empty">まだ復習履歴がありません。</div>';
+}
+
+/* ================= Settings / IO ================= */
+function loadSettingsUI(){
+  document.getElementById('s-exam').value=settings.exam||'';
+  document.getElementById('s-max').value=settings.dailyMax||0;
+}
+function saveSettings(){
+  settings.exam=document.getElementById('s-exam').value;
+  settings.dailyMax=parseInt(document.getElementById('s-max').value)||0;
+  save(); updateHeader();
+}
+function updateHeader(){
+  const t=todayStr();
+  const due=items.filter(i=>i.due<=t).length;
+  let ex='';
+  if(settings.exam){
+    const d=daysBetween(t, settings.exam);
+    ex = d>=0? `試験日 <b>${settings.exam}</b>（あと ${d} 日）　` : `試験日超過（${settings.exam}）　`;
+  }
+  document.getElementById('examInfo').innerHTML = ex + `今日の要復習 <b>${due}</b> 件`;
+}
+function exportJSON(){
+  const blob=new Blob([JSON.stringify({items,settings,exportedAt:new Date().toISOString()},null,2)],{type:'application/json'});
+  dl(blob, `cbt-tracker-${todayStr()}.json`);
+}
+function importJSON(e){
+  const file=e.target.files[0]; if(!file)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const data=JSON.parse(r.result);
+      const incoming=data.items||[];
+      const map={}; items.forEach(i=>map[i.id]=i);
+      incoming.forEach(i=>map[i.id]=i);
+      items=Object.values(map);
+      if(data.settings) settings=Object.assign(settings,data.settings);
+      save(); loadSettingsUI(); updateHeader(); renderList(); toast(`読込完了：${incoming.length}件を統合`);
+    }catch(err){alert('読み込み失敗：'+err.message);}
+  };
+  r.readAsText(file); e.target.value='';
+}
+function exportCSV(){
+  const head=['id','code','title','front','note','tags','ef','reps','interval','due','createdAt','reviews'];
+  const rows=items.map(i=>[i.id,i.code,i.title,i.front||'',i.note||'',(i.tags||[]).join('|'),i.ef,i.reps,i.interval,i.due,i.createdAt,(i.history||[]).length]);
+  const csv=[head,...rows].map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\r\n');
+  dl(new Blob(['﻿'+csv],{type:'text/csv'}), `cbt-tracker-${todayStr()}.csv`);
+}
+function wipeAll(){
+  if(!confirm('全項目と設定を消去します。よろしいですか？（先にJSON書出し推奨）'))return;
+  items=[]; settings={exam:settings.exam,dailyMax:0}; save(); location.reload();
+}
+function dl(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href);}
+
+/* ================= utils ================= */
+function escapeHtml(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+let toastT;
+function toast(msg){
+  let t=document.getElementById('toast');
+  if(!t){t=document.createElement('div');t.id='toast';
+    t.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2f8f6f;color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;z-index:99;box-shadow:0 4px 16px rgba(0,0,0,.4)';
+    document.body.appendChild(t);}
+  t.textContent=msg; t.style.opacity='1';
+  clearTimeout(toastT); toastT=setTimeout(()=>t.style.opacity='0',2200);
+}
+
+/* ================= init ================= */
+fillSelects();
+loadSettingsUI();
+updateHeader();
+startReview();
+</script>
+</body>
+</html>

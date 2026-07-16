@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT ダッシュボード｜暗号化セットアップ（ローカル用）</title>
+<style>
+  body{margin:0;background:#f4f7fc;color:#1f2a44;font-family:"Hiragino Kaku Gothic ProN","Meiryo",system-ui,sans-serif;line-height:1.8}
+  .wrap{max-width:640px;margin:0 auto;padding:30px 20px 80px}
+  h1{font-size:20px}
+  .card{background:#fff;border-radius:16px;box-shadow:0 6px 20px rgba(40,60,120,.08);padding:20px 22px;margin-bottom:16px}
+  label{display:block;font-size:13px;color:#6b7896;margin:10px 0 4px}
+  input{width:100%;padding:11px 13px;border:1px solid #dfe6f1;border-radius:10px;font-size:15px}
+  button{cursor:pointer;border:none;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:800;background:#5b6cff;color:#fff;margin-top:14px}
+  button:disabled{background:#b9c2e0}
+  .ok{color:#17b4a6;font-weight:800}
+  .ng{color:#f2547b;font-weight:800}
+  .step{background:#eef4ff;border-radius:12px;padding:12px 15px;font-size:13px;margin-top:10px}
+  code{background:#eef1f8;padding:1px 6px;border-radius:5px;font-size:13px}
+  .muted{color:#6b7896;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🔐 暗号化セットアップ（この画面はローカル専用）</h1>
+  <p class="muted">成績データを、あなたの決めたパスコードで暗号化した <code>data.enc.js</code> を作ります。
+  パスコードはこの画面（あなたのブラウザ）から外に出ません。</p>
+
+  <div class="card">
+    <div id="dataStat" class="muted">データ読み込み中…</div>
+    <label>パスコード（4文字以上・忘れると復元できません）</label>
+    <input id="p1" type="password" placeholder="例：好きな語呂・数字の組み合わせ" autocomplete="new-password">
+    <label>パスコード（確認のためもう一度）</label>
+    <input id="p2" type="password" autocomplete="new-password">
+    <button id="go" disabled>🔒 data.enc.js を作成してダウンロード</button>
+    <div id="msg" style="margin-top:12px"></div>
+  </div>
+
+  <div class="card">
+    <b>この後の手順</b>
+    <div class="step">
+      ① 上のボタンで <code>data.enc.js</code> がダウンロードされます。<br>
+      ② そのファイルを <code>C:\Users\mini0n\Downloads\cbt-dashboard\</code> に置く（同名なら上書き）。<br>
+      ③ 「できた」と伝えてください。私が公開設定（GitHub Pages）まで仕上げます。
+    </div>
+    <p class="muted">※パスコードを変えたい／成績を更新したときは、<code>data.js</code> を直してこの画面をもう一度使えばOKです。</p>
+  </div>
+</div>
+<script src="data.js"></script>
+<script src="crypto.js"></script>
+<script>
+const stat=document.getElementById('dataStat'), go=document.getElementById('go'), msg=document.getElementById('msg');
+if(window.CBT_DATA && window.CBT_DATA.length){
+  stat.innerHTML=`<span class="ok">✓ データ読み込みOK</span>：${window.CBT_DATA.length}分野（最終更新 ${window.CBT_UPDATED||'—'}）を暗号化します。`;
+  go.disabled=false;
+}else{
+  stat.innerHTML=`<span class="ng">✗ data.js が読めません</span>。このファイルと同じフォルダに data.js がある状態で開いてください。`;
+}
+go.onclick=async ()=>{
+  const p1=document.getElementById('p1').value, p2=document.getElementById('p2').value;
+  if(p1.length<4){ msg.innerHTML='<span class="ng">パスコードは4文字以上にしてください。</span>'; return; }
+  if(p1!==p2){ msg.innerHTML='<span class="ng">確認用パスコードが一致しません。</span>'; return; }
+  go.disabled=true; msg.textContent='暗号化中…';
+  try{
+    const blob=await cbtEncrypt(window.CBT_DATA, p1);
+    const content=`// 自動生成：成績データ（AES-GCM暗号化済み）。パスコードなしでは解読不可。\nwindow.CBT_ENC = ${JSON.stringify({updated:window.CBT_UPDATED||'', blob})};\n`;
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([content],{type:'application/javascript'}));
+    a.download='data.enc.js'; a.click(); URL.revokeObjectURL(a.href);
+    msg.innerHTML='<span class="ok">✓ data.enc.js を作成しました。</span> 上の手順②へ。';
+  }catch(e){ msg.innerHTML='<span class="ng">失敗：'+e.message+'</span>'; }
+  go.disabled=false;
+};
+</script>
+</body>
+</html>

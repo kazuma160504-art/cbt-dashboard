@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT 学習ダッシュボード</title>
+<style>
+  :root{
+    --bg:#f4f7fc; --card:#ffffff; --ink:#1f2a44; --sub:#6b7896; --line:#e6ecf5;
+    --indigo:#5b6cff; --teal:#17b4a6; --amber:#f6a623; --rose:#f2547b; --green:#28c07a;
+    --shadow:0 6px 20px rgba(40,60,120,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,#eef2fb,#f4f7fc);color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Meiryo",system-ui,sans-serif;line-height:1.7}
+  a{color:var(--indigo);text-decoration:none}
+  .top{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;gap:14px}
+  .brand{font-weight:800;font-size:17px;display:flex;align-items:center;gap:8px}
+  .nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .nav a{padding:8px 15px;border-radius:999px;font-size:13px;font-weight:700;color:var(--sub);background:#eef1f8}
+  .nav a.active{background:var(--indigo);color:#fff}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 20px 90px}
+
+  /* hero */
+  .hero{background:linear-gradient(135deg,#5b6cff,#8a7bff 60%,#17b4a6);border-radius:22px;color:#fff;
+    padding:26px 28px;box-shadow:var(--shadow);display:flex;flex-wrap:wrap;align-items:center;gap:26px;margin-bottom:22px}
+  .hero .count{font-size:15px;opacity:.9}
+  .hero .big{font-size:60px;font-weight:900;line-height:1;letter-spacing:-1px}
+  .hero .exam{font-size:14px;opacity:.95;margin-top:6px}
+  .ring{--v:0;width:132px;height:132px;border-radius:50%;flex:0 0 auto;
+    background:conic-gradient(#fff calc(var(--v)*1%), rgba(255,255,255,.28) 0);
+    display:grid;place-items:center;box-shadow:inset 0 0 0 4px rgba(255,255,255,.15)}
+  .ring .inner{width:104px;height:104px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center;text-align:center}
+  .ring .pct{font-size:30px;font-weight:900}
+  .ring .lab{font-size:11px;opacity:.9}
+  .hero .msg{flex:1;min-width:220px;font-size:14px;background:rgba(255,255,255,.14);border-radius:14px;padding:12px 15px}
+
+  /* kpi */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:24px}
+  .kpi{background:var(--card);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);display:flex;gap:12px;align-items:center}
+  .kpi .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px;flex:0 0 auto}
+  .kpi .n{font-size:24px;font-weight:800;line-height:1.2}
+  .kpi .l{font-size:12px;color:var(--sub)}
+
+  h2{font-size:18px;margin:26px 0 12px;display:flex;align-items:center;gap:8px}
+  .section-note{color:var(--sub);font-size:13px;margin:-6px 0 12px}
+
+  /* weak cards */
+  .weakgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+  .weak{background:var(--card);border-radius:16px;padding:16px;box-shadow:var(--shadow);border-left:6px solid var(--rose)}
+  .weak .code{font-weight:800;font-size:16px}
+  .weak .rate{font-size:32px;font-weight:900}
+  .weak .meta{font-size:12px;color:var(--sub)}
+  .weak .barwrap{height:10px;background:#eef1f8;border-radius:6px;overflow:hidden;margin-top:8px}
+  .weak .bar{height:100%;border-radius:6px}
+
+  /* subject tiles */
+  .voltitle{font-weight:800;color:var(--sub);font-size:13px;margin:16px 0 6px}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:9px}
+  .tile{border-radius:13px;padding:11px 10px;color:#fff;position:relative;min-height:74px;box-shadow:var(--shadow)}
+  .tile .c{font-weight:800;font-size:14px}
+  .tile .nm{font-size:11px;opacity:.95;line-height:1.3}
+  .tile .rt{position:absolute;right:9px;bottom:8px;font-size:17px;font-weight:900}
+  .tile.todo{background:#e7ecf5;color:#94a1bd}
+  .tile.todo .rt{font-size:11px;font-weight:700}
+
+  .legendrow{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--sub);margin:10px 0}
+  .dot{display:inline-block;width:12px;height:12px;border-radius:4px;vertical-align:-1px;margin-right:4px}
+
+  details{background:var(--card);border-radius:16px;box-shadow:var(--shadow);margin-top:14px;padding:4px 6px}
+  summary{cursor:pointer;padding:12px 14px;font-weight:700}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:center}
+  th{color:var(--sub);font-size:11px}
+  td.nm{text-align:left;font-weight:700}
+  .pill{padding:2px 9px;border-radius:999px;color:#fff;font-weight:800;font-size:12px}
+  .foot{color:var(--sub);font-size:12px;text-align:center;margin-top:30px}
+  .cta{background:#fff;border:1px dashed var(--indigo);border-radius:14px;padding:12px 16px;font-size:13px;color:var(--ink);margin-top:16px}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand">🩺 CBT 学習ダッシュボード</div>
+  <nav class="nav">
+    <a href="index.html" class="active">ホーム</a>
+    <a href="plan.html">学習プラン</a>
+    <a href="tracker.html">復習トラッカー</a>
+  </nav>
+</div>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="count">CBT本番まで</div>
+      <div class="big"><span id="days">—</span><span style="font-size:24px;font-weight:800"> 日</span></div>
+      <div class="exam">📅 2026年9月25日(金)</div>
+    </div>
+    <div class="ring" id="ring"><div class="inner"><div><div class="pct" id="ringpct">—</div><div class="lab">1周目 完了</div></div></div></div>
+    <div class="msg" id="heromsg"></div>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpis" id="kpis"></div>
+
+  <!-- WEAK -->
+  <h2>🔥 いま伸ばすべき弱点 TOP3</h2>
+  <div class="section-note">正答率が低い×問題量が多い＝いちばん点が伸びる分野です。ここから手をつけましょう。</div>
+  <div class="weakgrid" id="weak"></div>
+
+  <!-- HEATMAP -->
+  <h2>🗺️ 分野マップ（色 = 正答率）</h2>
+  <div class="legendrow">
+    <span><span class="dot" style="background:#28c07a"></span>得意(70%↑)</span>
+    <span><span class="dot" style="background:#8bc34a"></span>あと一歩(50-69%)</span>
+    <span><span class="dot" style="background:#f6a623"></span>要強化(40-49%)</span>
+    <span><span class="dot" style="background:#f2547b"></span>最優先(40%未満)</span>
+    <span><span class="dot" style="background:#e7ecf5"></span>未着手</span>
+  </div>
+  <div id="heatmap"></div>
+
+  <!-- DETAILS -->
+  <details>
+    <summary>📋 全分野の数字を表で見る（クリックで開く）</summary>
+    <div style="overflow:auto;max-height:460px">
+    <table id="tbl"><thead><tr><th>分野</th><th>問題数</th><th>正答率</th><th>間違い</th><th>状態</th></tr></thead><tbody></tbody></table>
+    </div>
+  </details>
+
+  <div class="cta">
+    💡 <b>このページの見かた</b>：GitHubの画面ではなく、この <b>index.html を開く</b>と表示されます。数字を更新したいときは <b>data.js</b> を書き換えるだけ（やり方は<a href="plan.html">プラン</a>や私に聞いてください）。
+  </div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<script src="crypto.js"></script>
+<script src="data.enc.js"></script>
+<script>
+function calc(d){const[code,name,total,s]=d;if(!s)return{code,name,total,answered:0,rate:null,wrong:0,status:'未着手',segs:null};
+  const ans=s[0]+s[1]+s[2]+s[3];const answered=Math.round(ans/100*total);
+  const rate=ans>0?Math.round((s[0]+s[1]+s[2])/ans*100):null;const wrong=Math.round(s[3]/100*total);
+  const status=ans>=95?'演習完了':(ans>0?'演習中':'未着手');return{code,name,total,answered,rate,wrong,status,segs:s};}
+function render(){
+const rows=(window.CBT_DATA||[]).map(calc);
+const answeredRows=rows.filter(r=>r.rate!==null);
+const todo=rows.filter(r=>r.status==='未着手');
+
+// countdown + ring
+const EXAM=new Date('2026-09-25T00:00:00+09:00');
+const days=Math.max(0,Math.ceil((EXAM-new Date())/86400000));
+document.getElementById('days').textContent=days;
+const totalQ=rows.reduce((a,r)=>a+r.total,0), ansQ=rows.reduce((a,r)=>a+r.answered,0);
+const donePct=Math.round(ansQ/totalQ*100);
+document.getElementById('ringpct').textContent=donePct+'%';
+document.getElementById('ring').style.setProperty('--v',donePct);
+document.getElementById('heromsg').innerHTML=`残り <b>約${Math.ceil(days/7)}週間</b>。<br>まずは「毎日①復習」を欠かさず、②新規3分野・③原理1問はできる分だけ。忙しい日は①だけでOK。`;
+
+// kpi
+const wAns=answeredRows.reduce((a,r)=>a+r.answered,0);
+const avg=wAns?Math.round(answeredRows.reduce((a,r)=>a+r.rate*r.answered,0)/wAns):'—';
+const wrongTot=rows.reduce((a,r)=>a+r.wrong,0);
+const doneCnt=rows.filter(r=>r.status==='演習完了').length;
+const K=[
+  ['📚','#eaf0ff','var(--indigo)',ansQ+' 問',`演習済み（全${totalQ}問）`],
+  ['🎯','#e7faf4','var(--teal)',avg+'%','平均正答率'],
+  ['🔁','#fff2f5','var(--rose)','約'+wrongTot+' 問','復習したい×'],
+  ['✅','#eefaf1','var(--green)',doneCnt+' 分野','演習完了'],
+  ['📝','#fff6e8','var(--amber)',todo.length+' 分野','未着手'],
+];
+document.getElementById('kpis').innerHTML=K.map(k=>`<div class="kpi"><div class="ic" style="background:${k[1]};color:${k[2]}">${k[0]}</div><div><div class="n">${k[3]}</div><div class="l">${k[4]}</div></div></div>`).join('');
+
+// weak top3 by wrong
+const rateCol=r=>r===null?'#cfd6e4':r>=70?'#28c07a':r>=50?'#8bc34a':r>=40?'#f6a623':'#f2547b';
+const top3=[...answeredRows].sort((a,b)=>b.wrong-a.wrong).slice(0,3);
+document.getElementById('weak').innerHTML=top3.map(r=>`
+  <div class="weak" style="border-left-color:${rateCol(r.rate)}">
+    <div class="code">${r.code} ${r.name}</div>
+    <div class="rate" style="color:${rateCol(r.rate)}">${r.rate}<span style="font-size:16px">%</span></div>
+    <div class="meta">${r.total}問中 約${r.wrong}問が「×」。ここを直すと点が大きく伸びます。</div>
+    <div class="barwrap"><div class="bar" style="width:${r.rate}%;background:${rateCol(r.rate)}"></div></div>
+  </div>`).join('');
+
+// heatmap grouped by vol
+const VOLS=[['1','基礎医学'],['2','臨床医学'],['3','総論・公衆衛生'],['4','多選択肢・4連問'],['5','追加問題']];
+let hm='';
+for(const [v,label] of VOLS){
+  const g=rows.filter(r=>r.code[0]===v);
+  if(!g.length)continue;
+  hm+=`<div class="voltitle">vol.${v} ${label}</div><div class="tiles">`;
+  hm+=g.map(r=>{
+    if(r.rate===null) return `<div class="tile todo"><div class="c">${r.code}</div><div class="nm">${r.name}</div><div class="rt">未</div></div>`;
+    return `<div class="tile" style="background:${rateCol(r.rate)}"><div class="c">${r.code}</div><div class="nm">${r.name}</div><div class="rt">${r.rate}%</div></div>`;
+  }).join('');
+  hm+='</div>';
+}
+document.getElementById('heatmap').innerHTML=hm;
+
+// table
+document.querySelector('#tbl tbody').innerHTML=[...answeredRows].sort((a,b)=>b.wrong-a.wrong).concat(todo).map(r=>`
+  <tr><td class="nm">${r.code} ${r.name}</td><td>${r.total}</td>
+  <td>${r.rate===null?'—':`<span class="pill" style="background:${rateCol(r.rate)}">${r.rate}%</span>`}</td>
+  <td>${r.rate===null?'—':r.wrong}</td><td>${r.status}</td></tr>`).join('');
+
+document.getElementById('foot').textContent=`最終更新 ${window.CBT_UPDATED||'—'}｜QBオンライン(1周目)実データ｜パスコード保護`;
+}
+
+// パスコードで復号してから表示
+async function unlock(){
+  if(!window.CBT_ENC){ document.querySelector('.wrap').innerHTML='<p style="padding:30px">暗号化データ(data.enc.js)がありません。setup.html で作成してください。</p>'; return; }
+  let pass=sessionStorage.getItem('cbt_pass');
+  for(;;){
+    if(!pass){ pass=prompt('🔐 パスコードを入力してください'); if(pass===null){ document.querySelector('.wrap').innerHTML='<p style="padding:30px">🔒 ロック中です。再読み込みでパスコードを入力できます。</p>'; return; } }
+    try{ window.CBT_DATA=await cbtDecrypt(window.CBT_ENC.blob, pass); window.CBT_UPDATED=window.CBT_ENC.updated; sessionStorage.setItem('cbt_pass',pass); render(); return; }
+    catch(e){ pass=null; sessionStorage.removeItem('cbt_pass'); alert('パスコードが違います。もう一度お試しください。'); }
+  }
+}
+unlock();
+</script>
+</body>
+</html>
