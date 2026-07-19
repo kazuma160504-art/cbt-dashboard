@@ -505,7 +505,7 @@ function importJSON(e){
       incoming.forEach(i=>map[i.id]=i);
       items=Object.values(map);
       if(data.settings) settings=Object.assign(settings,data.settings);
-      save(); loadSettingsUI(); updateHeader(); renderList(); toast(`読込完了：${incoming.length}件を統合`);
+      save(); loadSettingsUI(); updateHeader(); renderList(); startReview(); toast(`読込完了：${incoming.length}件を統合（今日の復習に反映）`);
     }catch(err){alert('読み込み失敗：'+err.message);}
   };
   r.readAsText(file); e.target.value='';
