@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT 要点リファレンス</title>
+<style>
+  :root{
+    --bg:#f4f7fc; --card:#ffffff; --ink:#1f2a44; --sub:#6b7896; --line:#e6ecf5;
+    --indigo:#5b6cff; --teal:#17b4a6; --amber:#f6a623; --rose:#f2547b; --green:#28c07a;
+    --shadow:0 6px 20px rgba(40,60,120,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,#eef2fb,#f4f7fc);color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Meiryo",system-ui,sans-serif;line-height:1.7}
+  a{color:var(--indigo);text-decoration:none}
+  .top{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;gap:14px}
+  .brand{font-weight:800;font-size:17px;display:flex;align-items:center;gap:8px}
+  .nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .nav a{padding:8px 15px;border-radius:999px;font-size:13px;font-weight:700;color:var(--sub);background:#eef1f8}
+  .nav a.active{background:var(--indigo);color:#fff}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 20px 90px}
+
+  .hero{background:linear-gradient(135deg,#5b6cff,#8a7bff 60%,#17b4a6);border-radius:22px;color:#fff;
+    padding:22px 26px;box-shadow:var(--shadow);margin-bottom:18px}
+  .hero h1{margin:0 0 4px;font-size:22px;font-weight:900}
+  .hero p{margin:0;font-size:13px;opacity:.95}
+
+  .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--card);border-radius:14px;
+    padding:10px 14px;box-shadow:var(--shadow);margin-bottom:16px}
+  .toolbar input{flex:1;min-width:180px;border:0;outline:0;font:inherit;font-size:15px;background:transparent;color:var(--ink)}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap}
+  .tabs button{border:0;background:#eef1f8;color:var(--sub);font:inherit;font-weight:700;font-size:13px;
+    padding:8px 15px;border-radius:999px;cursor:pointer}
+  .tabs button.active{background:var(--indigo);color:#fff}
+  .hidebtn{border:0;font:inherit;font-weight:800;font-size:12px;padding:8px 14px;border-radius:999px;cursor:pointer;
+    background:#fff3bf;color:#8a6100}
+  .hidebtn.on{background:var(--amber);color:#fff}
+
+  .card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:20px 24px;margin-bottom:16px}
+  .card h2{font-size:17px;margin:0 0 4px;color:var(--indigo);display:flex;align-items:center;gap:8px}
+  .card h2::before{content:"";width:4px;height:17px;background:var(--indigo);border-radius:2px}
+  .card .lead{color:var(--sub);font-size:13px;margin:0 0 14px}
+  h3{font-size:14px;margin:20px 0 8px;color:var(--ink)}
+
+  .tblwrap{overflow-x:auto;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+  th,td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:#f4f7fd;color:var(--sub);font-size:11px;font-weight:800;white-space:nowrap;position:sticky;top:0}
+  td.k{font-weight:800;white-space:nowrap}
+  tr:hover td{background:#fafbfe}
+  .up{color:#d6336c;font-weight:800}
+  .down{color:#1c7ed6;font-weight:800}
+  .flat{color:var(--sub);font-weight:800}
+
+  .key{background:#fff8e6;border-left:5px solid var(--amber);border-radius:0 10px 10px 0;padding:11px 15px;
+    font-size:13px;margin:12px 0}
+  .key b{color:#8a6100}
+  .warn{background:#fff0f4;border-left:5px solid var(--rose);border-radius:0 10px 10px 0;padding:11px 15px;
+    font-size:13px;margin:12px 0}
+  .pillrow{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+  .pill{background:#eef1f8;color:var(--ink);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700}
+  .pill.hot{background:#ffe3ec;color:#c2255c}
+
+  /* 暗記モード：答えを隠す */
+  .hideable{transition:background .15s}
+  body.hidemode .hideable{background:#dfe5f0;color:transparent;border-radius:5px;cursor:pointer;user-select:none}
+  body.hidemode .hideable *{color:transparent !important}
+  body.hidemode .hideable.reveal{background:transparent;color:inherit}
+  body.hidemode .hideable.reveal *{color:inherit !important}
+
+  mark{background:#fff3bf;color:inherit;border-radius:3px;padding:0 2px}
+  .none{display:none}
+  .foot{color:var(--sub);font-size:12px;text-align:center;margin-top:30px}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand">🩺 CBT 学習ダッシュボード</div>
+  <nav class="nav">
+    <a href="index.html">ホーム</a>
+    <a href="plan.html">学習プラン</a>
+    <a href="tracker.html">復習トラッカー</a>
+    <a href="exams.html">過去問傾向</a>
+    <a href="ref.html" class="active">要点リファレンス</a>
+  </nav>
+</div>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>📗 要点リファレンス</h1>
+    <p>混同しやすいテーマを「鑑別の決め手」から整理。暗記モードで隠して自己テストできます。</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="tabs">
+      <button data-tab="thy" class="active">甲状腺中毒症</button>
+      <button data-tab="tm">腫瘍マーカー</button>
+      <button data-tab="ca">Ca代謝異常</button>
+      <button data-tab="diu">利尿薬</button>
+      <button data-tab="lab">基準値・血ガス</button>
+    </div>
+    <input id="q" type="search" placeholder="ページ内検索（例：摂取率、膵）" autocomplete="off">
+    <button class="hidebtn" id="hide" type="button">🙈 暗記モード</button>
+  </div>
+
+  <!-- ============ 甲状腺中毒症 ============ -->
+  <section data-sec="thy">
+    <div class="card">
+      <h2>甲状腺中毒症の鑑別</h2>
+      <p class="lead">4つとも TSH は低下します。<b>differentiator は「¹²³I 摂取率」</b>—ここだけで大きく2群に分かれます。</p>
+
+      <div class="key">
+        <b>最重要の考え方：</b>「自分で作りすぎている（産生亢進）」のか、「壊れて漏れている（破壊性）」のか。<br>
+        ・<b>産生亢進</b>＝Basedow病 → 材料のヨウ素をどんどん取り込む → <span class="hideable">¹²³I 摂取率 <span class="up">↑</span></span><br>
+        ・<b>破壊性</b>＝亜急性／無痛性甲状腺炎 → 作る力はむしろ低下、既製品が漏れているだけ → <span class="hideable">¹²³I 摂取率 <span class="down">↓</span></span>
+      </div>
+
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>Basedow病</th><th>亜急性甲状腺炎</th><th>無痛性甲状腺炎</th></tr></thead>
+        <tbody>
+          <tr><td class="k">機序</td>
+            <td class="hideable">TSH受容体抗体が受容体を<b>刺激</b>→産生亢進</td>
+            <td class="hideable">ウイルス感染などで濾胞が<b>破壊</b>→漏出</td>
+            <td class="hideable">自己免疫（<b>橋本病</b>が基礎）で破壊→漏出</td></tr>
+          <tr><td class="k">TSH</td>
+            <td class="hideable"><span class="down">↓</span></td>
+            <td class="hideable"><span class="down">↓</span></td>
+            <td class="hideable"><span class="down">↓</span></td></tr>
+          <tr><td class="k">FT₄・FT₃</td>
+            <td class="hideable"><span class="up">↑</span>（持続）</td>
+            <td class="hideable"><span class="up">↑</span>（<b>一過性</b>）</td>
+            <td class="hideable"><span class="up">↑</span>（<b>一過性</b>）</td></tr>
+          <tr><td class="k">¹²³I 摂取率<br><span style="font-weight:400;color:var(--sub);font-size:11px">★決め手</span></td>
+            <td class="hideable"><span class="up">↑</span></td>
+            <td class="hideable"><span class="down">↓</span></td>
+            <td class="hideable"><span class="down">↓</span></td></tr>
+          <tr><td class="k">TSH受容体抗体<br>（TRAb）</td>
+            <td class="hideable"><b>陽性</b></td>
+            <td class="hideable">陰性（まれに一過性＋）</td>
+            <td class="hideable">陰性（まれに一過性＋）</td></tr>
+          <tr><td class="k">疼痛</td>
+            <td class="hideable">なし</td>
+            <td class="hideable"><b>あり</b>（前頸部痛・圧痛・放散痛）</td>
+            <td class="hideable">なし（＝無痛性）</td></tr>
+          <tr><td class="k">炎症所見<br>CRP・赤沈</td>
+            <td class="hideable">正常</td>
+            <td class="hideable"><b>著明↑</b>（赤沈亢進）＋発熱</td>
+            <td class="hideable">正常〜軽度</td></tr>
+          <tr><td class="k">甲状腺の所見</td>
+            <td class="hideable">びまん性腫大、血流豊富</td>
+            <td class="hideable">有痛性の硬結（移動することも）</td>
+            <td class="hideable">びまん性腫大（橋本病）</td></tr>
+          <tr><td class="k">特徴・背景</td>
+            <td class="hideable">眼球突出、頻脈、手指振戦、体重減少</td>
+            <td class="hideable">上気道感染が先行することが多い</td>
+            <td class="hideable"><b>産後</b>に多い</td></tr>
+          <tr><td class="k">経過</td>
+            <td class="hideable">慢性。治療が必要</td>
+            <td class="hideable">数週〜数か月で自然軽快</td>
+            <td class="hideable">一過性。機能低下期を経て回復</td></tr>
+          <tr><td class="k">治療</td>
+            <td class="hideable">抗甲状腺薬・放射性ヨウ素・手術</td>
+            <td class="hideable">NSAIDs、重症例はステロイド</td>
+            <td class="hideable">対症療法（β遮断薬）</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="warn">
+        ⚠️ <b>ひっかけ注意</b>：破壊性（亜急性・無痛性）に<b>抗甲状腺薬は無効</b>。作りすぎではなく漏れているだけなので、産生を止めても意味がありません。頻脈がつらいときはβ遮断薬で対症的に。
+      </div>
+      <div class="key">
+        📌 <b>用語の整理</b>：<span class="hideable">「甲状腺中毒症」＝血中ホルモンが過剰な<b>状態</b>（漏出も含む）。「甲状腺機能亢進症」＝甲状腺が<b>作りすぎ</b>ている状態（＝Basedow病など）。破壊性甲状腺炎は中毒症だが機能亢進症ではない</span>——ここが問われます。
+      </div>
+
+      <h3>🔀 見分ける順番（実戦フロー）</h3>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>手順</th><th>見るもの</th><th>判断</th></tr></thead>
+        <tbody>
+          <tr><td class="k">①</td><td>TSH↓＋FT₄↑</td><td class="hideable">甲状腺中毒症と確定（原発性）</td></tr>
+          <tr><td class="k">②</td><td>頸部痛・発熱・CRP/赤沈↑</td><td class="hideable">あれば<b>亜急性甲状腺炎</b></td></tr>
+          <tr><td class="k">③</td><td>TRAb</td><td class="hideable">陽性なら<b>Basedow病</b></td></tr>
+          <tr><td class="k">④</td><td>¹²³I 摂取率</td><td class="hideable">↑ならBasedow／↓なら破壊性</td></tr>
+          <tr><td class="k">⑤</td><td>痛みなし＋産後・橋本病</td><td class="hideable"><b>無痛性甲状腺炎</b></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 腫瘍マーカー ============ -->
+  <section data-sec="tm" class="none">
+    <div class="card">
+      <h2>腫瘍マーカー</h2>
+      <p class="lead">数が多いので、まず<b>2つの大原則</b>と<b>臓器別の逆引き</b>で押さえるのが近道です。</p>
+
+      <div class="key">
+        <b>まずこの2つ：</b><br>
+        ・<b>CEA</b> → <span class="hideable"><b>腺がん</b>のマーカー（消化器・肺・乳・婦人科など広く上昇）</span><br>
+        ・<b>SCC</b> → <span class="hideable"><b>扁平上皮がん</b>のマーカー（食道・肺・子宮頸部・頭頸部）</span>
+      </div>
+
+      <h3>マーカー → がん（順引き）</h3>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>マーカー</th><th>主ながん</th><th>覚え方・注意点</th></tr></thead>
+        <tbody>
+          <tr><td class="k">CEA</td><td class="hideable">腺がん全般（大腸・胃・膵・胆道・肺・乳・卵巣・子宮体・甲状腺髄様）</td><td>喫煙・肝硬変でも軽度上昇</td></tr>
+          <tr><td class="k">CA19-9</td><td class="hideable"><b>膵</b>・<b>胆道</b>（＞胃・大腸・肝）</td><td class="hideable">Lewis式血液型陰性者（約10%）では<b>偽陰性</b></td></tr>
+          <tr><td class="k">CA15-3</td><td class="hideable"><b>乳がん</b></td><td>再発モニタリング向き</td></tr>
+          <tr><td class="k">CA125</td><td class="hideable"><b>卵巣がん</b></td><td class="hideable"><b>子宮内膜症</b>・月経・妊娠でも上昇</td></tr>
+          <tr><td class="k">SCC</td><td class="hideable"><b>扁平上皮がん</b>（食道・肺・子宮頸部・頭頸部）</td><td>皮膚疾患・腎不全で偽陽性</td></tr>
+          <tr><td class="k">CYFRA<br>(21-1)</td><td class="hideable">非小細胞肺がん（特に<b>扁平上皮</b>）</td><td>SCCと同じ枠で覚える</td></tr>
+          <tr><td class="k">NSE</td><td class="hideable"><b>小細胞肺がん</b>・<b>神経芽腫</b>・甲状腺髄様がん</td><td class="hideable">神経内分泌系のマーカー</td></tr>
+          <tr><td class="k">ProGRP</td><td class="hideable"><b>小細胞肺がん</b></td><td>NSEより特異度が高い</td></tr>
+          <tr><td class="k">AFP</td><td class="hideable"><b>肝細胞がん</b>・胚細胞腫瘍（卵黄嚢腫瘍）</td><td>肝炎・肝硬変でも上昇</td></tr>
+          <tr><td class="k">PIVKA-Ⅱ</td><td class="hideable"><b>肝細胞がん</b></td><td class="hideable"><b>ビタミンK欠乏・ワルファリン</b>でも上昇</td></tr>
+          <tr><td class="k">SPan-1<br>DUPAN-2</td><td class="hideable">膵・胆道（CA19-9の補助）</td><td class="hideable">Lewis陰性者でも使える</td></tr>
+          <tr><td class="k">PSA</td><td class="hideable"><b>前立腺がん</b></td><td class="hideable">前立腺肥大症・前立腺炎・射精後でも上昇</td></tr>
+          <tr><td class="k">hCG</td><td class="hideable"><b>絨毛がん</b>・胚細胞腫瘍</td><td>妊娠で当然上昇</td></tr>
+          <tr><td class="k">カルシトニン</td><td class="hideable">甲状腺<b>髄様</b>がん（CEAも併用）</td><td>MEN2に関連</td></tr>
+          <tr><td class="k">サイログロブリン</td><td class="hideable">甲状腺分化がん（術後の再発監視）</td><td>診断ではなく経過観察用</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>臓器 → マーカー（逆引き｜試験で問われやすい向き）</h3>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>臓器・疾患</th><th>マーカー</th></tr></thead>
+        <tbody>
+          <tr><td class="k">肝細胞がん</td><td class="hideable"><b>AFP</b>、<b>PIVKA-Ⅱ</b></td></tr>
+          <tr><td class="k">膵がん</td><td class="hideable"><b>CA19-9</b>、SPan-1、DUPAN-2、CEA</td></tr>
+          <tr><td class="k">胆道がん</td><td class="hideable"><b>CA19-9</b>、DUPAN-2、CEA</td></tr>
+          <tr><td class="k">大腸・胃がん</td><td class="hideable"><b>CEA</b>、CA19-9</td></tr>
+          <tr><td class="k">食道がん</td><td class="hideable"><b>SCC</b>（扁平上皮）</td></tr>
+          <tr><td class="k">肺（小細胞）</td><td class="hideable"><b>NSE</b>、<b>ProGRP</b></td></tr>
+          <tr><td class="k">肺（非小細胞・扁平）</td><td class="hideable"><b>SCC</b>、<b>CYFRA</b></td></tr>
+          <tr><td class="k">肺（腺がん）</td><td class="hideable">CEA</td></tr>
+          <tr><td class="k">乳がん</td><td class="hideable"><b>CA15-3</b>、CEA</td></tr>
+          <tr><td class="k">卵巣がん</td><td class="hideable"><b>CA125</b></td></tr>
+          <tr><td class="k">子宮頸がん</td><td class="hideable"><b>SCC</b></td></tr>
+          <tr><td class="k">子宮体がん</td><td class="hideable">CA125、CEA</td></tr>
+          <tr><td class="k">前立腺がん</td><td class="hideable"><b>PSA</b></td></tr>
+          <tr><td class="k">精巣（胚細胞）腫瘍</td><td class="hideable"><b>AFP</b>、<b>hCG</b>、LDH</td></tr>
+          <tr><td class="k">絨毛がん</td><td class="hideable"><b>hCG</b></td></tr>
+          <tr><td class="k">神経芽腫</td><td class="hideable"><b>NSE</b>、尿中<b>VMA・HVA</b></td></tr>
+          <tr><td class="k">甲状腺髄様がん</td><td class="hideable"><b>カルシトニン</b>、CEA</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="warn">
+        ⚠️ <b>大原則</b>：腫瘍マーカーは<b>スクリーニング（早期発見）には不向き</b>。感度・特異度が不十分で、良性疾患でも上昇するため。主用途は<b>治療効果の判定と再発のモニタリング</b>です。ここは頻出。
+      </div>
+      <div class="pillrow">
+        <span class="pill hot">偽陽性に注意</span>
+        <span class="pill">CA125 → 子宮内膜症・月経</span>
+        <span class="pill">PSA → 前立腺肥大</span>
+        <span class="pill">AFP → 肝炎・肝硬変</span>
+        <span class="pill">PIVKA-Ⅱ → ワルファリン</span>
+        <span class="pill">CA19-9 → Lewis陰性で偽陰性</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Ca代謝異常 ============ -->
+  <section data-sec="ca" class="none">
+    <div class="card">
+      <h2>低Ca血症の症状</h2>
+      <p class="lead">症状の大半は<b>神経・筋の被刺激性が亢進</b>することで説明できます。まず機序を1つ押さえれば、個々の症状は導けます。</p>
+
+      <div class="key">
+        <b>すべての出発点：</b><span class="hideable">細胞外液の Ca²⁺ が低下 → 脱分極に必要な電位差が小さくなる → <b>神経・筋が興奮しやすくなる</b></span><br>
+        → しびれ・テタニー・けいれん・平滑筋の攣縮（消化器・呼吸器症状）が一続きで説明できます。
+      </div>
+
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>分類</th><th>症状</th><th>なぜ起こる（機序）</th></tr></thead>
+        <tbody>
+          <tr><td class="k">テタニー症状<br><span style="font-weight:400;color:var(--sub);font-size:11px">★最重要</span></td>
+            <td class="hideable">手・足・口唇の<b>しびれ感</b>、全身けいれん、<b>Chvostek徴候</b>、<b>Trousseau徴候</b></td>
+            <td class="hideable">神経・筋の被刺激性亢進</td></tr>
+          <tr><td class="k">中枢神経症状</td>
+            <td class="hideable">うつ・不安感、記憶力低下、<b>錐体外路症状</b>（不随意運動）</td>
+            <td class="hideable">被刺激性の亢進に加え、Ca が P とともに<b>大脳基底核に沈着</b>し異所性石灰化を起こすため</td></tr>
+          <tr><td class="k">消化器症状</td>
+            <td class="hideable">腹痛、悪心・嘔吐</td>
+            <td class="hideable"><b>Oddi括約筋の攣縮</b>による</td></tr>
+          <tr><td class="k">呼吸器症状</td>
+            <td class="hideable">喘息様発作、呼吸困難</td>
+            <td class="hideable"><b>喉頭筋・呼吸筋の攣縮</b>による（喉頭痙攣は致死的になりうる）</td></tr>
+          <tr><td class="k">心電図異常</td>
+            <td class="hideable"><b>QT間隔延長</b>（ST部分の延長による）</td>
+            <td class="hideable">Ca²⁺低下により心筋の<b>再分極に要する時間が延長</b>するため</td></tr>
+          <tr><td class="k">その他（慢性）</td>
+            <td class="hideable"><b>白内障</b>、皮膚乾燥、色素沈着、毛髪は粗く、爪は脆弱化</td>
+            <td class="hideable">慢性の低Ca状態が続いた場合にみられる</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>🔨 2つの誘発徴候（手技を言えるように）</h3>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>徴候</th><th>やり方</th><th>陽性所見</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Chvostek徴候<br><span style="font-weight:400;color:var(--sub);font-size:11px">クボステーク</span></td>
+            <td class="hideable">耳介の前方・顎関節の上あたり（顔面神経の走行部）を<b>ハンマーで軽く叩く</b></td>
+            <td class="hideable"><b>顔面筋の収縮</b>が起こる</td></tr>
+          <tr><td class="k">Trousseau徴候<br><span style="font-weight:400;color:var(--sub);font-size:11px">トルソー</span></td>
+            <td class="hideable">上肢に<b>血圧計のマンシェット</b>を巻き、収縮期血圧より<b>やや高め</b>の圧で数分間緊縛する</td>
+            <td class="hideable"><b>助産師手位</b>：母指は内転して伸展し、他の指は手の中心線に向かって集まり、手掌は凹む</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="key">
+        📌 <b>頻度の感覚</b>：<span class="hideable">低Ca血症は高Ca血症より<b>低頻度</b>。またテタニー以外の症状が出ることは<b>まれ</b></span>——という位置づけも問われます。
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>高Ca血症との対比（ここで差がつく）</h2>
+      <p class="lead">低／高は<b>正反対</b>に動くものが多いので、必ずセットで覚えます。</p>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>低Ca血症</th><th>高Ca血症</th></tr></thead>
+        <tbody>
+          <tr><td class="k">神経・筋</td>
+            <td class="hideable">被刺激性<b>亢進</b>（テタニー、しびれ、けいれん）</td>
+            <td class="hideable">被刺激性<b>低下</b>（筋力低下、脱力、傾眠）</td></tr>
+          <tr><td class="k">心電図</td>
+            <td class="hideable"><b>QT延長</b>（ST延長）</td>
+            <td class="hideable"><b>QT短縮</b></td></tr>
+          <tr><td class="k">消化器</td>
+            <td class="hideable">腹痛・嘔吐（Oddi括約筋攣縮）</td>
+            <td class="hideable">食欲不振・便秘、悪心・嘔吐、消化性潰瘍・膵炎</td></tr>
+          <tr><td class="k">腎</td>
+            <td class="hideable">—</td>
+            <td class="hideable"><b>多尿・口渇・脱水</b>、腎結石（尿濃縮力低下）</td></tr>
+          <tr><td class="k">精神</td>
+            <td class="hideable">うつ・不安、不随意運動</td>
+            <td class="hideable">意識障害、抑うつ、昏睡</td></tr>
+          <tr><td class="k">代表的な原因</td>
+            <td class="hideable">副甲状腺機能<b>低下</b>症、ビタミンD欠乏、CKD</td>
+            <td class="hideable">副甲状腺機能<b>亢進</b>症、<b>悪性腫瘍</b>（PTHrP・骨転移）</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">
+        🗣️ <b>高Ca血症の語呂（英語圏の定番）</b>：<span class="hideable">bones（骨痛）／ stones（腎結石）／ abdominal groans（腹部症状）／ psychic moans（精神症状）</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>低Ca血症の原因と対応</h2>
+      <div class="warn">
+        🧮 <b>まず補正Caを計算する（超頻出）</b><br>
+        Ca はアルブミンと結合しているため、<b>低アルブミン血症では実測Caが低く出る</b>（見かけ上の低Ca）。<br>
+        <b>補正Ca＝実測Ca＋(4−血清Alb)</b>　※Alb &lt; 4 g/dL のとき<br>
+        → 補正して正常なら、真の低Ca血症ではありません。
+      </div>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>原因</th><th>ポイント</th></tr></thead>
+        <tbody>
+          <tr><td class="k">副甲状腺機能低下症</td><td class="hideable">PTH↓ → Ca↓・<b>P↑</b>。<b>甲状腺術後</b>（副甲状腺の損傷・摘出）が代表的</td></tr>
+          <tr><td class="k">偽性副甲状腺機能低下症</td><td class="hideable">PTHは<b>高い</b>のに標的臓器が反応しない（PTH抵抗性）。Albright骨異栄養症を伴う型がある</td></tr>
+          <tr><td class="k">ビタミンD欠乏</td><td class="hideable">腸管からのCa吸収↓。くる病・骨軟化症。日光不足、吸収不良</td></tr>
+          <tr><td class="k">慢性腎臓病（CKD）</td><td class="hideable">活性型ビタミンD産生↓＋<b>P排泄↓</b> → Ca↓・P↑ →二次性副甲状腺機能亢進症へ</td></tr>
+          <tr><td class="k">低Mg血症</td><td class="hideable"><b>要注意</b>：PTHの分泌・作用が障害される。<b>Mgを補正しないと低Caが治らない</b></td></tr>
+          <tr><td class="k">急性膵炎</td><td class="hideable">脂肪壊死巣でCaが石けん化して消費される（予後不良のサイン）</td></tr>
+          <tr><td class="k">大量輸血・クエン酸</td><td class="hideable">クエン酸がCaをキレートする</td></tr>
+          <tr><td class="k">呼吸性アルカローシス</td><td class="hideable">過換気でアルブミン結合Caが増え<b>イオン化Ca↓</b> → 総Caは正常でもテタニーが出る</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">
+        💉 <b>治療の要点</b>：<span class="hideable">症候性（テタニー・けいれん・喉頭痙攣・QT延長）なら<b>カルシウム製剤の静注</b>。慢性期はCa製剤＋<b>活性型ビタミンD</b>の内服。低Mgがあれば<b>まずMgを補正</b></span>。
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>⭐ CKDで二次性副甲状腺機能亢進症が起こる流れ</h2>
+      <p class="lead">腎機能低下 → 低Ca＋高P → PTH上昇、という<b>2本の経路が合流</b>する話です。順番で覚えます。</p>
+
+      <h3>経路①　ビタミンDが活性化できない（Ca が下がる）</h3>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>順</th><th>起こること</th></tr></thead>
+        <tbody>
+          <tr><td class="k">1</td><td class="hideable">Caが腸管から吸収されるには<b>活性型ビタミンD</b>が必要。ビタミンDは<b>肝臓と腎臓</b>の2段階で活性化される</td></tr>
+          <tr><td class="k">2</td><td class="hideable">腎機能が低下すると<b>腎での活性化ができない</b>（1α水酸化ができない）</td></tr>
+          <tr><td class="k">3</td><td class="hideable">腸管からのCa吸収が不足 → <b>血清Ca低下</b></td></tr>
+          <tr><td class="k">4</td><td class="hideable">Caを正常化しようと<b>副甲状腺の働きが亢進</b> → <b>PTH上昇</b></td></tr>
+          <tr><td class="k">5</td><td class="hideable">PTHが<b>骨からCaを動員</b>（骨吸収）して血中Caを保とうとする</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>経路②　リンが捨てられない（P が上がる）</h3>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>順</th><th>起こること</th></tr></thead>
+        <tbody>
+          <tr><td class="k">1</td><td class="hideable">腎機能低下で<b>腎からのリン排泄が減る</b></td></tr>
+          <tr><td class="k">2</td><td class="hideable"><b>高リン血症</b>になる</td></tr>
+          <tr><td class="k">3</td><td class="hideable">高Pが<b>さらに副甲状腺機能を亢進</b>させる（＋高PはCaと結合して血清Caをさらに下げる）</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="key">
+        🔑 <b>合流点</b>：<span class="hideable">経路①（低Ca）と経路②（高P）が<b>どちらもPTHを押し上げる</b> → <b>二次性副甲状腺機能亢進症</b>。骨吸収が続くと<b>線維性骨炎</b>など<b>CKD-MBD（腎性骨異栄養症）</b>へ</span>。
+      </div>
+      <div class="warn">
+        ⚠️ <b>検査値のセットで覚える</b>：CKDでは <span class="hideable"><b>Ca↓・P↑・PTH↑・活性型ビタミンD↓</b></span><br>
+        ↔ 対比：<b>原発性</b>副甲状腺機能亢進症は <span class="hideable"><b>Ca↑・P↓・PTH↑</b></span>（PTHは腎でのP排泄を促すため）。<b>Pの向きが逆</b>になるのが鑑別点です。
+      </div>
+      <div class="key">
+        💊 <b>治療の方向</b>：<span class="hideable">P制限・<b>リン吸着薬</b>、<b>活性型ビタミンD</b>製剤、カルシウム受容体作動薬（シナカルセトなど）。難治例は副甲状腺摘出術</span>。
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 利尿薬 ============ -->
+  <section data-sec="diu" class="none">
+    <div class="card">
+      <h2>利尿薬と作用機序</h2>
+      <p class="lead">「<b>どこで・何を止めるか</b>」が決まれば、副作用（特にKとCa）は自動的に導けます。</p>
+
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>種類</th><th>作用部位</th><th>阻害する分子（機序）</th><th>代表的薬剤</th></tr></thead>
+        <tbody>
+          <tr><td class="k">炭酸脱水酵素<br>阻害薬</td>
+            <td class="hideable">近位尿細管</td>
+            <td class="hideable">炭酸脱水酵素</td>
+            <td class="hideable">アセタゾラミド</td></tr>
+          <tr><td class="k">ループ利尿薬</td>
+            <td class="hideable">Henle係蹄<b>上行脚</b></td>
+            <td class="hideable"><b>Na-K-2Cl共輸送体</b>（NKCC2）</td>
+            <td class="hideable"><b>フロセミド</b></td></tr>
+          <tr><td class="k">サイアザイド系<br>利尿薬</td>
+            <td class="hideable">遠位尿細管</td>
+            <td class="hideable"><b>Na⁺-Cl⁻共輸送体</b>の再吸収抑制</td>
+            <td class="hideable">トリクロルメチアジド<br>ヒドロクロロチアジド</td></tr>
+          <tr><td class="k">抗アルドステロン薬<br><span style="font-weight:400;color:var(--sub);font-size:11px">K保持性</span></td>
+            <td class="hideable">集合管</td>
+            <td class="hideable">アルドステロンと<b>競合的に拮抗</b>（受容体で）</td>
+            <td class="hideable"><b>スピロノラクトン</b></td></tr>
+          <tr><td class="k">Naチャネル阻害薬<br><span style="font-weight:400;color:var(--sub);font-size:11px">K保持性</span></td>
+            <td class="hideable">集合管</td>
+            <td class="hideable"><b>アミロライド感受性</b>（上皮型）Naチャネル（ENaC）</td>
+            <td class="hideable">トリアムテレン</td></tr>
+          <tr><td class="k">バソプレシン<br>V₂受容体拮抗薬</td>
+            <td class="hideable">集合管</td>
+            <td class="hideable">V₂受容体（水チャネル アクアポリン2 の発現を抑制）＝<b>水利尿</b></td>
+            <td class="hideable">トルバプタン</td></tr>
+          <tr><td class="k">浸透圧利尿薬</td>
+            <td class="hideable">主に近位尿細管・<br>Henle係蹄</td>
+            <td class="hideable">再吸収されず管腔内浸透圧を上げて水を引っぱる</td>
+            <td class="hideable">D-マンニトール</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="key">
+        🔑 <b>Ca の向きが正反対（超頻出）</b><br>
+        ・<b>ループ</b>利尿薬 → <span class="hideable">Ca再吸収を<b>抑制</b>＝Caを<b>捨てる</b> → 血清Ca<b>↓</b>。だから<b>高Ca血症の治療</b>に使える</span><br>
+        ・<b>サイアザイド</b> → <span class="hideable">Ca再吸収を<b>促進</b>＝Caを<b>ためる</b> → 血清Ca<b>↑</b>。だから<b>Ca含有結石の再発予防</b>に使える</span><br>
+        <span style="font-size:12px;color:var(--sub)">語呂：ルー<b>プ</b>は<b>捨</b>てる／サイア<b>ザ</b>イドは<b>貯</b>める</span>
+      </div>
+
+      <h3>副作用と適応（ここまで押さえると得点源）</h3>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>薬剤</th><th>K</th><th>主な副作用</th><th>主な適応</th></tr></thead>
+        <tbody>
+          <tr><td class="k">アセタゾラミド</td>
+            <td class="hideable"><span class="down">低K</span></td>
+            <td class="hideable"><b>代謝性アシドーシス</b>（HCO₃⁻を捨てるため）</td>
+            <td class="hideable">緑内障、高山病、てんかん</td></tr>
+          <tr><td class="k">フロセミド<br>（ループ）</td>
+            <td class="hideable"><span class="down">低K</span></td>
+            <td class="hideable">低K性<b>代謝性アルカローシス</b>、低Na、<b>低Ca</b>、低Mg、高尿酸血症、<b>聴力障害</b>、脱水</td>
+            <td class="hideable"><b>心不全</b>・浮腫、腎不全でも効く、高Ca血症</td></tr>
+          <tr><td class="k">サイアザイド</td>
+            <td class="hideable"><span class="down">低K</span></td>
+            <td class="hideable">低K、<b>低Na</b>、<b>高Ca</b>、<b>高尿酸血症</b>、耐糖能悪化、脂質異常</td>
+            <td class="hideable"><b>高血圧</b>（第一選択薬の一つ）、Ca結石の予防</td></tr>
+          <tr><td class="k">スピロノラクトン</td>
+            <td class="hideable"><span class="up">高K</span></td>
+            <td class="hideable"><b>高K血症</b>、<b>女性化乳房</b>・月経異常（性ホルモン受容体にも作用）</td>
+            <td class="hideable">心不全（予後改善）、<b>原発性アルドステロン症</b>、肝硬変の腹水</td></tr>
+          <tr><td class="k">トリアムテレン</td>
+            <td class="hideable"><span class="up">高K</span></td>
+            <td class="hideable">高K血症</td>
+            <td class="hideable">他の利尿薬とのK補完的な併用</td></tr>
+          <tr><td class="k">トルバプタン</td>
+            <td class="hideable">影響少</td>
+            <td class="hideable"><b>高Na血症</b>、口渇、急激な補正による橋中心髄鞘崩壊</td>
+            <td class="hideable">心不全・肝硬変の体液貯留、<b>SIADH</b>、ADPKD</td></tr>
+          <tr><td class="k">マンニトール</td>
+            <td class="hideable">—</td>
+            <td class="hideable">循環血漿量の一時的増加（心不全に注意）</td>
+            <td class="hideable"><b>頭蓋内圧亢進</b>、脳浮腫</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="warn">
+        ⚠️ <b>まとめの一言</b>：<span class="hideable">上流（近位〜遠位）で働く<b>ループ・サイアザイド・アセタゾラミド</b>は<b>K を失う</b>。下流（集合管）で働く<b>スピロノラクトン・トリアムテレン</b>は<b>K を保つ</b></span>。K の向きは作用部位とセットで覚えると忘れません。
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 基準値・血ガス ============ -->
+  <section data-sec="lab" class="none">
+    <div class="card">
+      <h2>血液検査の基準値</h2>
+      <p class="lead">施設・測定法で変動します。ここでは一般的な代表値を載せています（試験対策用の目安）。</p>
+
+      <h3>血算（CBC）</h3>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>基準値</th><th>メモ</th></tr></thead>
+        <tbody>
+          <tr><td class="k">WBC</td><td class="hideable">3,300〜8,600 /μL</td><td>感染・炎症・ステロイドで↑</td></tr>
+          <tr><td class="k">RBC</td><td class="hideable">男 435〜555／女 386〜492 万/μL</td><td></td></tr>
+          <tr><td class="k">Hb</td><td class="hideable">男 13.7〜16.8／女 11.6〜14.8 g/dL</td><td>貧血の定義に直結</td></tr>
+          <tr><td class="k">Ht</td><td class="hideable">男 40.7〜50.1／女 35.1〜44.4 %</td><td></td></tr>
+          <tr><td class="k">MCV</td><td class="hideable">83.6〜98.2 fL</td><td><b>小球性/正球性/大球性</b>の分類に使う</td></tr>
+          <tr><td class="k">血小板</td><td class="hideable">15.8〜34.8 万/μL</td><td>5万以下で出血傾向</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>凝固</h3>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>基準値</th><th>メモ</th></tr></thead>
+        <tbody>
+          <tr><td class="k">PT</td><td class="hideable">10〜13 秒（PT-INR 0.9〜1.1）</td><td class="hideable"><b>外因系</b>。肝機能・ワルファリンの指標</td></tr>
+          <tr><td class="k">APTT</td><td class="hideable">25〜40 秒</td><td class="hideable"><b>内因系</b>。ヘパリン・血友病</td></tr>
+          <tr><td class="k">フィブリノゲン</td><td class="hideable">200〜400 mg/dL</td><td>DICで↓</td></tr>
+          <tr><td class="k">D-ダイマー</td><td class="hideable">&lt; 1.0 μg/mL</td><td class="hideable">DIC・<b>肺塞栓/DVT</b>の除外に有用</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>肝・胆道・栄養</h3>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>基準値</th><th>メモ</th></tr></thead>
+        <tbody>
+          <tr><td class="k">AST</td><td class="hideable">13〜30 U/L</td><td>肝以外に心筋・骨格筋・赤血球</td></tr>
+          <tr><td class="k">ALT</td><td class="hideable">男 10〜42／女 7〜23 U/L</td><td class="hideable">より<b>肝特異的</b></td></tr>
+          <tr><td class="k">γ-GT</td><td class="hideable">男 13〜64／女 9〜32 U/L</td><td class="hideable"><b>アルコール</b>・胆汁うっ滞</td></tr>
+          <tr><td class="k">ALP</td><td class="hideable">38〜113 U/L（IFCC法）</td><td class="hideable">胆汁うっ滞・<b>骨</b>疾患・成長期で↑</td></tr>
+          <tr><td class="k">総ビリルビン</td><td class="hideable">0.4〜1.5 mg/dL</td><td class="hideable">2〜3以上で<b>黄疸</b>が見える</td></tr>
+          <tr><td class="k">総蛋白 / Alb</td><td class="hideable">TP 6.6〜8.1／Alb 4.1〜5.1 g/dL</td><td class="hideable"><b>補正Ca</b>の計算に使う</td></tr>
+          <tr><td class="k">アンモニア</td><td class="hideable">40〜80 μg/dL</td><td>肝性脳症</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>腎・電解質</h3>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>基準値</th><th>メモ</th></tr></thead>
+        <tbody>
+          <tr><td class="k">BUN</td><td class="hideable">8〜20 mg/dL</td><td class="hideable">脱水・消化管出血で<b>Crより先に</b>↑</td></tr>
+          <tr><td class="k">クレアチニン</td><td class="hideable">男 0.65〜1.07／女 0.46〜0.79 mg/dL</td><td>筋肉量に依存</td></tr>
+          <tr><td class="k">eGFR</td><td class="hideable">≧ 60 mL/分/1.73m²</td><td class="hideable">CKDの<b>ステージ分類</b>に使用</td></tr>
+          <tr><td class="k">尿酸</td><td class="hideable">男 3.7〜7.8／女 2.6〜5.5 mg/dL</td><td>7.0超で高尿酸血症</td></tr>
+          <tr><td class="k">Na</td><td class="hideable">138〜145 mEq/L</td><td>水バランスを反映</td></tr>
+          <tr><td class="k">K</td><td class="hideable">3.6〜4.8 mEq/L</td><td class="hideable">異常は<b>致死的不整脈</b>に直結</td></tr>
+          <tr><td class="k">Cl</td><td class="hideable">101〜108 mEq/L</td><td>AGの計算に使う</td></tr>
+          <tr><td class="k">Ca</td><td class="hideable">8.8〜10.1 mg/dL</td><td class="hideable">補正Ca＝実測Ca＋(4−Alb)</td></tr>
+          <tr><td class="k">P（無機リン）</td><td class="hideable">2.7〜4.6 mg/dL</td><td class="hideable">CKDで<b>↑</b></td></tr>
+          <tr><td class="k">Mg</td><td class="hideable">1.8〜2.4 mg/dL</td><td class="hideable">低Mgは<b>難治性低Ca</b>の原因</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>糖・脂質・炎症・心筋</h3>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>基準値</th><th>メモ</th></tr></thead>
+        <tbody>
+          <tr><td class="k">空腹時血糖</td><td class="hideable">73〜109 mg/dL</td><td class="hideable">126以上で糖尿病型</td></tr>
+          <tr><td class="k">HbA1c</td><td class="hideable">4.9〜6.0 %(NGSP)</td><td class="hideable"><b>6.5%以上</b>で糖尿病型。過去1〜2か月を反映</td></tr>
+          <tr><td class="k">LDL-C</td><td class="hideable">65〜139 mg/dL</td><td>140以上で高LDL血症</td></tr>
+          <tr><td class="k">HDL-C</td><td class="hideable">40〜90 mg/dL</td><td>40未満で低HDL血症</td></tr>
+          <tr><td class="k">TG</td><td class="hideable">40〜149 mg/dL</td><td>食後に上昇</td></tr>
+          <tr><td class="k">CRP</td><td class="hideable">≦ 0.3 mg/dL</td><td>炎症で数時間〜で上昇</td></tr>
+          <tr><td class="k">CK</td><td class="hideable">男 59〜248／女 41〜153 U/L</td><td>横紋筋融解・心筋梗塞</td></tr>
+          <tr><td class="k">トロポニンT/I</td><td class="hideable">ほぼ陰性（施設基準に従う）</td><td class="hideable"><b>心筋梗塞</b>の最も特異的なマーカー</td></tr>
+          <tr><td class="k">BNP</td><td class="hideable">≦ 18.4 pg/mL</td><td class="hideable"><b>心不全</b>の指標</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>動脈血液ガス（ABG）</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>基準値</th><th>意味</th></tr></thead>
+        <tbody>
+          <tr><td class="k">pH</td><td class="hideable">7.35〜7.45</td><td class="hideable">&lt;7.35 アシデミア／&gt;7.45 アルカレミア</td></tr>
+          <tr><td class="k">PaO₂</td><td class="hideable">80〜100 Torr</td><td class="hideable">60以下で<b>呼吸不全</b></td></tr>
+          <tr><td class="k">PaCO₂</td><td class="hideable">35〜45 Torr</td><td class="hideable"><b>呼吸性</b>因子。45超でⅡ型呼吸不全</td></tr>
+          <tr><td class="k">HCO₃⁻</td><td class="hideable">22〜26 mEq/L</td><td class="hideable"><b>代謝性</b>因子</td></tr>
+          <tr><td class="k">BE</td><td class="hideable">−2〜+2 mEq/L</td><td>代謝性の過不足</td></tr>
+          <tr><td class="k">SaO₂</td><td class="hideable">95〜100 %</td><td></td></tr>
+          <tr><td class="k">アニオンギャップ</td><td class="hideable">12 ± 2 mEq/L</td><td class="hideable">AG＝Na−(Cl＋HCO₃⁻)</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>🧭 血ガスの読み方（この順で機械的に）</h3>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>手順</th><th>やること</th><th>判断</th></tr></thead>
+        <tbody>
+          <tr><td class="k">①</td><td>pHを見る</td><td class="hideable">7.35未満＝アシデミア／7.45超＝アルカレミア</td></tr>
+          <tr><td class="k">②</td><td>PaCO₂とHCO₃⁻のどちらがpHの向きを説明するか</td>
+            <td class="hideable">PaCO₂が犯人 → <b>呼吸性</b>／HCO₃⁻が犯人 → <b>代謝性</b></td></tr>
+          <tr><td class="k">③</td><td>代償が働いているか</td>
+            <td class="hideable">反対側が同じ方向に動いていれば代償。<b>代償だけでpHが正常を越えることはない</b></td></tr>
+          <tr><td class="k">④</td><td>代謝性アシドーシスならAGを計算</td>
+            <td class="hideable">AG開大／正常AGで原因が分かれる</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>病態</th><th>pH</th><th>一次性変化</th><th>代償</th><th>代表的な原因</th></tr></thead>
+        <tbody>
+          <tr><td class="k">代謝性<br>アシドーシス</td><td class="down">↓</td>
+            <td class="hideable">HCO₃⁻ <span class="down">↓</span></td>
+            <td class="hideable">PaCO₂ <span class="down">↓</span>（過換気）</td>
+            <td class="hideable">腎不全、乳酸、DKA、下痢</td></tr>
+          <tr><td class="k">代謝性<br>アルカローシス</td><td class="up">↑</td>
+            <td class="hideable">HCO₃⁻ <span class="up">↑</span></td>
+            <td class="hideable">PaCO₂ <span class="up">↑</span>（低換気）</td>
+            <td class="hideable"><b>嘔吐</b>、利尿薬、低K</td></tr>
+          <tr><td class="k">呼吸性<br>アシドーシス</td><td class="down">↓</td>
+            <td class="hideable">PaCO₂ <span class="up">↑</span></td>
+            <td class="hideable">HCO₃⁻ <span class="up">↑</span>（腎で再吸収）</td>
+            <td class="hideable">COPD、呼吸抑制、神経筋疾患</td></tr>
+          <tr><td class="k">呼吸性<br>アルカローシス</td><td class="up">↑</td>
+            <td class="hideable">PaCO₂ <span class="down">↓</span></td>
+            <td class="hideable">HCO₃⁻ <span class="down">↓</span></td>
+            <td class="hideable"><b>過換気症候群</b>、肺塞栓、発熱</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="key">
+        🗣️ <b>AG開大性 代謝性アシドーシスの語呂</b>：<b>MUDPILES</b><br>
+        <span class="hideable">Methanol／Uremia（尿毒症）／DKA／Propylene glycol／Isoniazid／Lactic acidosis（乳酸）／Ethylene glycol／Salicylate（サリチル酸）</span><br>
+        <span style="font-size:12px;color:var(--sub)">正常AG（高Cl性）なら → <span class="hideable">下痢、尿細管性アシドーシス（RTA）</span></span>
+      </div>
+      <div class="warn">
+        ⚠️ <b>過換気で低Caのテタニー</b>：<span class="hideable">呼吸性アルカローシスではアルブミンと結合するCaが増え、<b>イオン化Caが低下</b>。総Caは正常でもテタニーが出ます（Ca代謝異常タブと接続）</span>。
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">出典を書き写したものではなく、標準的な内容を自分用に整理し直したまとめです。数値・適応は最新のガイドラインで確認してください。</div>
+</div>
+
+<script>
+// タブ切替
+document.querySelectorAll('.tabs button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));
+    document.querySelectorAll('section[data-sec]').forEach(s=>
+      s.classList.toggle('none', s.dataset.sec!==b.dataset.tab));
+    doSearch();
+  };
+});
+
+// 暗記モード（クリックで1つずつめくる）
+const hideBtn=document.getElementById('hide');
+hideBtn.onclick=()=>{
+  const on=document.body.classList.toggle('hidemode');
+  hideBtn.classList.toggle('on',on);
+  hideBtn.textContent=on?'👀 答えを表示':'🙈 暗記モード';
+  if(!on) document.querySelectorAll('.hideable.reveal').forEach(e=>e.classList.remove('reveal'));
+};
+document.addEventListener('click',e=>{
+  if(!document.body.classList.contains('hidemode')) return;
+  const t=e.target.closest('.hideable');
+  if(t) t.classList.toggle('reveal');
+});
+
+// ページ内検索（ハイライト＋非該当行を薄く）
+const q=document.getElementById('q');
+function clearMarks(){
+  document.querySelectorAll('mark').forEach(m=>{
+    const p=m.parentNode; p.replaceChild(document.createTextNode(m.textContent),m); p.normalize();
+  });
+}
+function doSearch(){
+  clearMarks();
+  const k=q.value.trim();
+  document.querySelectorAll('tbody tr').forEach(tr=>tr.style.opacity='');
+  if(!k) return;
+  const rx=new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
+  const sec=document.querySelector('section[data-sec]:not(.none)');
+  if(!sec) return;
+  const walk=document.createTreeWalker(sec,NodeFilter.SHOW_TEXT);
+  const hits=[];
+  while(walk.nextNode()){
+    const n=walk.currentNode;
+    if(n.parentElement.closest('mark')) continue;
+    if(rx.test(n.nodeValue)) hits.push(n);
+    rx.lastIndex=0;
+  }
+  hits.forEach(n=>{
+    const s=document.createElement('span');
+    s.innerHTML=n.nodeValue.replace(rx,m=>`<mark>${m}</mark>`);
+    n.parentNode.replaceChild(s,n);
+  });
+  sec.querySelectorAll('tbody tr').forEach(tr=>{
+    tr.style.opacity = tr.querySelector('mark') ? '' : '.35';
+  });
+}
+let t=null;
+q.oninput=()=>{ clearTimeout(t); t=setTimeout(doSearch,200); };
+</script>
+</body>
+</html>

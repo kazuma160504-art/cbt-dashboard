@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT 過去問傾向</title>
+<style>
+  :root{
+    --bg:#f4f7fc; --card:#ffffff; --ink:#1f2a44; --sub:#6b7896; --line:#e6ecf5;
+    --indigo:#5b6cff; --teal:#17b4a6; --amber:#f6a623; --rose:#f2547b; --green:#28c07a;
+    --shadow:0 6px 20px rgba(40,60,120,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,#eef2fb,#f4f7fc);color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Meiryo",system-ui,sans-serif;line-height:1.7}
+  a{color:var(--indigo);text-decoration:none}
+  .top{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;gap:14px}
+  .brand{font-weight:800;font-size:17px;display:flex;align-items:center;gap:8px}
+  .nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .nav a{padding:8px 15px;border-radius:999px;font-size:13px;font-weight:700;color:var(--sub);background:#eef1f8}
+  .nav a.active{background:var(--indigo);color:#fff}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 20px 90px}
+
+  .hero{background:linear-gradient(135deg,#5b6cff,#8a7bff 60%,#17b4a6);border-radius:22px;color:#fff;
+    padding:22px 26px;box-shadow:var(--shadow);margin-bottom:20px}
+  .hero h1{margin:0 0 4px;font-size:22px;font-weight:900}
+  .hero p{margin:0;font-size:13px;opacity:.95}
+
+  .searchbar{display:flex;gap:10px;align-items:center;background:var(--card);border-radius:14px;
+    padding:10px 14px;box-shadow:var(--shadow);margin-bottom:16px}
+  .searchbar input{flex:1;border:0;outline:0;font:inherit;font-size:15px;color:var(--ink);background:transparent}
+  .searchbar .ic{font-size:18px}
+  .searchbar button{border:0;background:#eef1f8;color:var(--sub);font:inherit;font-weight:700;font-size:12px;
+    padding:6px 12px;border-radius:999px;cursor:pointer}
+
+  .layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:18px;align-items:start}
+  /* グリッド子は既定 min-width:auto のため、表の min-width で列が広がり横スクロールが出る */
+  .layout>*{min-width:0}
+  @media(max-width:760px){.layout{grid-template-columns:minmax(0,1fr)}}
+
+  .unitlist{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:8px;position:sticky;top:74px}
+  @media(max-width:760px){.unitlist{position:static}}
+  .unitlist button{display:block;width:100%;text-align:left;border:0;background:transparent;font:inherit;
+    padding:10px 12px;border-radius:10px;cursor:pointer;color:var(--ink);font-size:13px;font-weight:700;line-height:1.4}
+  .unitlist button:hover{background:#f2f5fb}
+  .unitlist button.active{background:var(--indigo);color:#fff}
+  .unitlist button .hit{font-size:11px;font-weight:700;color:var(--amber);margin-left:4px}
+  .unitlist button.active .hit{color:#ffe6a8}
+
+  .doc{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:22px 26px;min-height:300px;overflow-wrap:anywhere}
+  .doc h1{font-size:21px;margin:0 0 14px;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  .doc h2{font-size:17px;margin:24px 0 10px;color:var(--indigo);display:flex;align-items:center;gap:7px}
+  .doc h2::before{content:"";width:4px;height:17px;background:var(--indigo);border-radius:2px}
+  .doc h3{font-size:14px;margin:18px 0 8px;color:var(--sub)}
+  .doc p{margin:8px 0;font-size:14px}
+  .doc ul,.doc ol{margin:8px 0;padding-left:22px;font-size:14px}
+  .doc li{margin:4px 0}
+  .doc strong{color:#c2364f;font-weight:800}
+  .doc hr{border:0;border-top:1px solid var(--line);margin:22px 0}
+  .doc blockquote{margin:10px 0;padding:8px 14px;background:#f7f9fd;border-left:4px solid var(--teal);
+    border-radius:0 8px 8px 0;font-size:13px;color:var(--sub)}
+  .doc .tblwrap{overflow-x:auto;margin:12px 0}
+  .doc table{width:100%;border-collapse:collapse;font-size:13px;min-width:340px}
+  .doc th,.doc td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  .doc th{background:#f4f7fd;color:var(--sub);font-size:11px;font-weight:800;white-space:nowrap}
+  .doc tr:hover td{background:#fafbfe}
+  .doc code{background:#eef1f8;padding:1px 6px;border-radius:5px;font-size:12px}
+  mark{background:#fff3bf;color:inherit;border-radius:3px;padding:0 2px}
+
+  .note{background:#fff;border:1px dashed var(--indigo);border-radius:14px;padding:12px 16px;font-size:13px;margin-top:16px}
+  .empty{color:var(--sub);font-size:14px;text-align:center;padding:50px 20px}
+  .foot{color:var(--sub);font-size:12px;text-align:center;margin-top:30px}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand">🩺 CBT 学習ダッシュボード</div>
+  <nav class="nav">
+    <a href="index.html">ホーム</a>
+    <a href="plan.html">学習プラン</a>
+    <a href="tracker.html">復習トラッカー</a>
+    <a href="exams.html" class="active">過去問傾向</a>
+    <a href="ref.html">要点リファレンス</a>
+  </nav>
+</div>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>📊 過去問傾向（Unit別）</h1>
+    <p>佐賀大の過去問を年度横断で分析した結果です。毎年出る論点・頻出キーワード・配点の重い設問型から、優先して押さえる項目がわかります。</p>
+  </div>
+
+  <div class="searchbar">
+    <span class="ic">🔍</span>
+    <input id="q" type="search" placeholder="全Unit横断で検索（例：ショック、感度、ネフローゼ）" autocomplete="off">
+    <button id="clear" type="button">クリア</button>
+  </div>
+
+  <div class="layout">
+    <div class="unitlist" id="list"></div>
+    <div class="doc" id="doc"><div class="empty">読み込み中…</div></div>
+  </div>
+
+  <div class="note">
+    💡 <b>使い方</b>：左のUnitを選ぶとレポートが開きます。検索すると全Unitを横断してヒット件数が出るので、「この疾患はどのUnitで問われる？」を調べられます。
+  </div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<script src="crypto.js"></script>
+<script src="exams.enc.js"></script>
+<script>
+// ---- 軽量Markdownレンダラ（見出し/表/リスト/強調/引用/水平線）----
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function inline(s){
+  return esc(s)
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/`(.+?)`/g,'<code>$1</code>')
+    .replace(/(?<!\*)\*(?!\s)(.+?)(?<!\s)\*(?!\*)/g,'<em>$1</em>');
+}
+function mdToHtml(md){
+  const lines=md.replace(/\r/g,'').split('\n');
+  let html='',i=0,listType=null;
+  const closeList=()=>{ if(listType){ html+=`</${listType}>`; listType=null; } };
+  while(i<lines.length){
+    const line=lines[i];
+    // テーブル（|...| の次行が |---| ）
+    if(/^\s*\|.*\|\s*$/.test(line) && i+1<lines.length && /^\s*\|[\s:|-]+\|\s*$/.test(lines[i+1])){
+      closeList();
+      const cells=r=>r.trim().replace(/^\||\|$/g,'').split('|').map(c=>c.trim());
+      const head=cells(line);
+      i+=2;
+      let body='';
+      while(i<lines.length && /^\s*\|.*\|\s*$/.test(lines[i])){
+        body+='<tr>'+cells(lines[i]).map(c=>`<td>${inline(c)}</td>`).join('')+'</tr>';
+        i++;
+      }
+      html+=`<div class="tblwrap"><table><thead><tr>${head.map(h=>`<th>${inline(h)}</th>`).join('')}</tr></thead><tbody>${body}</tbody></table></div>`;
+      continue;
+    }
+    let m;
+    if((m=line.match(/^(#{1,6})\s+(.*)$/))){
+      closeList();
+      const lv=Math.min(m[1].length,3);
+      html+=`<h${lv}>${inline(m[2])}</h${lv}>`;
+    } else if(/^\s*(---+|\*\*\*+|___+)\s*$/.test(line)){
+      closeList(); html+='<hr>';
+    } else if((m=line.match(/^\s*>\s?(.*)$/))){
+      closeList(); html+=`<blockquote>${inline(m[1])}</blockquote>`;
+    } else if((m=line.match(/^\s*[-*+]\s+(.*)$/))){
+      if(listType!=='ul'){ closeList(); html+='<ul>'; listType='ul'; }
+      html+=`<li>${inline(m[1])}</li>`;
+    } else if((m=line.match(/^\s*\d+[.)]\s+(.*)$/))){
+      if(listType!=='ol'){ closeList(); html+='<ol>'; listType='ol'; }
+      html+=`<li>${inline(m[1])}</li>`;
+    } else if(line.trim()===''){
+      closeList();
+    } else {
+      closeList(); html+=`<p>${inline(line)}</p>`;
+    }
+    i++;
+  }
+  closeList();
+  return html;
+}
+
+// ---- 表示 ----
+let UNITS=[], current=0;
+function countHits(md,q){
+  if(!q) return 0;
+  const t=md.toLowerCase(), k=q.toLowerCase();
+  let n=0,p=0;
+  while((p=t.indexOf(k,p))!==-1){ n++; p+=k.length; }
+  return n;
+}
+function highlight(container,q){
+  if(!q) return;
+  const rx=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
+  const walk=document.createTreeWalker(container,NodeFilter.SHOW_TEXT);
+  const targets=[];
+  while(walk.nextNode()){
+    const n=walk.currentNode;
+    if(n.parentElement.tagName!=='MARK' && rx.test(n.nodeValue)) targets.push(n);
+    rx.lastIndex=0;
+  }
+  targets.forEach(n=>{
+    const span=document.createElement('span');
+    span.innerHTML=n.nodeValue.replace(rx,m=>`<mark>${m}</mark>`);
+    n.parentNode.replaceChild(span,n);
+  });
+}
+function renderList(){
+  const q=document.getElementById('q').value.trim();
+  document.getElementById('list').innerHTML=UNITS.map((u,idx)=>{
+    const hits=countHits(u.md,q);
+    const badge=q?(hits?`<span class="hit">${hits}</span>`:'<span class="hit" style="color:#c3ccdd">0</span>'):'';
+    return `<button data-i="${idx}" class="${idx===current?'active':''}">${u.title}${badge}</button>`;
+  }).join('');
+  document.querySelectorAll('#list button').forEach(b=>{
+    b.onclick=()=>{ current=+b.dataset.i; renderList(); renderDoc(); };
+  });
+}
+function renderDoc(){
+  const q=document.getElementById('q').value.trim();
+  const u=UNITS[current];
+  const doc=document.getElementById('doc');
+  if(!u){ doc.innerHTML='<div class="empty">レポートがありません。</div>'; return; }
+  doc.innerHTML=mdToHtml(u.md);
+  highlight(doc,q);
+  doc.scrollIntoView({block:'nearest'});
+}
+function boot(){
+  renderList(); renderDoc();
+  document.getElementById('foot').textContent=
+    `${UNITS.length} Unit｜最終更新 ${window.EXAM_UPDATED||'—'}｜パスコード保護（暗号化して保存）`;
+  const q=document.getElementById('q');
+  let t=null;
+  q.oninput=()=>{ clearTimeout(t); t=setTimeout(()=>{ renderList(); renderDoc(); },200); };
+  document.getElementById('clear').onclick=()=>{ q.value=''; renderList(); renderDoc(); q.focus(); };
+}
+
+// ---- パスコードで復号してから表示（index.html と同じ鍵）----
+async function unlock(){
+  if(!window.EXAM_ENC){
+    document.getElementById('doc').innerHTML=
+      '<div class="empty">暗号化データ(exams.enc.js)がありません。<br>PCで <code>node build-exams.js</code> を実行して生成してください。</div>';
+    return;
+  }
+  let pass=sessionStorage.getItem('cbt_pass');
+  for(;;){
+    if(!pass){
+      pass=prompt('🔐 パスコードを入力してください');
+      if(pass===null){ document.getElementById('doc').innerHTML='<div class="empty">🔒 ロック中です。再読み込みでパスコードを入力できます。</div>'; return; }
+    }
+    try{
+      const data=await cbtDecrypt(window.EXAM_ENC.blob, pass);
+      UNITS=data.units||[]; window.EXAM_UPDATED=window.EXAM_ENC.updated;
+      sessionStorage.setItem('cbt_pass',pass);
+      boot(); return;
+    }catch(e){
+      pass=null; sessionStorage.removeItem('cbt_pass');
+      alert('パスコードが違います。もう一度お試しください。');
+    }
+  }
+}
+unlock();
+</script>
+</body>
+</html>

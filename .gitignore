@@ -9,3 +9,8 @@ update.cmd
 node_modules/
 secret.passcode*
 run-update.cmd
+# 過去問レポートも平文はコミットしない（暗号化した exams.enc.js のみ公開）
+build-exams.js
+*.md.bak
+reports/
+傾向分析_*.md
