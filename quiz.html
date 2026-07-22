@@ -180,6 +180,7 @@ async function buildPool(){
         if(!tds.length) return;
         const rowLabel=tds[0].textContent.replace(/\s+/g,' ').trim();
         if(!rowLabel) return;
+        if(!/[ぁ-んァ-ヶ一-龠A-Za-z]/.test(rowLabel)) return; // 記号・番号だけの手順行（①②③/1,2,3）は問いにならないので除外
         tds.forEach((td,i)=>{
           if(i===0) return;
           if(!td.classList.contains('hideable')) return;
