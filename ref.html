@@ -102,6 +102,7 @@
       <button data-tab="diu">利尿薬</button>
       <button data-tab="coag">凝固・PT/APTT</button>
       <button data-tab="lab">基準値・血ガス</button>
+      <button data-tab="kidney">腎・泌尿器</button>
     </div>
     <input id="q" type="search" placeholder="ページ内検索（例：摂取率、膵）" autocomplete="off">
     <button class="hidebtn" id="hide" type="button">🙈 暗記モード</button>
@@ -743,6 +744,161 @@
       <div class="warn">
         ⚠️ <b>過換気で低Caのテタニー</b>：<span class="hideable">呼吸性アルカローシスではアルブミンと結合するCaが増え、<b>イオン化Caが低下</b>。総Caは正常でもテタニーが出ます（Ca代謝異常タブと接続）</span>。
       </div>
+    </div>
+  </section>
+
+  <!-- ============ 腎・泌尿器 ============ -->
+  <section data-sec="kidney" class="none">
+    <div class="card">
+      <h2>急性腎障害(AKI)の3分類</h2>
+      <p class="lead">まず「<b>腎前性 / 腎性(ATN) / 腎後性</b>」のどれか。決め手は<b>“濃い尿を作れているか”</b>と<b>“閉塞があるか”</b>。</p>
+      <div class="key">
+        <b>考え方の軸：</b><span class="hideable">腎前性は「灌流が落ちただけで尿細管は生きている」→Na・水を必死に再吸収して<b>濃い少尿</b>。ATNは「尿細管が壊れた」→再吸収できず<b>薄い等張尿</b>。腎後性は「出口が詰まった」→エコーで<b>水腎症</b></span>。
+      </div>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>腎前性</th><th>腎性(ATN)</th><th>腎後性</th></tr></thead>
+        <tbody>
+          <tr><td class="k">本質</td>
+            <td class="hideable">腎血流の低下（脱水・出血・心不全）</td>
+            <td class="hideable">尿細管壊死（虚血・腎毒性・造影剤）</td>
+            <td class="hideable">尿路閉塞（結石・前立腺・骨盤内腫瘍）</td></tr>
+          <tr><td class="k">FENa<br><span style="font-weight:400;color:var(--sub);font-size:11px">★決め手</span></td>
+            <td class="hideable"><span class="down">&lt;1%</span></td>
+            <td class="hideable"><span class="up">&gt;2%</span></td>
+            <td class="hideable">病期で変動</td></tr>
+          <tr><td class="k">尿浸透圧</td>
+            <td class="hideable"><span class="up">高い(&gt;500)</span></td>
+            <td class="hideable">等張(≈300)</td>
+            <td class="hideable">変動</td></tr>
+          <tr><td class="k">BUN/Cr比</td>
+            <td class="hideable"><span class="up">&gt;20</span></td>
+            <td class="hideable">≈10〜15</td>
+            <td class="hideable">変動</td></tr>
+          <tr><td class="k">尿沈渣</td>
+            <td class="hideable">正常〜硝子円柱</td>
+            <td class="hideable"><b>泥状（顆粒）円柱</b>・尿細管上皮</td>
+            <td class="hideable">乏しい（結石なら血尿）</td></tr>
+          <tr><td class="k">決め手の一手</td>
+            <td class="hideable">補液で速やかに改善</td>
+            <td class="hideable">補液しても改善しない</td>
+            <td class="hideable"><b>エコーで水腎症</b>・残尿</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="warn">⚠️ <span class="hideable"><b>利尿薬使用中はFENaが使えない</b>（Naを無理やり捨てさせられているため）。代わりに<b>FEUN（尿素）</b>で腎前性を評価する</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>ネフローゼ症候群 vs 腎炎症候群</h2>
+      <p class="lead">「<b>蛋白が漏れて失われる</b>」のか「<b>血が漏れる＋高血圧</b>」なのか。</p>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>ネフローゼ症候群</th><th>腎炎症候群</th></tr></thead>
+        <tbody>
+          <tr><td class="k">主役</td>
+            <td class="hideable"><b>高度蛋白尿</b>（3.5g/日以上）</td>
+            <td class="hideable"><b>血尿</b>（変形赤血球・赤血球円柱）＋高血圧</td></tr>
+          <tr><td class="k">機序の起点</td>
+            <td class="hideable">濾過障壁の透過性亢進で蛋白喪失→<b>低Alb</b></td>
+            <td class="hideable">糸球体の<b>炎症</b>→血球が漏れる＋GFR低下</td></tr>
+          <tr><td class="k">浮腫の理由</td>
+            <td class="hideable">膠質浸透圧低下（低Alb）</td>
+            <td class="hideable">Na・水貯留（GFR低下）</td></tr>
+          <tr><td class="k">典型的な合併症</td>
+            <td class="hideable">脂質異常・<b>易感染</b>（Ig喪失）・<b>血栓</b>（AT-Ⅲ喪失）</td>
+            <td class="hideable">高血圧・乏尿・溢水</td></tr>
+          <tr><td class="k">キーワード</td>
+            <td class="hideable">泡立つ尿・全身浮腫・低Alb</td>
+            <td class="hideable">コーラ色尿・高血圧・赤血球円柱</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">📌 <span class="hideable">両者は排他ではなく、<b>腎炎性ネフローゼ</b>のように混在もある。まず「どちらが主役か」で大枠をつかむ</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>急性糸球体腎炎の見分け（PSAGN vs IgA腎症）</h2>
+      <p class="lead">決め手は<b>感染から血尿までの“間隔”</b>と<b>補体C3</b>。</p>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>PSAGN（溶連菌感染後）</th><th>IgA腎症</th></tr></thead>
+        <tbody>
+          <tr><td class="k">感染〜血尿</td>
+            <td class="hideable"><b>1〜3週間後</b>（間があく）</td>
+            <td class="hideable"><b>ほぼ同時〜数日</b></td></tr>
+          <tr><td class="k">補体C3</td>
+            <td class="hideable"><span class="down">低下</span></td>
+            <td class="hideable">正常</td></tr>
+          <tr><td class="k">好発</td>
+            <td class="hideable">小児</td>
+            <td class="hideable">若年成人、<b>血尿を反復</b></td></tr>
+          <tr><td class="k">経過</td>
+            <td class="hideable">多くは自然軽快</td>
+            <td class="hideable">慢性に進行しうる</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🎯 <span class="hideable">「<b>間があく＋C3↓</b>」＝PSAGN、「<b>同時＋C3正常＋反復</b>」＝IgA腎症</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>高K血症：心電図の順序と対応の3段階</h2>
+      <div class="key">
+        <b>心電図はこの順で悪化：</b><span class="hideable"><b>テント状T波</b>→P波平坦・PR延長→<b>QRS開大</b>→サインカーブ→心停止</span>
+      </div>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>段階</th><th>目的</th><th>手段</th></tr></thead>
+        <tbody>
+          <tr><td class="k">① 守る</td>
+            <td class="hideable">心筋膜の保護（Kは下がらないが不整脈を防ぐ＝最優先）</td>
+            <td class="hideable"><b>カルシウム製剤</b>（グルコン酸Ca等）</td></tr>
+          <tr><td class="k">② 隠す</td>
+            <td class="hideable">Kを一時的に細胞内へ移す</td>
+            <td class="hideable"><b>GI療法（グルコース＋インスリン）</b>・β2刺激薬・（重炭酸）</td></tr>
+          <tr><td class="k">③ 捨てる</td>
+            <td class="hideable">Kを体外へ除去（根本対応）</td>
+            <td class="hideable">利尿薬・<b>陽イオン交換樹脂</b>・<b>血液透析</b></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="warn">⚠️ <span class="hideable">「テント状T＋高K」を見たら、まず<b>Ca製剤で心筋保護</b>。カルシウムは血清Kを下げないが、命を守るための第一手</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>CKDの合併症は“排泄と内分泌の破綻”で全部説明できる</h2>
+      <p class="lead">腎は「排泄臓器」かつ「内分泌臓器」。壊れると老廃物が溜まり、ホルモンが作れなくなる——それだけ。</p>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>合併症</th><th>なぜ起こる</th></tr></thead>
+        <tbody>
+          <tr><td class="k">腎性貧血</td><td class="hideable"><b>EPO産生低下</b>（腎で作れない）</td></tr>
+          <tr><td class="k">CKD-MBD<br>（骨・ミネラル）</td><td class="hideable">リン排泄低下＋<b>活性型ビタミンD低下</b>→低Ca・高P→<b>二次性副甲状腺機能亢進</b>（→Ca代謝タブ参照）</td></tr>
+          <tr><td class="k">高K血症</td><td class="hideable">K排泄低下</td></tr>
+          <tr><td class="k">代謝性アシドーシス</td><td class="hideable">H⁺排泄・HCO₃再生の低下（AG開大型）</td></tr>
+          <tr><td class="k">高血圧</td><td class="hideable">Na・水貯留＋RAA系亢進</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🔗 <span class="hideable">CKDの検査値セット：<b>Ca↓・P↑・PTH↑・活性型VitD↓</b>。原発性副甲状腺機能亢進症は<b>Ca↑・P↓</b>で<b>Pの向きが逆</b>（→Ca代謝タブ）</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>尿沈渣の円柱は“障害部位の指紋”</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>円柱・所見</th><th>示すもの</th></tr></thead>
+        <tbody>
+          <tr><td class="k">赤血球円柱<br>・変形赤血球</td><td class="hideable"><b>糸球体</b>からの出血（腎炎）</td></tr>
+          <tr><td class="k">白血球円柱</td><td class="hideable"><b>腎盂腎炎</b>・間質性腎炎</td></tr>
+          <tr><td class="k">顆粒/ろう様円柱</td><td class="hideable"><b>ATN</b>・進行した慢性腎障害</td></tr>
+          <tr><td class="k">脂肪円柱＋高度蛋白</td><td class="hideable"><b>ネフローゼ</b></td></tr>
+          <tr><td class="k">硝子円柱</td><td class="hideable">健常でも少数はみられる（非特異的）</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🎯 <span class="hideable">円柱の“中身”が、どこで何が起きたかを教える。血尿＋赤血球円柱＝糸球体性</span>。</div>
     </div>
   </section>
 
