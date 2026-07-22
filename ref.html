@@ -105,6 +105,10 @@
       <button data-tab="kidney">腎・泌尿器</button>
       <button data-tab="resp">呼吸器</button>
       <button data-tab="hbp">肝胆膵</button>
+      <button data-tab="cardio">循環器</button>
+      <button data-tab="gi">消化管</button>
+      <button data-tab="neuro">神経</button>
+      <button data-tab="hema">血液</button>
       <button data-tab="rad">放射線</button>
     </div>
     <input id="q" type="search" placeholder="ページ内検索（例：摂取率、膵）" autocomplete="off">
@@ -1080,6 +1084,330 @@
       </table>
       </div>
       <div class="warn">⚠️ <span class="hideable">胆管炎（特にReynolds五徴）は<b>緊急胆道ドレナージ</b>を要する救急病態</span>。</div>
+    </div>
+  </section>
+
+  <!-- ============ 循環器 ============ -->
+  <section data-sec="cardio" class="none">
+    <div class="card">
+      <h2>虚血性心疾患：狭心症 vs 心筋梗塞</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>安定狭心症</th><th>不安定狭心症/急性心筋梗塞</th></tr></thead>
+        <tbody>
+          <tr><td class="k">誘因・持続</td><td class="hideable"><b>労作時</b>・数分、安静で軽快</td><td class="hideable"><b>安静時にも</b>・20分以上持続、増悪</td></tr>
+          <tr><td class="k">機序</td><td class="hideable">冠動脈の固定狭窄で需要↑時に虚血</td><td class="hideable"><b>プラーク破綻＋血栓</b>で閉塞</td></tr>
+          <tr><td class="k">心筋トロポニン</td><td class="hideable">陰性</td><td class="hideable">梗塞なら<b>上昇</b>（壊死のマーカー）</td></tr>
+          <tr><td class="k">ニトロ</td><td class="hideable">有効</td><td class="hideable">効きにくい</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">
+        <b>心電図：</b><span class="hideable"><b>ST上昇＝STEMI（貫壁性）→ 緊急再灌流</b>。ST低下・陰性T＝NSTEMI/不安定狭心症。異常Q波は陳旧性</span>
+      </div>
+      <div class="warn">⚠️ <span class="hideable">下壁梗塞(Ⅱ・Ⅲ・aVF)は<b>右冠動脈</b>、前壁中隔(V1-4)は<b>左前下行枝</b>、側壁(Ⅰ・aVL・V5-6)は<b>回旋枝</b></span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>心不全：左心 vs 右心</h2>
+      <div class="key"><b>考え方：</b><span class="hideable">ポンプの<b>手前（上流）に血がうっ滞</b>する。左心不全→肺にうっ血、右心不全→体静脈にうっ血</span></div>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th></th><th>左心不全</th><th>右心不全</th></tr></thead>
+        <tbody>
+          <tr><td class="k">うっ滞部位</td><td class="hideable"><b>肺</b>（肺静脈系）</td><td class="hideable"><b>体循環</b>（大静脈系）</td></tr>
+          <tr><td class="k">症状</td><td class="hideable"><b>労作時呼吸困難・起坐呼吸・発作性夜間呼吸困難</b>、湿性ラ音、ピンク泡沫痰</td><td class="hideable"><b>頸静脈怒張・下腿浮腫・肝腫大・腹水</b>、体重増加</td></tr>
+          <tr><td class="k">代表原因</td><td class="hideable">高血圧・虚血・弁膜症</td><td class="hideable"><b>左心不全</b>（最多）・肺高血圧・COPD(肺性心)</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🔗 <span class="hideable"><b>BNP上昇</b>は心不全の指標（→基準値タブ）。HFrEF＝収縮低下（EF≦40%）、HFpEF＝拡張障害でEF保持</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>代表的な不整脈</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>不整脈</th><th>特徴・対応</th></tr></thead>
+        <tbody>
+          <tr><td class="k">心房細動(Af)</td><td class="hideable">P波消失・<b>RR不整</b>。<b>心原性脳塞栓</b>予防に抗凝固（CHADS2）、レート/リズム管理</td></tr>
+          <tr><td class="k">心室頻拍(VT)<br>/心室細動(VF)</td><td class="hideable">wide QRS。VF/無脈性VTは<b>直ちに除細動＋CPR</b></td></tr>
+          <tr><td class="k">房室ブロック</td><td class="hideable">Ⅰ度=PR延長、Ⅱ度Wenckebach=PR漸延→脱落、<b>Ⅲ度=完全解離→ペースメーカー</b></td></tr>
+          <tr><td class="k">WPW症候群</td><td class="hideable">δ波・PR短縮。<b>副伝導路</b>による頻拍</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>心雑音：収縮期 vs 拡張期</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>タイミング</th><th>代表弁膜症</th><th>ポイント</th></tr></thead>
+        <tbody>
+          <tr><td class="k">収縮期</td><td class="hideable"><b>大動脈弁狭窄(AS)</b>・<b>僧帽弁閉鎖不全(MR)</b></td><td class="hideable">ASは<b>失神・狭心痛・心不全</b>、頸部放散。MRは心尖部→腋窩</td></tr>
+          <tr><td class="k">拡張期</td><td class="hideable"><b>大動脈弁閉鎖不全(AR)</b>・<b>僧帽弁狭窄(MS)</b></td><td class="hideable">ARは<b>脈圧増大</b>・速脈。MSは拡張期ランブル、Afを合併</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🎯 <span class="hideable">「狭窄＝血が通る時に鳴る」：AS/PSは収縮期、MS/TSは拡張期。「閉鎖不全＝逆流時に鳴る」：MR/TRは収縮期、AR/PRは拡張期</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>ショックの4分類</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>型</th><th>機序</th><th>代表・所見</th></tr></thead>
+        <tbody>
+          <tr><td class="k">循環血液量<br>減少性</td><td class="hideable">前負荷↓（出血・脱水）</td><td class="hideable">四肢冷感、頻脈、<b>CVP低下</b></td></tr>
+          <tr><td class="k">心原性</td><td class="hideable">ポンプ不全（心筋梗塞等）</td><td class="hideable">四肢冷感、うっ血、<b>CVP上昇</b></td></tr>
+          <tr><td class="k">血液分布<br>異常性</td><td class="hideable">血管拡張（敗血症・<b>アナフィラキシー</b>・神経原性）</td><td class="hideable"><b>ウォームショック</b>（初期は四肢温かい）</td></tr>
+          <tr><td class="k">閉塞性</td><td class="hideable">物理的閉塞（<b>肺塞栓・心タンポナーデ・緊張性気胸</b>）</td><td class="hideable">頸静脈怒張、閉塞の解除が治療</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🔑 <span class="hideable">四肢が<b>冷たい</b>＝出血/心原性/閉塞（血管収縮）、<b>温かい</b>＝分布異常の初期（血管拡張）</span>。</div>
+    </div>
+  </section>
+
+  <!-- ============ 消化管 ============ -->
+  <section data-sec="gi" class="none">
+    <div class="card">
+      <h2>消化管出血：上部 vs 下部</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th></th><th>上部（Treitz靱帯より口側）</th><th>下部</th></tr></thead>
+        <tbody>
+          <tr><td class="k">症状</td><td class="hideable"><b>吐血</b>・<b>タール便(黒色便)</b></td><td class="hideable"><b>鮮血便(血便)</b></td></tr>
+          <tr><td class="k">なぜ黒い</td><td class="hideable">血液が胃酸・腸内で酸化→ヘマチン化</td><td class="hideable">酸化されず鮮紅色のまま</td></tr>
+          <tr><td class="k">代表</td><td class="hideable">消化性潰瘍・<b>食道静脈瘤</b>・Mallory-Weiss</td><td class="hideable">大腸憩室・大腸癌・虚血性腸炎・痔</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="warn">⚠️ <span class="hideable">大量の上部出血では鮮血便になることもある。まず<b>循環動態の安定</b>が優先</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>消化性潰瘍：胃 vs 十二指腸</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th></th><th>胃潰瘍</th><th>十二指腸潰瘍</th></tr></thead>
+        <tbody>
+          <tr><td class="k">痛みのタイミング</td><td class="hideable"><b>食後</b>に増悪</td><td class="hideable"><b>空腹時・夜間</b>、食事で軽快</td></tr>
+          <tr><td class="k">好発年齢</td><td class="hideable">中高年</td><td class="hideable">若年〜中年</td></tr>
+          <tr><td class="k">酸分泌</td><td class="hideable">正常〜低下</td><td class="hideable">亢進傾向</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🔑 <span class="hideable">2大原因＝<b>H. pylori</b>と<b>NSAIDs</b>。治療はPPI＋除菌。合併症＝出血・穿孔・狭窄・（胃潰瘍は癌との鑑別）</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>炎症性腸疾患：潰瘍性大腸炎 vs Crohn病</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th></th><th>潰瘍性大腸炎(UC)</th><th>Crohn病</th></tr></thead>
+        <tbody>
+          <tr><td class="k">部位</td><td class="hideable"><b>大腸のみ</b>・直腸から<b>連続性</b></td><td class="hideable"><b>口〜肛門どこでも</b>（回盲部好発）・<b>非連続(skip)</b></td></tr>
+          <tr><td class="k">深さ</td><td class="hideable"><b>粘膜〜粘膜下</b>（浅い）</td><td class="hideable"><b>全層性</b>（深い）</td></tr>
+          <tr><td class="k">特徴所見</td><td class="hideable">血性下痢、連続性びらん、<b>大腸癌リスク↑</b></td><td class="hideable"><b>敷石像・縦走潰瘍・瘻孔・狭窄</b>、非乾酪性肉芽腫、痔瘻</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🎯 <span class="hideable">UC＝<b>連続・浅い・大腸だけ</b>、Crohn＝<b>飛び石・深い・全消化管</b>（瘻孔）</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>急性腹症の鑑別</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>疾患</th><th>決め手</th></tr></thead>
+        <tbody>
+          <tr><td class="k">急性虫垂炎</td><td class="hideable">心窩部痛→<b>右下腹部(McBurney)</b>へ移動、反跳痛(Blumberg)</td></tr>
+          <tr><td class="k">腸閉塞</td><td class="hideable">腹部膨満・嘔吐・排ガス停止、<b>金属音</b>、鏡面像(niveau)</td></tr>
+          <tr><td class="k">消化管穿孔</td><td class="hideable">突然の激痛・<b>板状硬</b>、立位で<b>遊離ガス(free air)</b></td></tr>
+          <tr><td class="k">腸間膜虚血</td><td class="hideable"><b>激痛のわりに所見が乏しい</b>、Af/動脈硬化が背景、乳酸↑</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>下痢のタイプ</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>型</th><th>特徴</th></tr></thead>
+        <tbody>
+          <tr><td class="k">浸透圧性</td><td class="hideable">吸収されない物質が水を引く。<b>絶食で改善</b>（例：乳糖不耐・下剤）</td></tr>
+          <tr><td class="k">分泌性</td><td class="hideable">腸管が水を分泌。<b>絶食でも続く</b>（例：コレラ毒素・ホルモン産生腫瘍）</td></tr>
+          <tr><td class="k">滲出性/炎症性</td><td class="hideable">粘血便・発熱（細菌性腸炎・IBD）</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🎯 <span class="hideable"><b>絶食で止まる＝浸透圧性、止まらない＝分泌性</b></span>。</div>
+    </div>
+  </section>
+
+  <!-- ============ 神経 ============ -->
+  <section data-sec="neuro" class="none">
+    <div class="card">
+      <h2>脳卒中：梗塞 vs 出血 vs くも膜下</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th></th><th>脳梗塞</th><th>脳出血</th><th>くも膜下出血</th></tr></thead>
+        <tbody>
+          <tr><td class="k">発症</td><td class="hideable">徐々に〜階段状、<b>起床時</b>も</td><td class="hideable">活動時・急性、頭痛・嘔吐</td><td class="hideable"><b>突然の激烈な頭痛</b>（人生最悪）</td></tr>
+          <tr><td class="k">CT(超急性期)</td><td class="hideable"><b>早期は写りにくい</b>（MRI拡散強調が鋭敏）</td><td class="hideable"><b>高吸収(白)</b>の血腫</td><td class="hideable">脳底槽の<b>高吸収</b></td></tr>
+          <tr><td class="k">原因</td><td class="hideable">アテローム・心原性塞栓・ラクナ</td><td class="hideable"><b>高血圧</b>（被殻・視床）</td><td class="hideable"><b>脳動脈瘤破裂</b></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="warn">⚠️ <span class="hideable">脳梗塞は<b>t-PAは発症4.5時間以内</b>など時間制約。出血を除外するため<b>まずCT</b></span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>中枢性 vs 末梢性 顔面神経麻痺</h2>
+      <div class="key"><b>鍵は“額のしわ寄せ”：</b><span class="hideable">額の筋は<b>両側支配</b>なので、中枢性では<b>額のしわ寄せは保たれる</b>。末梢性(Bell麻痺等)は<b>額を含め片側全部</b>麻痺</span></div>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th></th><th>中枢性</th><th>末梢性</th></tr></thead>
+        <tbody>
+          <tr><td class="k">額のしわ</td><td class="hideable"><b>寄せられる(保たれる)</b></td><td class="hideable"><b>寄せられない</b></td></tr>
+          <tr><td class="k">病巣</td><td class="hideable">対側の大脳・内包（脳卒中など）</td><td class="hideable">顔面神経核以降（Bell麻痺・Ramsay Hunt）</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>上位(UMN) vs 下位(LMN)運動ニューロン障害</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>所見</th><th>上位(UMN)</th><th>下位(LMN)</th></tr></thead>
+        <tbody>
+          <tr><td class="k">筋トーヌス</td><td class="hideable"><b>亢進(痙性)</b></td><td class="hideable"><b>低下(弛緩性)</b></td></tr>
+          <tr><td class="k">深部腱反射</td><td class="hideable"><b>亢進</b></td><td class="hideable"><b>低下・消失</b></td></tr>
+          <tr><td class="k">病的反射</td><td class="hideable"><b>Babinski陽性</b></td><td class="hideable">なし</td></tr>
+          <tr><td class="k">筋萎縮・線維束攣縮</td><td class="hideable">目立たない（廃用性のみ）</td><td class="hideable"><b>著明・線維束性収縮</b></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🔗 <span class="hideable">ALSは<b>UMNとLMNの両方</b>の徴候が出るのが特徴（感覚は保たれる）</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>髄膜炎：細菌性 vs ウイルス性（髄液）</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>髄液</th><th>細菌性</th><th>ウイルス性</th></tr></thead>
+        <tbody>
+          <tr><td class="k">細胞</td><td class="hideable"><b>好中球</b>優位・著増</td><td class="hideable"><b>リンパ球</b>優位</td></tr>
+          <tr><td class="k">糖</td><td class="hideable"><b>低下</b>（菌が消費）</td><td class="hideable">正常</td></tr>
+          <tr><td class="k">蛋白</td><td class="hideable">著明↑</td><td class="hideable">軽度↑</td></tr>
+          <tr><td class="k">外観・圧</td><td class="hideable">混濁・<b>圧上昇</b></td><td class="hideable">清〜日光微塵</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🎯 <span class="hideable"><b>糖が下がっていれば細菌性</b>（結核・真菌も低下）。髄膜刺激徴候＝項部硬直・Kernig・Brudzinski</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>振戦・認知症の型</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>疾患</th><th>特徴</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Parkinson病</td><td class="hideable"><b>安静時振戦・固縮(歯車)・無動・姿勢反射障害</b>。黒質のドパミン低下</td></tr>
+          <tr><td class="k">本態性振戦</td><td class="hideable"><b>動作時</b>振戦、飲酒で軽減、家族歴</td></tr>
+          <tr><td class="k">Alzheimer型</td><td class="hideable"><b>近時記憶障害</b>から緩徐進行、海馬萎縮</td></tr>
+          <tr><td class="k">Lewy小体型</td><td class="hideable"><b>幻視・変動する認知・Parkinson症状</b>、レム睡眠行動異常</td></tr>
+          <tr><td class="k">血管性</td><td class="hideable"><b>階段状</b>増悪・まだら認知、脳血管障害の既往</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 血液 ============ -->
+  <section data-sec="hema" class="none">
+    <div class="card">
+      <h2>貧血のMCV分類</h2>
+      <div class="key"><b>まずMCVで3群に：</b><span class="hideable">小球性(&lt;80)・正球性(80〜100)・大球性(&gt;100)</span></div>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>MCV</th><th>代表疾患</th><th>ポイント</th></tr></thead>
+        <tbody>
+          <tr><td class="k">小球性<br>(MCV&lt;80)</td><td class="hideable"><b>鉄欠乏性</b>・慢性炎症・サラセミア・鉄芽球性</td><td class="hideable">鉄欠乏＝<b>フェリチン低下・TIBC上昇</b>。慢性炎症はフェリチン正常〜高</td></tr>
+          <tr><td class="k">正球性<br>(80〜100)</td><td class="hideable">溶血・出血急性期・<b>腎性貧血</b>・再生不良性</td><td class="hideable">網赤血球で「作れない」か「壊れる/出る」かを判断</td></tr>
+          <tr><td class="k">大球性<br>(MCV&gt;100)</td><td class="hideable"><b>ビタミンB12/葉酸欠乏</b>（巨赤芽球性）・肝疾患・甲状腺</td><td class="hideable">B12欠乏は<b>神経症状</b>・過分葉好中球。胃全摘・悪性貧血</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>溶血性貧血の検査パターン</h2>
+      <div class="key"><b>「赤血球が壊れている」証拠が揃う：</b></div>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>変化</th><th>理由</th></tr></thead>
+        <tbody>
+          <tr><td class="k">間接ビリルビン</td><td class="hideable"><span class="up">上昇</span></td><td class="hideable">ヘム分解産物が増える</td></tr>
+          <tr><td class="k">LDH</td><td class="hideable"><span class="up">上昇</span></td><td class="hideable">赤血球内酵素が漏れる</td></tr>
+          <tr><td class="k">ハプトグロビン</td><td class="hideable"><span class="down">低下</span></td><td class="hideable">遊離Hbと結合して消費される</td></tr>
+          <tr><td class="k">網赤血球</td><td class="hideable"><span class="up">上昇</span></td><td class="hideable">骨髄が代償して産生亢進</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🎯 <span class="hideable">自己免疫性溶血は<b>Coombs試験陽性</b>。網赤血球↑は「骨髄は元気に作っている」証拠で、産生障害（再不良・腎性）との鑑別点</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>白血病・リンパ腫の大枠</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>区分</th><th>特徴</th></tr></thead>
+        <tbody>
+          <tr><td class="k">急性白血病</td><td class="hideable"><b>芽球</b>が増加、正常造血が抑制→<b>汎血球減少</b>（感染・出血・貧血）。急速</td></tr>
+          <tr><td class="k">慢性骨髄性(CML)</td><td class="hideable"><b>Philadelphia染色体(BCR-ABL)</b>、白血球著増、緩徐</td></tr>
+          <tr><td class="k">Hodgkinリンパ腫</td><td class="hideable"><b>Reed-Sternberg細胞</b>、連続性に進展、予後比較的良好</td></tr>
+          <tr><td class="k">非Hodgkin</td><td class="hideable">多彩、B/T細胞性。節外病変も</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🔑 <span class="hideable">リンパ腫の<b>B症状</b>＝発熱・盗汗・体重減少（予後不良因子）</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>出血傾向：どこの異常か</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>系統</th><th>出血の型</th><th>代表</th></tr></thead>
+        <tbody>
+          <tr><td class="k">血小板<br>（一次止血）</td><td class="hideable"><b>点状出血・粘膜出血・紫斑</b>、すぐ出血</td><td class="hideable">ITP・TTP・DIC・薬剤・白血病</td></tr>
+          <tr><td class="k">凝固因子<br>（二次止血）</td><td class="hideable"><b>深部出血（関節・筋肉）</b>、遅れて出血</td><td class="hideable"><b>血友病</b>・肝不全・VitK欠乏（→凝固タブ）</td></tr>
+          <tr><td class="k">血管</td><td class="hideable">紫斑（血小板・凝固は正常）</td><td class="hideable">IgA血管炎・老人性・壊血病</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🎯 <span class="hideable"><b>点状・粘膜＝血小板</b>、<b>関節・筋肉の深部＝凝固因子</b>。PT/APTTの読み方は「凝固・PT/APTT」タブ</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>DIC（播種性血管内凝固）</h2>
+      <div class="key"><b>本質：</b><span class="hideable">基礎疾患（敗血症・悪性腫瘍・産科合併症）で<b>全身の微小血栓が多発</b>→凝固因子と血小板を<b>消費し尽くす</b>→今度は<b>出血</b>する（消費性凝固障害）</span></div>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>検査</th><th>変化</th></tr></thead>
+        <tbody>
+          <tr><td class="k">血小板</td><td class="hideable"><span class="down">低下</span>（消費）</td></tr>
+          <tr><td class="k">フィブリノゲン</td><td class="hideable"><span class="down">低下</span>（消費）</td></tr>
+          <tr><td class="k">PT・APTT</td><td class="hideable"><span class="up">延長</span></td></tr>
+          <tr><td class="k">FDP・D-ダイマー</td><td class="hideable"><span class="up">上昇</span>（線溶亢進）</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🎯 <span class="hideable">「血小板↓＋フィブリノゲン↓＋PT/APTT延長＋<b>D-ダイマー著増</b>＋基礎疾患」でDIC。治療は<b>基礎疾患の治療</b>が最優先</span>。</div>
     </div>
   </section>
 

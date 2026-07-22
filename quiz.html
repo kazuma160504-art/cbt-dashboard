@@ -307,8 +307,8 @@ function exportForTracker(){
     id:'quiz_'+Date.now()+'_'+i,
     code:'2A',
     title:w.q,
-    front:'答え：'+strip(w.a),
-    note:'一問一答（'+w.topic+'）から自動登録',
+    front:'',
+    note:'答え：'+strip(w.a),
     tags:['一問一答', w.topic],
     ef:2.5, reps:0, interval:0,
     due: tomorrow, createdAt: today, history:[]
