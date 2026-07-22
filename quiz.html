@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT 一問一答</title>
+<style>
+  :root{
+    --bg:#f4f7fc; --card:#ffffff; --ink:#1f2a44; --sub:#6b7896; --line:#e6ecf5;
+    --indigo:#5b6cff; --teal:#17b4a6; --amber:#f6a623; --rose:#f2547b; --green:#28c07a;
+    --shadow:0 6px 20px rgba(40,60,120,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,#eef2fb,#f4f7fc);color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Meiryo",system-ui,sans-serif;line-height:1.7}
+  a{color:var(--indigo);text-decoration:none}
+  .top{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;gap:14px}
+  .brand{font-weight:800;font-size:17px}
+  .nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .nav a{padding:8px 15px;border-radius:999px;font-size:13px;font-weight:700;color:var(--sub);background:#eef1f8}
+  .nav a.active{background:var(--indigo);color:#fff}
+  .wrap{max-width:860px;margin:0 auto;padding:22px 20px 90px}
+
+  .hero{background:linear-gradient(135deg,#5b6cff,#8a7bff 60%,#17b4a6);border-radius:22px;color:#fff;
+    padding:22px 26px;box-shadow:var(--shadow);margin-bottom:18px}
+  .hero h1{margin:0 0 4px;font-size:22px;font-weight:900}
+  .hero p{margin:0;font-size:13px;opacity:.95}
+
+  .card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:20px 24px;margin-bottom:16px}
+  h2{font-size:16px;margin:0 0 12px;color:var(--indigo)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .chip{border:0;background:#eef1f8;color:var(--sub);font:inherit;font-weight:700;font-size:13px;
+    padding:8px 15px;border-radius:999px;cursor:pointer}
+  .chip.on{background:var(--indigo);color:#fff}
+  .btn{border:0;font:inherit;font-weight:800;font-size:14px;padding:11px 22px;border-radius:12px;cursor:pointer;
+    background:var(--indigo);color:#fff}
+  .btn.ghost{background:#eef1f8;color:var(--ink)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  label.opt{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--sub);font-weight:700;cursor:pointer}
+
+  .qbar{display:flex;align-items:center;gap:12px;margin-bottom:12px;font-size:13px;color:var(--sub)}
+  .track{flex:1;height:9px;background:#e7ecf5;border-radius:6px;overflow:hidden}
+  .fill{height:100%;background:linear-gradient(90deg,var(--indigo),var(--teal));width:0;transition:width .25s}
+  .qcard{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:26px 28px;min-height:210px;
+    display:flex;flex-direction:column}
+  .tagline{font-size:11px;font-weight:800;color:var(--sub);letter-spacing:.04em;margin-bottom:10px}
+  .q{font-size:20px;font-weight:800;line-height:1.55;margin-bottom:8px}
+  .a{margin-top:14px;padding:16px 18px;background:#f2f7ff;border-left:5px solid var(--teal);border-radius:0 12px 12px 0;
+    font-size:17px;font-weight:700;animation:pop .18s ease}
+  @keyframes pop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+  .a b{color:#c2364f}
+  .a .up{color:#d6336c;font-weight:800}.a .down{color:#1c7ed6;font-weight:800}
+  .grades{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+  .grades button{border:0;font:inherit;font-weight:800;font-size:14px;padding:13px 8px;border-radius:12px;
+    cursor:pointer;color:#fff}
+  .g-ng{background:var(--rose)} .g-mid{background:var(--amber)} .g-ok{background:var(--green)}
+  .hint{color:var(--sub);font-size:12px;text-align:center;margin-top:10px}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:14px}
+  .kpi{background:#f7f9fd;border-radius:14px;padding:14px;text-align:center}
+  .kpi .n{font-size:26px;font-weight:900;line-height:1.2}
+  .kpi .l{font-size:12px;color:var(--sub)}
+  .wrongitem{border-left:5px solid var(--rose);background:#fff6f8;border-radius:0 10px 10px 0;padding:10px 14px;
+    margin-bottom:8px;font-size:13px}
+  .wrongitem .wq{font-weight:800}
+  .wrongitem .wa{color:var(--sub)}
+  .none{display:none}
+  .foot{color:var(--sub);font-size:12px;text-align:center;margin-top:26px}
+  .err{background:#fff0f4;border-left:5px solid var(--rose);border-radius:0 10px 10px 0;padding:12px 16px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand">🩺 CBT 学習ダッシュボード</div>
+  <nav class="nav">
+    <a href="index.html">ホーム</a>
+    <a href="plan.html">学習プラン</a>
+    <a href="tracker.html">復習トラッカー</a>
+    <a href="exams.html">過去問傾向</a>
+    <a href="ref.html">要点リファレンス</a>
+    <a href="quiz.html" class="active">一問一答</a>
+  </nav>
+</div>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>⚡ 一問一答</h1>
+    <p>要点リファレンスから自動出題します。読むだけより、思い出す練習のほうが定着します。</p>
+  </div>
+
+  <div class="card" id="setup">
+    <h2>出題範囲を選ぶ</h2>
+    <div class="row" id="topics"><span style="color:var(--sub);font-size:13px">問題を読み込み中…</span></div>
+    <div class="row" style="margin-top:14px">
+      <label class="opt"><input type="checkbox" id="shuffle" checked> シャッフル</label>
+      <label class="opt"><input type="checkbox" id="priority" checked> 苦手を優先</label>
+      <label class="opt">出題数
+        <select id="limit" style="font:inherit;padding:5px 8px;border-radius:8px;border:1px solid var(--line)">
+          <option value="10">10問</option>
+          <option value="20" selected>20問</option>
+          <option value="30">30問</option>
+          <option value="0">全部</option>
+        </select>
+      </label>
+    </div>
+    <div class="row" style="margin-top:16px">
+      <button class="btn" id="start">スタート</button>
+      <button class="btn ghost" id="startWrong">苦手だけ復習</button>
+      <span id="poolinfo" style="font-size:13px;color:var(--sub)"></span>
+    </div>
+  </div>
+
+  <div id="play" class="none">
+    <div class="qbar">
+      <span id="counter">1 / 20</span>
+      <div class="track"><div class="fill" id="fill"></div></div>
+      <span id="score">✅0 ⚠️0 ❌0</span>
+    </div>
+    <div class="qcard">
+      <div class="tagline" id="tag"></div>
+      <div class="q" id="q"></div>
+      <div id="answer"></div>
+      <div style="margin-top:auto">
+        <button class="btn" id="reveal" style="width:100%;margin-top:16px">答えを見る（Space）</button>
+        <div class="grades none" id="grades">
+          <button class="g-ng"   data-g="0">❌ できない</button>
+          <button class="g-mid"  data-g="1">⚠️ あやふや</button>
+          <button class="g-ok"   data-g="2">✅ できた</button>
+        </div>
+        <div class="hint">キーボード：Space＝答え／1・2・3＝自己採点</div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn ghost" id="quit">中断してもどる</button>
+    </div>
+  </div>
+
+  <div id="result" class="none">
+    <div class="card">
+      <h2>結果</h2>
+      <div class="kpis" id="rkpi"></div>
+      <div id="wronglist"></div>
+      <div class="row" style="margin-top:16px">
+        <button class="btn" id="again">もう一度</button>
+        <button class="btn ghost" id="retryWrong">間違えたものだけ</button>
+        <button class="btn ghost" id="toTracker">📤 トラッカー用に書き出す</button>
+      </div>
+      <p style="font-size:12px;color:var(--sub);margin-top:12px">
+        「トラッカー用に書き出す」で JSON を保存 →
+        <a href="tracker.html">復習トラッカー</a> の「JSON読込」で取り込むと、間隔反復の対象になります。
+      </p>
+    </div>
+  </div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<script>
+const LS_STATS='cbt_quiz_stats_v1';
+let POOL=[], QUEUE=[], idx=0, revealed=false, session=[], stats=load();
+function load(){ try{ return JSON.parse(localStorage.getItem(LS_STATS))||{} }catch(e){ return {} } }
+function saveStats(){ localStorage.setItem(LS_STATS, JSON.stringify(stats)); }
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+async function buildPool(){
+  const res=await fetch('ref.html');
+  if(!res.ok) throw new Error('ref.html を読み込めません（HTTP '+res.status+'）');
+  const doc=new DOMParser().parseFromString(await res.text(),'text/html');
+  const labels={};
+  doc.querySelectorAll('.tabs button').forEach(b=>labels[b.dataset.tab]=b.textContent.trim());
+  const out=[];
+  doc.querySelectorAll('section[data-sec]').forEach(sec=>{
+    const topic=labels[sec.dataset.sec]||sec.dataset.sec;
+    sec.querySelectorAll('table').forEach(tbl=>{
+      const heads=[...tbl.querySelectorAll('thead th')].map(th=>th.textContent.replace(/\s+/g,' ').trim());
+      tbl.querySelectorAll('tbody tr').forEach(tr=>{
+        const tds=[...tr.children];
+        if(!tds.length) return;
+        const rowLabel=tds[0].textContent.replace(/\s+/g,' ').trim();
+        if(!rowLabel) return;
+        tds.forEach((td,i)=>{
+          if(i===0) return;
+          if(!td.classList.contains('hideable')) return;
+          const ans=td.innerHTML.trim();
+          if(!ans) return;
+          const col=heads[i]||'';
+          let q;
+          if(/^(症状|基準値|なぜ起こる|機序|やること|判断|起こること|意味|メモ|代表疾患|ひとこと)/.test(col) || heads.length<=2)
+            q=`${rowLabel}　→　${col||'？'}`;
+          else q=`${rowLabel}　の　${col}　は？`;
+          out.push({ id:`${topic}|${rowLabel}|${col}`, topic, q, a:ans });
+        });
+      });
+    });
+    sec.querySelectorAll('.key, .warn').forEach((box,bi)=>{
+      const hs=[...box.querySelectorAll('.hideable')];
+      hs.forEach((h,n)=>{
+        const ans=h.innerHTML.trim();
+        if(!ans || ans.length<4) return;
+        const clone=box.cloneNode(true);
+        clone.querySelectorAll('.hideable').forEach((x,m)=>{ x.outerHTML = (m===n) ? '<b style="color:#5b6cff">［　？　］</b>' : x.innerHTML; });
+        const q=clone.textContent.replace(/\s+/g,' ').trim().slice(0,150);
+        out.push({ id:`${topic}|key${bi}_${n}|${q.slice(0,20)}`, topic, q, a:ans });
+      });
+    });
+  });
+  return out;
+}
+
+let selected=new Set();
+function renderTopics(){
+  const topics=[...new Set(POOL.map(p=>p.topic))];
+  topics.forEach(t=>selected.add(t));
+  $('topics').innerHTML=topics.map(t=>{
+    const n=POOL.filter(p=>p.topic===t).length;
+    return `<button class="chip on" data-t="${esc(t)}">${esc(t)} <span style="opacity:.75">${n}</span></button>`;
+  }).join('');
+  $('topics').querySelectorAll('.chip').forEach(b=>{
+    b.onclick=()=>{ const t=b.dataset.t;
+      if(selected.has(t)){ selected.delete(t); b.classList.remove('on'); }
+      else { selected.add(t); b.classList.add('on'); }
+      updatePool();
+    };
+  });
+  updatePool();
+}
+function pickPool(){ return POOL.filter(p=>selected.has(p.topic)); }
+function wrongPool(){ return POOL.filter(p=>(stats[p.id]?.ng||0) > 0); }
+function updatePool(){
+  const n=pickPool().length, w=wrongPool().length;
+  $('poolinfo').textContent=`選択中 ${n} 問／苦手 ${w} 問`;
+  $('start').disabled=n===0;
+  $('startWrong').disabled=w===0;
+  $('foot').textContent=`全 ${POOL.length} 問（要点リファレンスから自動生成）`;
+}
+
+function begin(list){
+  if(!list.length) return;
+  QUEUE=[...list];
+  if($('shuffle').checked) QUEUE.sort(()=>Math.random()-0.5);
+  if($('priority').checked)
+    QUEUE.sort((a,b)=>((stats[b.id]?.ng||0)-(stats[b.id]?.ok||0))-((stats[a.id]?.ng||0)-(stats[a.id]?.ok||0)));
+  const lim=+$('limit').value;
+  if(lim>0) QUEUE=QUEUE.slice(0,lim);
+  idx=0; session=[];
+  $('setup').classList.add('none'); $('result').classList.add('none'); $('play').classList.remove('none');
+  show();
+}
+function show(){
+  const it=QUEUE[idx];
+  revealed=false;
+  $('tag').textContent=it.topic;
+  $('q').textContent=it.q;
+  $('answer').innerHTML='';
+  $('reveal').classList.remove('none');
+  $('grades').classList.add('none');
+  $('counter').textContent=`${idx+1} / ${QUEUE.length}`;
+  $('fill').style.width=(idx/QUEUE.length*100)+'%';
+  const ok=session.filter(s=>s.g===2).length, mid=session.filter(s=>s.g===1).length, ng=session.filter(s=>s.g===0).length;
+  $('score').textContent=`✅${ok} ⚠️${mid} ❌${ng}`;
+}
+function reveal(){
+  if(revealed) return;
+  revealed=true;
+  $('answer').innerHTML=`<div class="a">${QUEUE[idx].a}</div>`;
+  $('reveal').classList.add('none');
+  $('grades').classList.remove('none');
+}
+function grade(g){
+  if(!revealed) return;
+  const it=QUEUE[idx];
+  session.push({...it, g});
+  const s=stats[it.id]||{ok:0,ng:0};
+  if(g===2){ s.ok=(s.ok||0)+1; s.ng=Math.max(0,(s.ng||0)-1); }
+  else { s.ng=(s.ng||0)+1; }
+  stats[it.id]=s; saveStats();
+  idx++;
+  if(idx>=QUEUE.length) finish(); else show();
+}
+function finish(){
+  $('play').classList.add('none'); $('result').classList.remove('none');
+  const ok=session.filter(s=>s.g===2).length, mid=session.filter(s=>s.g===1).length, ng=session.filter(s=>s.g===0).length;
+  const rate=session.length?Math.round(ok/session.length*100):0;
+  $('rkpi').innerHTML=`
+    <div class="kpi"><div class="n" style="color:var(--indigo)">${rate}%</div><div class="l">できた率</div></div>
+    <div class="kpi"><div class="n" style="color:var(--green)">${ok}</div><div class="l">✅ できた</div></div>
+    <div class="kpi"><div class="n" style="color:var(--amber)">${mid}</div><div class="l">⚠️ あやふや</div></div>
+    <div class="kpi"><div class="n" style="color:var(--rose)">${ng}</div><div class="l">❌ できない</div></div>`;
+  const wrong=session.filter(s=>s.g<2);
+  $('wronglist').innerHTML = wrong.length
+    ? '<h2 style="margin-top:18px">復習したい項目</h2>'+wrong.map(w=>
+        `<div class="wrongitem"><div class="wq">${esc(w.q)}</div><div class="wa">→ ${w.a}</div></div>`).join('')
+    : '<p style="color:var(--green);font-weight:700">全問できました！</p>';
+  $('retryWrong').disabled=wrong.length===0;
+  updatePool();
+}
+
+function exportForTracker(){
+  const wrong=session.filter(s=>s.g<2);
+  if(!wrong.length){ alert('間違えた問題がありません。'); return; }
+  const today=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);
+  const tomorrow=new Date(Date.now()+86400000-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);
+  const strip=h=>{ const d=document.createElement('div'); d.innerHTML=h; return d.textContent.replace(/\s+/g,' ').trim(); };
+  const items=wrong.map((w,i)=>({
+    id:'quiz_'+Date.now()+'_'+i,
+    code:'2A',
+    title:w.q,
+    front:'答え：'+strip(w.a),
+    note:'一問一答（'+w.topic+'）から自動登録',
+    tags:['一問一答', w.topic],
+    ef:2.5, reps:0, interval:0,
+    due: tomorrow, createdAt: today, history:[]
+  }));
+  const blob=new Blob([JSON.stringify({items},null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`cbt-quiz-wrong_${today}.json`;
+  a.click(); URL.revokeObjectURL(a.href);
+}
+
+$('start').onclick=()=>begin(pickPool());
+$('startWrong').onclick=()=>begin(wrongPool());
+$('reveal').onclick=reveal;
+$('grades').onclick=e=>{ const b=e.target.closest('button[data-g]'); if(b) grade(+b.dataset.g); };
+$('quit').onclick=()=>{ $('play').classList.add('none'); $('setup').classList.remove('none'); updatePool(); };
+$('again').onclick=()=>begin(pickPool());
+$('retryWrong').onclick=()=>begin(session.filter(s=>s.g<2));
+$('toTracker').onclick=exportForTracker;
+document.addEventListener('keydown',e=>{
+  if($('play').classList.contains('none')) return;
+  if(e.code==='Space'){ e.preventDefault(); revealed?null:reveal(); }
+  if(revealed && ['1','2','3'].includes(e.key)) grade(+e.key-1);
+});
+
+buildPool().then(p=>{ POOL=p; renderTopics(); })
+  .catch(err=>{ $('topics').innerHTML=`<div class="err">問題を生成できませんでした：${esc(err.message)}<br>
+    <span style="color:var(--sub)">※ファイルを直接開くと読み込めません。GitHub Pages 上か、ローカルサーバー経由で開いてください。</span></div>`; });
+</script>
+</body>
+</html>

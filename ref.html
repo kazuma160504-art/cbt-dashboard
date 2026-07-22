@@ -84,6 +84,7 @@
     <a href="tracker.html">復習トラッカー</a>
     <a href="exams.html">過去問傾向</a>
     <a href="ref.html" class="active">要点リファレンス</a>
+    <a href="quiz.html">一問一答</a>
   </nav>
 </div>
 <div class="wrap">
@@ -99,6 +100,7 @@
       <button data-tab="tm">腫瘍マーカー</button>
       <button data-tab="ca">Ca代謝異常</button>
       <button data-tab="diu">利尿薬</button>
+      <button data-tab="coag">凝固・PT/APTT</button>
       <button data-tab="lab">基準値・血ガス</button>
     </div>
     <input id="q" type="search" placeholder="ページ内検索（例：摂取率、膵）" autocomplete="off">
@@ -517,6 +519,73 @@
 
       <div class="warn">
         ⚠️ <b>まとめの一言</b>：<span class="hideable">上流（近位〜遠位）で働く<b>ループ・サイアザイド・アセタゾラミド</b>は<b>K を失う</b>。下流（集合管）で働く<b>スピロノラクトン・トリアムテレン</b>は<b>K を保つ</b></span>。K の向きは作用部位とセットで覚えると忘れません。
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 凝固・PT/APTT ============ -->
+  <section data-sec="coag" class="none">
+    <div class="card">
+      <h2>PT と APTT でどこを見るか</h2>
+      <p class="lead">凝固カスケードは「<b>外因系＝PT</b>」「<b>内因系＝APTT</b>」「合流後の<b>共通系</b>」の3つに分けて、<b>どちらが延長するか</b>で原因をしぼります。</p>
+
+      <div class="key">
+        <b>大原則：</b><br>
+        ・<b>PT</b>（プロトロンビン時間）＝ <span class="hideable"><b>外因系</b>＋共通系（第<b>Ⅶ</b>因子を含む）</span><br>
+        ・<b>APTT</b>＝ <span class="hideable"><b>内因系</b>＋共通系（第<b>Ⅷ・Ⅸ・Ⅺ・Ⅻ</b>因子を含む）</span><br>
+        ・両方延長 → <span class="hideable"><b>共通系</b>の異常、または複数因子の低下（肝不全・DIC・重症ビタミンK欠乏）</span>
+      </div>
+
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>延長パターン</th><th>代表疾患</th><th>ひとことメモ</th></tr></thead>
+        <tbody>
+          <tr><td class="k">PT 単独延長</td>
+            <td class="hideable"><b>ビタミンK欠乏症</b>（初期）、ワルファリン</td>
+            <td class="hideable">Ⅶは半減期が最短→ビタミンK欠乏で<b>最初に落ちる</b>ためPTが鋭敏</td></tr>
+          <tr><td class="k">APTT 単独延長</td>
+            <td class="hideable"><b>血友病</b>（A=Ⅷ／B=Ⅸ）、<b>von Willebrand病</b>、<b>抗リン脂質抗体症候群(APS)</b></td>
+            <td class="hideable">血友病は伴性劣性で男児。APSはむしろ<b>血栓</b>傾向（検査上だけ延長）</td></tr>
+          <tr><td class="k">PT・APTT<br>ともに延長</td>
+            <td class="hideable"><b>DIC</b>、進行したビタミンK欠乏症、<b>肝不全</b></td>
+            <td class="hideable">DICは血小板↓・フィブリノゲン↓・<b>D-ダイマー↑</b>を伴う</td></tr>
+          <tr><td class="k">両方 正常だが<br>出血傾向</td>
+            <td class="hideable">血小板減少・機能異常、<b>vWD</b>、血管性紫斑病、第<b>ⅩⅢ</b>因子欠乏</td>
+            <td class="hideable">ⅩⅢはPT/APTTで<b>捕まらない</b>（架橋のみ）→創傷治癒不良</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="warn">
+        ⚠️ <b>補足</b>：<span class="hideable">肝疾患による凝固因子産生低下や、各凝固因子に対する<b>インヒビター</b>（後天性血友病など）でもPT・APTTは延長する</span>。
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>凝固カスケードの覚え方（Y字の数字並べ）</h2>
+      <p class="lead">Ⅻ→Ⅺ→Ⅸ→Ⅷ（内因系）と Ⅶ（外因系）が Ⅹ で合流し、Ⅱ（プロトロンビン）→Ⅰ（フィブリン）へ。数字の位置は語呂で固定できます。</p>
+      <div class="key">
+        🔢 <b>Y字に数字を置く覚え方</b><br>
+        ① <span class="hideable"><b>2×5＝10</b> → 中央（共通系）に <b>10・5・2・1</b> を縦に並べる</span><br>
+        ② <span class="hideable"><b>3＋7＝10</b> → 右肩（外因系＝PT側）に <b>（3）・7</b></span><br>
+        ③ <span class="hideable">その他 → 左肩（内因系＝APTT側）に <b>12・11・9・8</b></span><br>
+        <span style="font-size:12px;color:var(--sub)">→ 左枝の根元にAPTT、右枝の根元にPT。合流点が第Ⅹ因子。</span>
+      </div>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>系統</th><th>含まれる因子</th><th>測る検査</th></tr></thead>
+        <tbody>
+          <tr><td class="k">内因系</td><td class="hideable">Ⅻ → Ⅺ → Ⅸ → Ⅷ</td><td class="hideable"><b>APTT</b></td></tr>
+          <tr><td class="k">外因系</td><td class="hideable">Ⅶ（＋組織因子TF）</td><td class="hideable"><b>PT</b></td></tr>
+          <tr><td class="k">共通系</td><td class="hideable">Ⅹ → Ⅴ → Ⅱ（プロトロンビン）→ Ⅰ（フィブリン）</td><td class="hideable">PT・APTT両方</td></tr>
+          <tr><td class="k">架橋</td><td class="hideable">ⅩⅢ（安定化フィブリンを作る）</td><td class="hideable">PT/APTTでは<b>検出されない</b></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">
+        💊 <b>ビタミンK依存性因子</b>：<span class="hideable"><b>Ⅱ・Ⅶ・Ⅸ・Ⅹ</b>（＋プロテインC・S）。語呂「<b>肉納豆</b>＝2・9・7・10」。ワルファリンはここを阻害する</span>。
+      </div>
+      <div class="warn">
+        📝 <b>試験でのつながり</b>：<span class="hideable">ワルファリン＝ビタミンK依存因子↓＝<b>PT(INR)</b>で管理／ヘパリン＝主にⅩa・トロンビン阻害＝<b>APTT</b>で管理</span>。抗凝固薬とモニター検査の対応はセットで問われます。
       </div>
     </div>
   </section>
