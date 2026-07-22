@@ -103,6 +103,9 @@
       <button data-tab="coag">凝固・PT/APTT</button>
       <button data-tab="lab">基準値・血ガス</button>
       <button data-tab="kidney">腎・泌尿器</button>
+      <button data-tab="resp">呼吸器</button>
+      <button data-tab="hbp">肝胆膵</button>
+      <button data-tab="rad">放射線</button>
     </div>
     <input id="q" type="search" placeholder="ページ内検索（例：摂取率、膵）" autocomplete="off">
     <button class="hidebtn" id="hide" type="button">🙈 暗記モード</button>
@@ -899,6 +902,267 @@
       </table>
       </div>
       <div class="key">🎯 <span class="hideable">円柱の“中身”が、どこで何が起きたかを教える。血尿＋赤血球円柱＝糸球体性</span>。</div>
+    </div>
+  </section>
+
+  <!-- ============ 呼吸器 ============ -->
+  <section data-sec="resp" class="none">
+    <div class="card">
+      <h2>閉塞性 vs 拘束性 換気障害</h2>
+      <p class="lead">スパイロの2つの数字だけで大枠が決まる：<b>1秒率(FEV1.0%)</b>と<b>%肺活量(%VC)</b>。</p>
+      <div class="key">
+        <b>定義：</b><span class="hideable"><b>閉塞性</b>＝息を吐き出しにくい → <b>1秒率&lt;70%</b>（%VCは保たれる）。<b>拘束性</b>＝肺が膨らみにくい → <b>%VC&lt;80%</b>（1秒率は保たれる）。両方満たせば混合性</span>。
+      </div>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>閉塞性</th><th>拘束性</th></tr></thead>
+        <tbody>
+          <tr><td class="k">決め手</td><td class="hideable"><b>1秒率↓（&lt;70%）</b></td><td class="hideable"><b>%VC↓（&lt;80%）</b></td></tr>
+          <tr><td class="k">代表疾患</td><td class="hideable">COPD・気管支喘息・びまん性汎細気管支炎</td><td class="hideable">間質性肺炎・肺線維症・胸郭/神経筋疾患</td></tr>
+          <tr><td class="k">フローボリューム曲線</td><td class="hideable">下に凸（呼出後半で急落）</td><td class="hideable">全体が小さく縦に細い</td></tr>
+          <tr><td class="k">残気量(RV)</td><td class="hideable"><span class="up">増加</span>（吐ききれず溜まる）</td><td class="hideable">減少</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Ⅰ型 vs Ⅱ型呼吸不全</h2>
+      <p class="lead">呼吸不全＝<b>PaO₂≦60Torr</b>。あとは<b>PaCO₂</b>で2型に分ける。</p>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>Ⅰ型</th><th>Ⅱ型</th></tr></thead>
+        <tbody>
+          <tr><td class="k">PaCO₂</td><td class="hideable">正常〜低下（≦45）</td><td class="hideable"><b>上昇（&gt;45）</b>＝換気不全</td></tr>
+          <tr><td class="k">本質</td><td class="hideable">酸素化の障害（換気血流不均衡・拡散障害・シャント）</td><td class="hideable"><b>肺胞低換気</b>（換気そのものが不足）</td></tr>
+          <tr><td class="k">A-aDO₂</td><td class="hideable">開大（ガス交換の場の異常）</td><td class="hideable">純粋な低換気なら<b>正常</b>のことも</td></tr>
+          <tr><td class="k">代表</td><td class="hideable">肺炎・間質性肺炎・肺塞栓・ARDS</td><td class="hideable">COPD増悪・呼吸筋/神経疾患・鎮静薬</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="warn">⚠️ <span class="hideable">Ⅱ型（CO₂貯留）に<b>高濃度O₂を漫然投与するとCO₂ナルコーシス</b>を招きうる。SpO₂目標を控えめ（88〜92%程度）に</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>気管支喘息 vs COPD</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>気管支喘息</th><th>COPD</th></tr></thead>
+        <tbody>
+          <tr><td class="k">気流閉塞</td><td class="hideable"><b>可逆性</b>（変動性・発作性）</td><td class="hideable"><b>不可逆性</b>（進行性）</td></tr>
+          <tr><td class="k">背景</td><td class="hideable">アトピー・若年発症も、夜間〜早朝増悪</td><td class="hideable"><b>喫煙</b>・中高年、労作時息切れ</td></tr>
+          <tr><td class="k">炎症の主役</td><td class="hideable"><b>好酸球</b>・Th2</td><td class="hideable">好中球・マクロファージ</td></tr>
+          <tr><td class="k">治療の軸</td><td class="hideable"><b>吸入ステロイド(ICS)</b>が基本</td><td class="hideable"><b>長時間気管支拡張薬(LAMA/LABA)</b>が基本、禁煙</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">📌 <span class="hideable">喘息はICSが土台（発作時のみのSABAは不十分）。COPDは気管支拡張薬が土台でICSは限定的</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>胸水：滲出性 vs 漏出性（Lightの基準）</h2>
+      <div class="key">
+        <b>まず“漏れ”か“炎症/腫瘍”か。</b><span class="hideable"><b>漏出性</b>＝血管内圧・膠質浸透圧の異常で液が漏れる（心不全・肝硬変・ネフローゼ）。<b>滲出性</b>＝胸膜の炎症・腫瘍で蛋白が漏れ出る（肺炎随伴・結核・悪性・膠原病）</span>
+      </div>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>Lightの基準（1つでも該当＝滲出性）</th></tr></thead>
+        <tbody>
+          <tr><td class="hideable">胸水/血清 <b>蛋白比 &gt; 0.5</b></td></tr>
+          <tr><td class="hideable">胸水/血清 <b>LDH比 &gt; 0.6</b></td></tr>
+          <tr><td class="hideable">胸水LDH &gt; 血清LDH正常上限の <b>2/3</b></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🎯 <span class="hideable">滲出性でさらに絞る：<b>ADA高値→結核性</b>、<b>糖低下・pH低下→膿胸/悪性/関節リウマチ</b>、<b>アミラーゼ高値→膵性/食道破裂</b></span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>間質性肺炎の“型”</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>特徴</th><th>所見</th></tr></thead>
+        <tbody>
+          <tr><td class="k">換気障害</td><td class="hideable"><b>拘束性</b>（%VC↓）＋<b>DLCO低下</b>（拡散障害）</td></tr>
+          <tr><td class="k">聴診</td><td class="hideable">吸気終末の<b>fine crackles（捻髪音）</b></td></tr>
+          <tr><td class="k">身体所見</td><td class="hideable"><b>ばち指</b>、労作時低酸素（安静時正常でも運動で低下）</td></tr>
+          <tr><td class="k">画像</td><td class="hideable">下肺野・胸膜直下優位の網状影、進行で<b>蜂巣肺</b></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🔗 <span class="hideable">血ガスの読み方・A-aDO₂は「基準値・血ガス」タブと接続</span>。</div>
+    </div>
+  </section>
+
+  <!-- ============ 肝胆膵 ============ -->
+  <section data-sec="hbp" class="none">
+    <div class="card">
+      <h2>肝細胞性 vs 胆汁うっ滞性の肝障害</h2>
+      <p class="lead">「肝細胞が壊れた」のか「胆汁の流れが詰まった」のか——酵素の“どちらが優位に上がるか”で分ける。</p>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>肝細胞性</th><th>胆汁うっ滞性</th></tr></thead>
+        <tbody>
+          <tr><td class="k">優位に上昇</td><td class="hideable"><b>AST・ALT</b>（トランスアミナーゼ）</td><td class="hideable"><b>ALP・γ-GT</b>（胆道系酵素）</td></tr>
+          <tr><td class="k">代表</td><td class="hideable">ウイルス肝炎・薬剤性・虚血・自己免疫性肝炎</td><td class="hideable">胆石・腫瘍による閉塞、原発性胆汁性胆管炎(PBC)</td></tr>
+          <tr><td class="k">ビリルビン</td><td class="hideable">直接・間接ともに上昇しうる</td><td class="hideable"><b>直接優位</b>（排泄障害）</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">📌 <span class="hideable"><b>AST&gt;ALTでCK/LDHも高い</b>なら肝以外（心筋・骨格筋・溶血）も疑う。<b>γ-GT単独高値</b>はアルコール・薬剤の目印</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>黄疸：ビリルビンの間接 vs 直接</h2>
+      <div class="key">
+        <b>流れで覚える：</b><span class="hideable">ヘム→<b>間接(非抱合)ビリルビン</b>→肝で<b>抱合</b>→<b>直接(抱合)ビリルビン</b>→胆汁へ排泄。どこで詰まるかで優位型が決まる</span>
+      </div>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>優位</th><th>病態</th><th>代表</th></tr></thead>
+        <tbody>
+          <tr><td class="k">間接<br>優位</td><td class="hideable">産生過剰 or 抱合障害（肝に入る前の問題）</td><td class="hideable"><b>溶血</b>、新生児黄疸、<b>Gilbert症候群</b>・Crigler-Najjar</td></tr>
+          <tr><td class="k">直接<br>優位</td><td class="hideable">排泄障害（抱合後〜胆道の問題）</td><td class="hideable"><b>閉塞性黄疸</b>（胆石・膵頭部癌）、肝内胆汁うっ滞、Dubin-Johnson</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🎯 <span class="hideable">直接優位＋<b>尿中ビリルビン陽性</b>・灰白色便＝閉塞性を示唆。間接ビリルビンは水に溶けず<b>尿に出ない</b></span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>ウイルス性肝炎（A/B/C/E）</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>型</th><th>感染経路</th><th>慢性化</th><th>ポイント</th></tr></thead>
+        <tbody>
+          <tr><td class="k">A型</td><td class="hideable"><b>経口</b>（生カキ・汚染水）</td><td class="hideable">しない</td><td class="hideable">急性のみ。IgM-HA抗体で診断</td></tr>
+          <tr><td class="k">B型</td><td class="hideable"><b>血液・体液・母子</b></td><td class="hideable">一部（特に乳児感染）</td><td class="hideable"><b>HBs抗原=感染</b>、HBe抗原=増殖性高い、DNA。<b>ワクチンあり</b></td></tr>
+          <tr><td class="k">C型</td><td class="hideable"><b>血液</b></td><td class="hideable"><b>高率に慢性化</b></td><td class="hideable">肝硬変・肝癌の主因。<b>DAAで治癒可</b>。ワクチンなし</td></tr>
+          <tr><td class="k">E型</td><td class="hideable"><b>経口</b>（ジビエ・豚レバー）</td><td class="hideable">通常しない</td><td class="hideable"><b>妊婦で重症化</b>しやすい</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🔑 <span class="hideable">経口(糞口)＝<b>A・E</b>／血液体液＝<b>B・C</b>。慢性化＝<b>B（一部）・C（高率）</b>。ワクチン＝<b>A・B</b></span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>肝硬変の合併症は“門脈圧亢進”と“肝機能低下”で説明</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>合併症</th><th>機序</th></tr></thead>
+        <tbody>
+          <tr><td class="k">食道・胃静脈瘤</td><td class="hideable"><b>門脈圧亢進</b>→側副血行路の発達（破裂で吐血）</td></tr>
+          <tr><td class="k">腹水</td><td class="hideable">門脈圧亢進＋<b>低アルブミン血症</b>（膠質浸透圧低下）</td></tr>
+          <tr><td class="k">肝性脳症</td><td class="hideable"><b>アンモニア</b>など毒素を解毒できず脳へ（羽ばたき振戦）</td></tr>
+          <tr><td class="k">出血傾向</td><td class="hideable">凝固因子の産生低下（<b>PT延長</b>）＋脾機能亢進で血小板↓</td></tr>
+          <tr><td class="k">女性化乳房等</td><td class="hideable">エストロゲンの<b>分解低下</b></td></tr>
+          <tr><td class="k">肝腎症候群</td><td class="hideable">高度肝不全に伴う機能的腎不全</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🔗 <span class="hideable">肝癌の腫瘍マーカー（AFP・PIVKA-Ⅱ）は「腫瘍マーカー」タブ参照。PIVKA-Ⅱは<b>ワルファリン・VitK欠乏</b>でも上がる点に注意</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>急性膵炎と胆道感染</h2>
+      <h3>急性膵炎</h3>
+      <div class="key">
+        <span class="hideable">2大成因＝<b>アルコール</b>と<b>胆石</b>。上腹部〜背部痛、<b>アミラーゼ・リパーゼ上昇</b>。重症では<b>低Ca血症</b>（脂肪壊死でCaが石けん化して消費）</span>
+      </div>
+      <h3>胆石／胆嚢炎／胆管炎</h3>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>病態</th><th>決め手</th></tr></thead>
+        <tbody>
+          <tr><td class="k">胆嚢炎</td><td class="hideable">右季肋部痛・<b>Murphy徴候</b>・発熱（胆嚢の炎症）</td></tr>
+          <tr><td class="k">胆管炎</td><td class="hideable"><b>Charcot三徴＝発熱・黄疸・右上腹部痛</b>。重症は+意識障害・ショック＝<b>Reynolds五徴</b></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="warn">⚠️ <span class="hideable">胆管炎（特にReynolds五徴）は<b>緊急胆道ドレナージ</b>を要する救急病態</span>。</div>
+    </div>
+  </section>
+
+  <!-- ============ 放射線（基礎） ============ -->
+  <section data-sec="rad" class="none">
+    <div class="card">
+      <h2>モダリティの使い分けと被曝の有無</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>検査</th><th>電離放射線</th><th>得意</th></tr></thead>
+        <tbody>
+          <tr><td class="k">単純X線</td><td class="hideable"><b>あり</b></td><td class="hideable">骨・肺・遊離ガス。安価・迅速</td></tr>
+          <tr><td class="k">CT</td><td class="hideable"><b>あり（多い）</b></td><td class="hideable">急性期・出血・骨・肺。短時間で全身</td></tr>
+          <tr><td class="k">MRI</td><td class="hideable"><b>なし</b></td><td class="hideable"><b>軟部組織・脳・脊髄・靱帯</b>。コントラスト分解能◎</td></tr>
+          <tr><td class="k">超音波</td><td class="hideable"><b>なし</b></td><td class="hideable">肝胆膵腎・甲状腺・産科。ベッドサイド・反復可</td></tr>
+          <tr><td class="k">核医学<br>(シンチ/PET)</td><td class="hideable"><b>あり</b></td><td class="hideable"><b>機能・代謝・全身の集積</b>（骨転移・腫瘍・血流）</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">📌 <span class="hideable">被曝なし＝<b>MRI・超音波</b>。急性出血・骨折・肺はCT、軟部・神経はMRI、機能評価は核医学</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>造影剤：ヨード vs ガドリニウム</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>ヨード造影剤（CT）</th><th>ガドリニウム（MRI）</th></tr></thead>
+        <tbody>
+          <tr><td class="k">主な副作用</td><td class="hideable">アレルギー、<b>造影剤腎症</b>、甲状腺への影響</td><td class="hideable">アレルギー、腎不全で<b>NSF（腎性全身性線維症）</b></td></tr>
+          <tr><td class="k">腎機能</td><td class="hideable"><b>腎障害で慎重/禁忌</b>（補液で予防）</td><td class="hideable"><b>高度腎障害で原則禁忌</b>（NSFリスク）</td></tr>
+          <tr><td class="k">薬剤の注意</td><td class="hideable"><b>ビグアナイド（メトホルミン）</b>は乳酸アシドーシス回避のため休薬</td><td class="hideable">—</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="warn">⚠️ <span class="hideable">共通の絶対的注意＝<b>過去の重篤な造影剤アレルギー</b>。喘息・アレルギー体質はリスク上昇</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>放射線の生物影響：確定的 vs 確率的</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>項目</th><th>確定的影響</th><th>確率的影響</th></tr></thead>
+        <tbody>
+          <tr><td class="k">しきい値</td><td class="hideable"><b>あり</b>（超えると発症）</td><td class="hideable"><b>なし</b>（低線量でも確率的に）</td></tr>
+          <tr><td class="k">線量と関係</td><td class="hideable">線量が増すと<b>重症度</b>が増す</td><td class="hideable">線量が増すと<b>発生確率</b>が増す</td></tr>
+          <tr><td class="k">例</td><td class="hideable">皮膚紅斑・脱毛・白内障・不妊・急性放射線症</td><td class="hideable"><b>発癌・遺伝的影響</b></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🎯 <span class="hideable">「重症度が上がる＝確定的」「確率が上がる＝確率的（癌）」。感受性が高いのは<b>分裂が盛んな細胞</b>（骨髄・生殖腺・腸上皮・胎児）</span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>線量の単位</h2>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th>単位</th><th>意味</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Bq<br>(ベクレル)</td><td class="hideable"><b>放射能</b>：1秒あたりの崩壊数（線源側の量）</td></tr>
+          <tr><td class="k">Gy<br>(グレイ)</td><td class="hideable"><b>吸収線量</b>：組織1kgが吸収したエネルギー(J/kg)</td></tr>
+          <tr><td class="k">Sv<br>(シーベルト)</td><td class="hideable"><b>等価/実効線量</b>：人体影響で重みづけ（防護の量）</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🔑 <span class="hideable">出す側＝<b>Bq</b>、当たったエネルギー＝<b>Gy</b>、人体リスク＝<b>Sv</b></span>。</div>
+    </div>
+
+    <div class="card">
+      <h2>MRIの禁忌とT1/T2の見分け</h2>
+      <div class="key">
+        <b>禁忌（強磁場）：</b><span class="hideable">条件非対応の<b>心臓ペースメーカー</b>・一部の体内金属・古い動脈瘤クリップ、（体内の磁性体異物）。閉所恐怖も要配慮</span>
+      </div>
+      <div class="tblwrap">
+      <table>
+        <thead><tr><th></th><th>T1強調</th><th>T2強調</th></tr></thead>
+        <tbody>
+          <tr><td class="k">水・脳脊髄液</td><td class="hideable"><b>黒（低信号）</b></td><td class="hideable"><b>白（高信号）</b></td></tr>
+          <tr><td class="k">脂肪</td><td class="hideable">白（高信号）</td><td class="hideable">やや高〜高信号</td></tr>
+          <tr><td class="k">得意</td><td class="hideable">解剖の把握・造影(Gd)で増強評価</td><td class="hideable"><b>病変・浮腫・炎症</b>の検出</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="key">🎯 <span class="hideable">迷ったら<b>「水を見る＝T2で白」</b>。病変（浮腫）はT2で光る</span>。</div>
     </div>
   </section>
 
