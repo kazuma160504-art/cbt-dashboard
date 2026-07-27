@@ -148,11 +148,30 @@ function render(){
     <div class="kpi"><div class="n" style="color:var(--ink)">${t.inRank}<span style="font-size:14px">位</span></div><div class="l">学内順位</div><div class="s">/ ${t.inN}名</div></div>
   </div>`;
 
+  // 形式別
+  if(e.format&&e.format.length){
+    html+=`<div class="card"><h2>出題形式別</h2><div class="tblwrap"><table><thead><tr>
+      <th>形式</th><th>得点</th><th>得点率</th><th>全国順位</th><th>学内順位</th></tr></thead><tbody>`;
+    e.format.forEach(f=>{ html+=`<tr><td class="k">${f.name}</td><td>${f.score}／${f.full}</td><td>${f.rate}%</td>
+      <td>${f.natRank??'—'}位</td><td>${f.inRank??'—'}位</td></tr>`; });
+    html+=`</tbody></table></div></div>`;
+  }
+
   // コアカリ領域別
   if(e.cores&&e.cores.length){
     html+=`<div class="card"><h2>コア・カリキュラム領域別 偏差値（全国）</h2>
       <div class="lead">A=プロフェッショナリズム/医療安全 B=社会と医療 C=基礎 D=臓器・疾患 E=全身/横断 F=診療の基本。中央線=偏差値50</div>`;
     e.cores.forEach(c=>{ html+=bar(`${c.key}領域 <span style="color:var(--sub);font-weight:400">${c.rate}%</span>`, c.natH); });
+    // 領域別の細目（詳細・折りたたみ）
+    if(e.coreDetails&&e.coreDetails.length){
+      html+=`<details style="margin-top:14px"><summary>▼ 領域別の細目をすべて表示（${e.coreDetails.length}項目）</summary>
+        <div class="tblwrap" style="margin-top:10px"><table><thead><tr>
+        <th>領域</th><th>細目</th><th>得点</th><th>得点率</th><th>全国順位</th><th>学内順位</th><th>全国偏差</th><th>学内偏差</th></tr></thead><tbody>`;
+      e.coreDetails.forEach(d=>{ html+=`<tr><td class="k">${d.area}</td><td>${d.name}</td>
+        <td>${d.score}／${d.full}</td><td>${d.rate}%</td><td>${d.natRank??'—'}位</td><td>${d.inRank??'—'}位</td>
+        <td>${pill(d.natH)}</td><td>${pill(d.inH)}</td></tr>`; });
+      html+=`</tbody></table></div></details>`;
+    }
     html+=`</div>`;
   }
   // 大分類
@@ -167,10 +186,11 @@ function render(){
     html+=`<div class="card"><h2>科目別 弱点ランキング（全国偏差値が低い順）</h2>
       <div class="lead">下ほど弱点。<span style="color:#f2547b;font-weight:800">40未満=赤</span>／<span style="color:#f6a623;font-weight:800">40-45</span>／<span style="color:#28c07a;font-weight:800">50以上=緑</span></div>
       <div class="tblwrap"><table><thead><tr>
-        <th>科目</th><th>区分</th><th>得点</th><th>得点率</th><th>全国偏差値</th><th>学内偏差値</th></tr></thead><tbody>`;
+        <th>科目</th><th>区分</th><th>得点</th><th>得点率</th><th>全国順位</th><th>学内順位</th><th>全国偏差値</th><th>学内偏差値</th></tr></thead><tbody>`;
     sorted.forEach(s=>{ html+=`<tr>
       <td class="k">${s.name}</td><td style="color:var(--sub)">${s.area||''}</td>
       <td>${s.score}／${s.full}</td><td>${s.rate}%</td>
+      <td>${s.natRank?s.natRank+'位':'—'}</td><td>${s.inRank?s.inRank+'位':'—'}</td>
       <td>${pill(s.natH)}</td><td>${pill(s.inH)}</td></tr>`; });
     html+=`</tbody></table></div></div>`;
   }
