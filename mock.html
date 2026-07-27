@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT 模試成績</title>
+<style>
+  :root{
+    --bg:#f4f7fc; --card:#ffffff; --ink:#1f2a44; --sub:#6b7896; --line:#e6ecf5;
+    --indigo:#5b6cff; --teal:#17b4a6; --amber:#f6a623; --rose:#f2547b; --green:#28c07a;
+    --shadow:0 6px 20px rgba(40,60,120,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,#eef2fb,#f4f7fc);color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Meiryo",system-ui,sans-serif;line-height:1.7}
+  a{color:var(--indigo);text-decoration:none}
+  .top{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;gap:14px}
+  .brand{font-weight:800;font-size:17px}
+  .nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .nav a{padding:8px 15px;border-radius:999px;font-size:13px;font-weight:700;color:var(--sub);background:#eef1f8}
+  .nav a.active{background:var(--indigo);color:#fff}
+  .wrap{max-width:1000px;margin:0 auto;padding:22px 20px 90px}
+
+  .hero{background:linear-gradient(135deg,#5b6cff,#8a7bff 60%,#17b4a6);border-radius:22px;color:#fff;
+    padding:22px 26px;box-shadow:var(--shadow);margin-bottom:18px}
+  .hero h1{margin:0 0 4px;font-size:22px;font-weight:900}
+  .hero p{margin:0;font-size:13px;opacity:.95}
+
+  .bar-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+  select,button{font:inherit}
+  select{padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:#fff;font-weight:700}
+  .btn{border:0;font-weight:800;font-size:13px;padding:9px 16px;border-radius:10px;cursor:pointer;background:var(--indigo);color:#fff}
+  .btn.ghost{background:#eef1f8;color:var(--ink)}
+
+  .card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:20px 24px;margin-bottom:16px}
+  .card h2{font-size:16px;margin:0 0 4px;color:var(--indigo);display:flex;align-items:center;gap:8px}
+  .card .lead{color:var(--sub);font-size:13px;margin:0 0 14px}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px}
+  .kpi{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:16px;text-align:center}
+  .kpi .n{font-size:30px;font-weight:900;line-height:1.15}
+  .kpi .l{font-size:12px;color:var(--sub);margin-top:2px}
+  .kpi .s{font-size:11px;color:var(--sub)}
+
+  .barrow{display:grid;grid-template-columns:120px 1fr 52px;gap:10px;align-items:center;margin:7px 0;font-size:13px}
+  .barrow .name{font-weight:700;text-align:right;color:var(--ink)}
+  .bartrack{position:relative;height:22px;background:#eef1f8;border-radius:6px;overflow:hidden}
+  .barfill{position:absolute;left:0;top:0;height:100%;border-radius:6px}
+  .bar50{position:absolute;top:-3px;bottom:-3px;left:50%;width:2px;background:#b8c2d8}
+  .barval{font-weight:800;text-align:left}
+  .lg{font-size:11px;color:var(--sub);margin-top:6px}
+
+  .tblwrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+  th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+  th{background:#f4f7fd;color:var(--sub);font-size:11px;font-weight:800;cursor:pointer;position:sticky;top:0}
+  td.k{font-weight:800}
+  .pill{display:inline-block;min-width:44px;text-align:center;border-radius:6px;padding:2px 8px;font-weight:800;color:#fff}
+  .foot{color:var(--sub);font-size:12px;text-align:center;margin-top:26px}
+  .empty{background:#fff;border:2px dashed var(--line);border-radius:16px;padding:28px;text-align:center;color:var(--sub)}
+  textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:10px;padding:10px;font:13px/1.5 monospace}
+  details{margin-top:10px}
+  summary{cursor:pointer;font-weight:700;color:var(--indigo);font-size:13px}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand">🩺 CBT 学習ダッシュボード</div>
+  <nav class="nav">
+    <a href="index.html">ホーム</a>
+    <a href="plan.html">学習プラン</a>
+    <a href="tracker.html">復習トラッカー</a>
+    <a href="exams.html">過去問傾向</a>
+    <a href="ref.html">要点リファレンス</a>
+    <a href="quiz.html">一問一答</a>
+    <a href="mock.html" class="active">模試成績</a>
+  </nav>
+</div>
+<div class="wrap">
+  <div class="hero">
+    <h1>📈 模試成績</h1>
+    <p>MEC模試の成績（偏差値・得点率）を科目別に。弱点がひと目で分かります。データはこの端末内（localStorage）にのみ保存。</p>
+  </div>
+
+  <div class="bar-tools">
+    <label style="font-size:13px;color:var(--sub);font-weight:700">回：
+      <select id="examSel" onchange="render()"></select>
+    </label>
+    <span style="flex:1"></span>
+    <button class="btn ghost" onclick="exportData()">⬇ 書き出し</button>
+    <label class="btn ghost" style="cursor:pointer">⬆ 取り込み
+      <input type="file" accept=".json" style="display:none" onchange="importFile(event)">
+    </label>
+  </div>
+
+  <div id="content"></div>
+
+  <div class="foot" id="foot"></div>
+
+  <details style="margin-top:20px">
+    <summary>JSONを直接貼り付けて登録／更新</summary>
+    <p style="font-size:12px;color:var(--sub)">形式：<code>{"exams":[{...}]}</code>。同じ回IDは上書き統合されます。</p>
+    <textarea id="pasteBox" placeholder='{"exams":[ ... ]}'></textarea>
+    <button class="btn" style="margin-top:8px" onclick="importPaste()">登録／更新</button>
+  </details>
+</div>
+
+<script>
+const LS='cbt_mock_v1';
+const $=id=>document.getElementById(id);
+function loadAll(){ try{ return JSON.parse(localStorage.getItem(LS))||{exams:[]} }catch(e){ return {exams:[]} } }
+function saveAll(d){ localStorage.setItem(LS, JSON.stringify(d)); }
+let DB=loadAll();
+
+// 偏差値25〜75を0〜100%にマップ
+function hpos(h){ return Math.max(0,Math.min(100,(h-25)/50*100)); }
+function hcolor(h){ if(h<40)return '#f2547b'; if(h<45)return '#f6a623'; if(h<50)return '#f7c948'; if(h<55)return '#7bc86c'; return '#28c07a'; }
+function bar(name,h){
+  if(h==null||isNaN(h)) return `<div class="barrow"><div class="name">${name}</div><div class="bartrack"></div><div class="barval" style="color:var(--sub)">—</div></div>`;
+  return `<div class="barrow"><div class="name">${name}</div>
+    <div class="bartrack"><div class="bar50"></div><div class="barfill" style="width:${hpos(h)}%;background:${hcolor(h)}"></div></div>
+    <div class="barval" style="color:${hcolor(h)}">${h.toFixed(1)}</div></div>`;
+}
+function pill(h){ if(h==null||isNaN(h))return '<span style="color:var(--sub)">—</span>'; return `<span class="pill" style="background:${hcolor(h)}">${h.toFixed(1)}</span>`; }
+
+function fillSelector(){
+  $('examSel').innerHTML=DB.exams.map((e,i)=>`<option value="${i}">${e.name}</option>`).join('');
+}
+
+function render(){
+  DB=loadAll();
+  if(!DB.exams.length){
+    $('examSel').innerHTML='';
+    $('content').innerHTML=`<div class="empty">まだ模試データがありません。<br>右上の「⬆ 取り込み」でJSONを読み込むか、下部の貼り付け欄から登録してください。</div>`;
+    $('foot').textContent='';
+    return;
+  }
+  if(!$('examSel').options.length) fillSelector();
+  const e=DB.exams[+$('examSel').value||0];
+  const t=e.total;
+  let html='';
+  // KPI
+  html+=`<div class="kpis">
+    <div class="kpi"><div class="n" style="color:${hcolor(t.natHensa)}">${t.natHensa}</div><div class="l">全国偏差値</div><div class="s">学内 ${t.inHensa}</div></div>
+    <div class="kpi"><div class="n" style="color:var(--indigo)">${t.rate}%</div><div class="l">総合得点率</div><div class="s">${t.score}／${t.full}点</div></div>
+    <div class="kpi"><div class="n" style="color:var(--ink)">${t.natRank}<span style="font-size:14px">位</span></div><div class="l">全国順位</div><div class="s">/ ${t.natN}名</div></div>
+    <div class="kpi"><div class="n" style="color:var(--ink)">${t.inRank}<span style="font-size:14px">位</span></div><div class="l">学内順位</div><div class="s">/ ${t.inN}名</div></div>
+  </div>`;
+
+  // コアカリ領域別
+  if(e.cores&&e.cores.length){
+    html+=`<div class="card"><h2>コア・カリキュラム領域別 偏差値（全国）</h2>
+      <div class="lead">A=プロフェッショナリズム/医療安全 B=社会と医療 C=基礎 D=臓器・疾患 E=全身/横断 F=診療の基本。中央線=偏差値50</div>`;
+    e.cores.forEach(c=>{ html+=bar(`${c.key}領域 <span style="color:var(--sub);font-weight:400">${c.rate}%</span>`, c.natH); });
+    html+=`</div>`;
+  }
+  // 大分類
+  if(e.groups&&e.groups.length){
+    html+=`<div class="card"><h2>大分類別 偏差値（全国）</h2>`;
+    e.groups.forEach(g=>{ html+=bar(`${g.name} <span style="color:var(--sub);font-weight:400">${g.rate}%</span>`, g.natH); });
+    html+=`</div>`;
+  }
+  // 科目別 弱点ランキング
+  if(e.subjects&&e.subjects.length){
+    const sorted=[...e.subjects].sort((a,b)=>(a.natH??99)-(b.natH??99));
+    html+=`<div class="card"><h2>科目別 弱点ランキング（全国偏差値が低い順）</h2>
+      <div class="lead">下ほど弱点。<span style="color:#f2547b;font-weight:800">40未満=赤</span>／<span style="color:#f6a623;font-weight:800">40-45</span>／<span style="color:#28c07a;font-weight:800">50以上=緑</span></div>
+      <div class="tblwrap"><table><thead><tr>
+        <th>科目</th><th>区分</th><th>得点</th><th>得点率</th><th>全国偏差値</th><th>学内偏差値</th></tr></thead><tbody>`;
+    sorted.forEach(s=>{ html+=`<tr>
+      <td class="k">${s.name}</td><td style="color:var(--sub)">${s.area||''}</td>
+      <td>${s.score}／${s.full}</td><td>${s.rate}%</td>
+      <td>${pill(s.natH)}</td><td>${pill(s.inH)}</td></tr>`; });
+    html+=`</tbody></table></div></div>`;
+  }
+  // 成績推移（複数回あるとき）
+  if(DB.exams.length>1){
+    html+=`<div class="card"><h2>偏差値の推移（全国）</h2><div class="tblwrap"><table><thead><tr><th>回</th><th>総合</th>`;
+    const keys=(e.cores||[]).map(c=>c.key+'領域');
+    keys.forEach(k=>html+=`<th>${k}</th>`);
+    html+=`</tr></thead><tbody>`;
+    DB.exams.forEach(ex=>{ html+=`<tr><td class="k">${ex.name}</td><td>${pill(ex.total.natHensa)}</td>`;
+      (ex.cores||[]).forEach(c=>html+=`<td>${pill(c.natH)}</td>`); html+=`</tr>`; });
+    html+=`</tbody></table></div></div>`;
+  }
+
+  $('content').innerHTML=html;
+  $('foot').textContent=`${e.name}｜データはこの端末内(localStorage)のみに保存。公開リポジトリには含まれません。`;
+}
+
+function mergeExams(incoming){
+  const map={}; DB.exams.forEach(e=>map[e.id]=e);
+  incoming.forEach(e=>map[e.id]=e);
+  DB.exams=Object.values(map);
+  saveAll(DB); fillSelector(); render();
+}
+function importPaste(){
+  try{ const d=JSON.parse($('pasteBox').value); const arr=d.exams||(Array.isArray(d)?d:[d]);
+    mergeExams(arr); $('pasteBox').value=''; alert('登録しました。'); }
+  catch(err){ alert('JSONの形式が不正です：'+err.message); }
+}
+function importFile(ev){
+  const f=ev.target.files[0]; if(!f)return; const r=new FileReader();
+  r.onload=()=>{ try{ const d=JSON.parse(r.result); mergeExams(d.exams||[]); alert('取り込みました。'); }
+    catch(err){ alert('読み込み失敗：'+err.message); } }; r.readAsText(f); ev.target.value='';
+}
+function exportData(){
+  const blob=new Blob([JSON.stringify(DB,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='cbt-mock-backup.json'; a.click(); URL.revokeObjectURL(a.href);
+}
+
+fillSelector(); render();
+</script>
+</body>
+</html>
