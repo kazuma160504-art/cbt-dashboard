@@ -105,6 +105,11 @@
     <div class="msg" id="heromsg"></div>
   </div>
 
+  <!-- MOCK HIGHLIGHT（模試・偏差値ベース／パスコード不要） -->
+  <div id="mockhi"></div>
+
+  <!-- QBゾーン（QB正答率・パスコード保護） -->
+  <div id="qbzone">
   <!-- KPI -->
   <div class="kpis" id="kpis"></div>
 
@@ -133,8 +138,9 @@
   </details>
 
   <div class="cta">
-    💡 <b>このページの見かた</b>：GitHubの画面ではなく、この <b>index.html を開く</b>と表示されます。数字を更新したいときは <b>data.js</b> を書き換えるだけ（やり方は<a href="plan.html">プラン</a>や私に聞いてください）。
+    💡 <b>この下はQBオンライン(1周目)の正答率分析</b>（パスコード保護）。数字の更新は <b>data.js</b> を書き換えるだけ（やり方は<a href="plan.html">プラン</a>や私に）。
   </div>
+  </div><!-- /qbzone -->
 
   <div class="foot" id="foot"></div>
 </div>
@@ -210,12 +216,39 @@ document.querySelector('#tbl tbody').innerHTML=[...answeredRows].sort((a,b)=>b.w
 document.getElementById('foot').textContent=`最終更新 ${window.CBT_UPDATED||'—'}｜QBオンライン(1周目)実データ｜パスコード保護`;
 }
 
+// 模試ハイライト（localStorageの模試データから／パスコード不要）
+(function mockHighlight(){
+  const el=document.getElementById('mockhi'); if(!el) return;
+  let db=null; try{ db=JSON.parse(localStorage.getItem('cbt_mock_v1')); }catch(e){}
+  if(!db||!db.exams||!db.exams.length){
+    el.innerHTML='<h2>📈 模試成績</h2><div class="cta">まだ模試データがありません。<a href="mock.html">模試成績</a>タブの「取り込み」でJSONを登録すると、ここに偏差値ベースの弱点が出ます。</div>';
+    return;
+  }
+  const e=db.exams[db.exams.length-1], t=e.total;
+  const hc=h=>(h==null?'#cfd6e4':h<40?'#f2547b':h<45?'#f6a623':h<50?'#f7c948':h<55?'#7bc86c':'#28c07a');
+  const weak=[...(e.subjects||[])].sort((a,b)=>((a.natH==null?99:a.natH)-(b.natH==null?99:b.natH))).slice(0,6);
+  el.innerHTML=
+    '<h2>📈 直近の模試（偏差値ベースの弱点）</h2>'+
+    '<div class="section-note">'+e.name+'。QBの正答率とは別に、模試の<b>全国偏差値</b>で“いま伸ばすと効く”科目を表示します。</div>'+
+    '<div class="kpis">'+
+      '<div class="kpi"><div class="ic" style="background:#eaf0ff;color:'+hc(t.natHensa)+'">📊</div><div><div class="n" style="color:'+hc(t.natHensa)+'">'+t.natHensa+'</div><div class="l">全国偏差値（学内'+t.inHensa+'）</div></div></div>'+
+      '<div class="kpi"><div class="ic" style="background:#e7faf4;color:var(--teal)">🎯</div><div><div class="n">'+t.rate+'%</div><div class="l">総合得点率 '+t.score+'/'+t.full+'</div></div></div>'+
+      '<div class="kpi"><div class="ic" style="background:#fff6e8;color:var(--amber)">🏅</div><div><div class="n">'+t.natRank+'位</div><div class="l">全国 / '+t.natN+'名</div></div></div>'+
+    '</div>'+
+    '<div class="voltitle">弱点科目 TOP6（全国偏差値が低い順）</div>'+
+    '<div class="tiles">'+
+      weak.map(function(s){return '<div class="tile" style="background:'+hc(s.natH)+'"><div class="c">'+s.name+'</div><div class="nm">'+(s.area||'')+'</div><div class="rt">'+(s.natH==null?'—':s.natH)+'</div></div>';}).join('')+
+    '</div>'+
+    '<div class="cta">🔗 詳細は <a href="mock.html">模試成績</a>（コアカリ細目・順位まで）。弱点は <a href="ref.html">要点リファレンス</a>(18分野) と <a href="quiz.html">一問一答</a>(725問) で補強しましょう。</div>';
+})();
+
 // パスコードで復号してから表示
 async function unlock(){
-  if(!window.CBT_ENC){ document.querySelector('.wrap').innerHTML='<p style="padding:30px">暗号化データ(data.enc.js)がありません。setup.html で作成してください。</p>'; return; }
+  const qz=document.getElementById('qbzone');
+  if(!window.CBT_ENC){ if(qz) qz.innerHTML='<p style="padding:20px;color:var(--sub)">QB分析の暗号化データ(data.enc.js)がありません。setup.html で作成してください。</p>'; return; }
   let pass=sessionStorage.getItem('cbt_pass');
   for(;;){
-    if(!pass){ pass=prompt('🔐 パスコードを入力してください'); if(pass===null){ document.querySelector('.wrap').innerHTML='<p style="padding:30px">🔒 ロック中です。再読み込みでパスコードを入力できます。</p>'; return; } }
+    if(!pass){ pass=prompt('🔐 QB分析のパスコードを入力（キャンセルで上の模試ハイライトのみ表示）'); if(pass===null){ if(qz) qz.innerHTML='<div class="cta">🔒 QB正答率分析はロック中です。再読み込みでパスコードを入力できます。（上の<b>模試ハイライト</b>はパスコード不要）</div>'; return; } }
     try{ window.CBT_DATA=await cbtDecrypt(window.CBT_ENC.blob, pass); window.CBT_UPDATED=window.CBT_ENC.updated; sessionStorage.setItem('cbt_pass',pass); render(); return; }
     catch(e){ pass=null; sessionStorage.removeItem('cbt_pass'); alert('パスコードが違います。もう一度お試しください。'); }
   }
