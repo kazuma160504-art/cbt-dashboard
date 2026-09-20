@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT 直前チェック</title>
+<style>
+  :root{--bg:#f4f7fc;--card:#fff;--ink:#1f2a44;--sub:#6b7896;--line:#e6ecf5;
+    --indigo:#5b6cff;--teal:#17b4a6;--amber:#f6a623;--rose:#f2547b;--green:#28c07a;--shadow:0 6px 20px rgba(40,60,120,.08)}
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,#eef2fb,#f4f7fc);color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Meiryo",system-ui,sans-serif;line-height:1.75}
+  a{color:var(--indigo);text-decoration:none}
+  .top{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;gap:14px}
+  .brand{font-weight:800;font-size:17px}
+  .nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .nav a{padding:8px 15px;border-radius:999px;font-size:13px;font-weight:700;color:var(--sub);background:#eef1f8}
+  .nav a.active{background:var(--indigo);color:#fff}
+  .wrap{max-width:900px;margin:0 auto;padding:22px 20px 90px}
+  .hero{background:linear-gradient(135deg,#f2547b,#8a7bff 60%,#5b6cff);border-radius:22px;color:#fff;padding:24px 26px;box-shadow:var(--shadow);margin-bottom:20px}
+  .hero h1{margin:0 0 4px;font-size:23px;font-weight:900}
+  .hero .big{font-size:44px;font-weight:900;line-height:1}
+  .hero p{margin:8px 0 0;font-size:13.5px;opacity:.96}
+  h2{font-size:18px;margin:26px 0 10px;display:flex;align-items:center;gap:8px}
+  .lead{color:var(--sub);font-size:13px;margin:-4px 0 12px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+  .chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:13px;font-weight:700;box-shadow:var(--shadow)}
+  .chip.p1{border-color:var(--rose);color:#c2364f} .chip.p2{border-color:var(--amber);color:#8a6100}
+  details{background:var(--card);border-radius:14px;box-shadow:var(--shadow);margin:10px 0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:800;font-size:15px;list-style:none;display:flex;align-items:center;gap:8px}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"▶";font-size:10px;color:var(--sub);transition:.2s}
+  details[open] summary::before{transform:rotate(90deg)}
+  .tag{font-size:11px;font-weight:800;color:#fff;border-radius:6px;padding:1px 8px}
+  .body{padding:0 18px 16px 18px}
+  ul{margin:6px 0;padding-left:20px} li{margin:5px 0;font-size:14px}
+  b.k{color:var(--indigo)}
+  .card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:16px 18px;margin:10px 0}
+  .card h3{margin:0 0 6px;font-size:15px;color:var(--indigo)}
+  .warn{background:#fff0f4;border-left:5px solid var(--rose);border-radius:0 10px 10px 0;padding:11px 15px;font-size:13.5px;margin:10px 0}
+  .good{background:#eefaf1;border-left:5px solid var(--green);border-radius:0 10px 10px 0;padding:11px 15px;font-size:13.5px;margin:10px 0}
+  .plan{display:grid;gap:10px}
+  .day{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:14px 16px;border-left:6px solid var(--indigo)}
+  .day .d{font-weight:800;color:var(--indigo);font-size:14px}
+  .foot{color:var(--sub);font-size:12px;text-align:center;margin-top:28px}
+  .linkrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+  .linkrow a{background:var(--indigo);color:#fff;padding:8px 14px;border-radius:10px;font-weight:700;font-size:13px}
+  .linkrow a.ghost{background:#eef1f8;color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand">🩺 CBT 学習ダッシュボード</div>
+  <nav class="nav">
+    <a href="index.html">ホーム</a>
+    <a href="plan.html">学習プラン</a>
+    <a href="tracker.html">復習トラッカー</a>
+    <a href="ref.html">要点リファレンス</a>
+    <a href="quiz.html">一問一答</a>
+    <a href="mock.html">模試成績</a>
+    <a href="chokuzen.html" class="active">直前チェック</a>
+  </nav>
+</div>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>🎯 直前チェック</h1>
+    <div>本番まで <span class="big" id="days">—</span> <span style="font-size:20px;font-weight:800">日</span></div>
+    <p>📅 2026年9月25日(金)｜2回の模試で一致した<b>重点8分野</b>を、原理から最短で拾い直す直前資料。“みんなが取れる標準問題を確実に拾う”のが合格ライン。</p>
+  </div>
+
+  <!-- 重点分野 -->
+  <h2>🔥 重点8分野（ここを回せば伸びる）</h2>
+  <div class="lead">2つの模試で共通して弱かった分野。P1＝最優先／P2＝次点。各分野の詳細は<a href="ref.html">要点リファレンス</a>の該当タブへ。</div>
+  <div class="chips">
+    <span class="chip p1">感染症</span><span class="chip p1">神経・精神</span><span class="chip p1">消化管・肝胆膵</span>
+    <span class="chip p1">免疫・膠原病</span><span class="chip p2">内分泌・代謝</span><span class="chip p2">小児</span>
+    <span class="chip p2">産婦人科</span><span class="chip p2">腫瘍・救急・中毒</span>
+  </div>
+
+  <!-- 必須事項 -->
+  <h2>📌 分野別「これだけは」必須事項</h2>
+  <div class="lead">直前で拾う超高頻度ポイントだけ。落とすと差がつく基礎を優先。</div>
+
+  <details open><summary><span class="tag" style="background:#f2547b">P1</span>感染症</summary><div class="body"><ul>
+    <li>グラム染色の<b class="k">2軸（陽性/陰性 × 球菌/桿菌）</b>で候補を絞る。<b class="k">非定型（マイコプラズマ・クラミジア・レジオネラ）はβラクタム無効</b>→マクロライド/テトラサイクリン/キノロン。</li>
+    <li>髄膜炎の髄液：<b class="k">細菌性＝好中球・糖↓・蛋白↑↑</b>／ウイルス性＝リンパ球・糖正常。糖が下がっていれば細菌性。</li>
+    <li>結核＝空気感染（N95・陰圧）。<b class="k">INH+RFP+PZA+EB</b>：RFP＝体液橙色、INH＝末梢神経障害（VB6）、EB＝視神経障害。</li>
+    <li>HIV：<b class="k">CD4低下</b>で日和見（ニューモシスチス肺炎・カンジダ・CMV網膜炎・結核）。</li>
+    <li>敗血症＝qSOFA（意識・呼吸数≧22・収縮期≦100）＋乳酸↑。<b class="k">培養を採ってから</b>広域抗菌薬を早期。</li>
+  </ul></div></details>
+
+  <details><summary><span class="tag" style="background:#f2547b">P1</span>神経・精神</summary><div class="body"><ul>
+    <li>脳卒中：梗塞／出血／<b class="k">くも膜下（突然の激烈頭痛）</b>。まず<b class="k">CT</b>で出血除外。梗塞のt-PAは発症4.5時間以内。</li>
+    <li><b class="k">中枢性顔面麻痺＝額のしわが寄せられる</b>／末梢性(Bell)＝額まで麻痺。</li>
+    <li>UMN＝痙性・反射↑・Babinski／LMN＝弛緩・筋萎縮・線維束攣縮。<b class="k">ALSは両方＋感覚正常</b>。</li>
+    <li>認知症：Alzheimer(近時記憶)／<b class="k">Lewy(幻視・変動・パーキンソン)</b>／血管性(階段状)。</li>
+    <li>Parkinson＝<b class="k">安静時振戦・固縮・無動・姿勢反射障害</b>、黒質ドパミン低下。</li>
+  </ul></div></details>
+
+  <details><summary><span class="tag" style="background:#f2547b">P1</span>消化管・肝胆膵</summary><div class="body"><ul>
+    <li>上部出血＝吐血・<b class="k">タール便</b>／下部＝鮮血便。<b class="k">Mallory-Weiss＝嘔吐後の食道裂傷</b>出血。</li>
+    <li><b class="k">胆管炎＝Charcot三徴（発熱・黄疸・右上腹部痛）</b>→＋ショック・意識障害＝Reynolds五徴→緊急ドレナージ。胆嚢炎＝Murphy徴候。</li>
+    <li>急性膵炎＝アルコール・胆石、アミラーゼ↑、重症で<b class="k">低Ca（脂肪壊死）</b>。</li>
+    <li>肝炎：<b class="k">A/E＝経口、B/C＝血液</b>。C型は高率に慢性化→肝癌。HBs抗原＝感染。</li>
+    <li>黄疸：<b class="k">間接優位＝溶血/Gilbert</b>／直接優位＝閉塞（灰白色便・尿ビリルビン＋）。</li>
+  </ul></div></details>
+
+  <details><summary><span class="tag" style="background:#f2547b">P1</span>免疫・膠原病</summary><div class="body"><ul>
+    <li>自己抗体：<b class="k">抗ds-DNA/Sm＝SLE、抗CCP＝RA、抗Scl-70/セントロメア＝強皮症、抗SS-A/B＝Sjögren、抗Jo-1＝筋炎、抗U1-RNP＝MCTD</b>。</li>
+    <li>SLE＝若年女性・蝶形紅斑・<b class="k">補体(C3/C4)↓・抗ds-DNA↑</b>・ループス腎炎。</li>
+    <li>RA＝<b class="k">朝のこわばり＞1時間・MCP/PIP対称</b>・抗CCP。慢性化で<b class="k">二次性アミロイドーシス</b>。</li>
+    <li>アレルギー4型：Ⅰ=IgE即時、Ⅱ=細胞傷害、Ⅲ=免疫複合体(SLE/血清病)、Ⅳ=遅延(T細胞・ツ反・接触)。</li>
+    <li>Sjögren＝<b class="k">乾燥（ドライアイ・口腔乾燥）</b>。</li>
+  </ul></div></details>
+
+  <details><summary><span class="tag" style="background:#f6a623">P2</span>内分泌・代謝</summary><div class="body"><ul>
+    <li>甲状腺中毒症：<b class="k">Basedow(¹²³I摂取率↑・TRAb＋)</b> vs 破壊性(摂取率↓：亜急性＝前頸部痛・CRP↑／無痛性＝産後)。</li>
+    <li>Ca：<b class="k">原発性副甲状腺亢進＝Ca↑P↓</b>／CKD二次性＝Ca↓P↑PTH↑（Pの向きが逆）。</li>
+    <li>痛風＝尿酸↑・第1中足趾節。急性発作はNSAID/コルヒチン（尿酸降下薬は発作中に開始しない）。</li>
+    <li>糖尿病＝HbA1c6.5%↑、DKA＝<b class="k">AG開大性アシドーシス</b>。</li>
+  </ul></div></details>
+
+  <details><summary><span class="tag" style="background:#f6a623">P2</span>小児</summary><div class="body"><ul>
+    <li>発達：<b class="k">首すわり3-4M・独歩1〜1.5歳・有意語1歳・2語文2歳・三輪車3歳</b>。原始反射(モロー)は4-6Mで消失、遅延は中枢障害。</li>
+    <li><b class="k">肥厚性幽門狭窄＝噴水状（非胆汁性）嘔吐・低Cl低K性代謝性アルカローシス</b>、生後2-8週の男児。</li>
+    <li>夏＝手足口病・ヘルパンギーナ。<b class="k">突発性発疹＝高熱→解熱後に発疹</b>。</li>
+    <li>Down症＝21トリソミー、心奇形・十二指腸閉鎖を合併。</li>
+  </ul></div></details>
+
+  <details><summary><span class="tag" style="background:#f6a623">P2</span>産婦人科</summary><div class="body"><ul>
+    <li>HPO軸：<b class="k">LHサージ＝排卵の引き金</b>。黄体寿命≒14日、妊娠すればhCGが黄体を維持。</li>
+    <li><b class="k">異所性妊娠＝無月経＋下腹部痛＋性器出血、hCG陽性なのに子宮内に胎嚢なし</b>。</li>
+    <li>Bishopスコア：<b class="k">9点以上で頸管成熟</b>（分娩誘発が効く）。</li>
+    <li>更年期＝FSH↑・エストロゲン↓。基礎体温はプロゲステロンで二相性（高温相）。</li>
+  </ul></div></details>
+
+  <details><summary><span class="tag" style="background:#f6a623">P2</span>腫瘍・救急・中毒</summary><div class="body"><ul>
+    <li>腫瘍随伴症候群：<b class="k">PTHrP＝高Ca（扁平上皮癌・腎）</b>、SIADH＝低Na（小細胞肺癌）。</li>
+    <li>腫瘍マーカー：AFP/PIVKA-Ⅱ＝肝、CA19-9＝膵胆道、CEA＝腺癌、PSA＝前立腺、SCC＝扁平上皮。<b class="k">早期発見でなく治療効果・再発モニタリング</b>用。</li>
+    <li>熱傷：<b class="k">気道熱傷（顔面熱傷・鼻毛焦げ・嗄声）は緊急</b>、輸液（Baxter）、重症は植皮。</li>
+    <li>中毒：<b class="k">CO＝SpO₂偽正常→高濃度/高圧酸素</b>。有機リン＝縮瞳・流涎・徐脈→アトロピン＋PAM。アナフィラキシー＝<b class="k">アドレナリン筋注</b>。</li>
+  </ul></div></details>
+
+  <details><summary><span class="tag" style="background:#8ba3c9">隙間</span>基礎（発生・生化）</summary><div class="body"><ul>
+    <li>神経堤細胞由来＝<b class="k">末梢神経・副腎髄質・メラノサイト・顔面骨・シュワン細胞</b>。</li>
+    <li>卵子の減数分裂＝第1減数分裂前期で休止→<b class="k">LHサージで再開</b>、受精で第2減数分裂完了。</li>
+    <li>葉酸/B12→<b class="k">dTMP合成</b>→欠乏で巨赤芽球性貧血。酵素はMichaelis-Menten（Km＝親和性）。</li>
+  </ul></div></details>
+
+  <!-- 本番戦略 -->
+  <h2>🧠 本番で力を出す戦略</h2>
+
+  <div class="warn">
+    <b>最重要：正答率が高い問題を落とさない。</b> CBTは約320問の積み重ね。全国正答率80〜95%の“標準問題”を確実に拾うだけで合否ラインを越えます。難問（正答率が低い問題）は深追いせず、根拠のある1つに絞ってマークし、すぐ次へ。
+  </div>
+
+  <div class="card">
+    <h3>⏱ 時間配分・マーク</h3>
+    <ul>
+      <li>1ブロックの時間 ÷ 問題数 ＝ 1問の持ち時間。これを死守し、迷ったら<b class="k">仮マーク＋印</b>で先へ。</li>
+      <li><b class="k">未解答は確実に0点</b>。最後は必ず全問埋める（勘でも埋める）。</li>
+      <li>見直しは<b class="k">単純な読み違い・ケアレスミス</b>中心。明確な根拠がなければ<b class="k">第一感を残す</b>（悩んで書き換えると外しやすい）。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>🔗 四連問（順次解答）の解き方</h3>
+    <ul>
+      <li>前問の情報が積み上がる形式。<b class="k">1問目の見立てを外すと連鎖</b>する。まず<b class="k">主訴＋バイタル＋キーワード</b>で疾患を1つ仮置き→各設問で検証。</li>
+      <li>「次に行う検査／処置」を問う設問は、<b class="k">緊急度（命に関わる病態の除外）</b>を最優先に選ぶ。</li>
+      <li>1問ごとに新情報が追加されるので、<b class="k">前の答えに固執せず</b>、矛盾したら仮説を修正。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>🌙 当日ルーティン・メンタル</h3>
+    <ul>
+      <li>前日は詰め込みすぎない。<b class="k">睡眠優先</b>。当日は早めに会場、軽い食事・カフェイン適量・トイレ。</li>
+      <li>ブロック間の休憩で<b class="k">前のブロックを引きずらない</b>。1つ終わったらリセット。</li>
+      <li>今の実力（総合60%前後）は「弱点を拾えば十分間に合う」ライン。弱点が明確なぶん<b class="k">4日で伸びしろが大きい</b>。落ち着いていこう。</li>
+    </ul>
+  </div>
+
+  <!-- 4日プラン -->
+  <h2>🗓 直前4日プラン</h2>
+  <div class="lead">各日：<a href="ref.html">要点リファレンス</a>で該当タブ→<a href="quiz.html">一問一答</a>を「苦手優先」で回転→間違いは<a href="tracker.html">トラッカー</a>へ。</div>
+  <div class="plan">
+    <div class="day"><div class="d">Day 1（今日）</div>感染症 ＋ 免疫・膠原病。自己抗体と髄液所見、非定型/結核の抗菌薬をここで固める。</div>
+    <div class="day"><div class="d">Day 2</div>消化管・肝胆膵 ＋ 神経・精神。胆管炎/膵炎/肝炎、脳卒中/顔面麻痺/認知症。</div>
+    <div class="day"><div class="d">Day 3</div>内分泌・代謝 ＋ 小児 ＋ 産婦。甲状腺/Ca、発達/幽門狭窄、排卵/異所性妊娠。</div>
+    <div class="day"><div class="d">Day 4（前日）</div>全分野の一問一答を<b>高速回転</b>＋標準問題の総ざらい。腫瘍随伴・救急・中毒を最終チェック。<b>早寝</b>。</div>
+  </div>
+
+  <div class="good">
+    ✅ <b>直前の心得</b>：新しい難問に手を出すより、「一度見た標準問題を確実に」。あなたが今回落とした基本（正答率80〜95%の問題）を拾えるだけで大きく変わります。
+  </div>
+
+  <div class="linkrow">
+    <a href="ref.html">📗 要点リファレンス</a>
+    <a href="quiz.html" class="ghost">⚡ 一問一答</a>
+    <a href="tracker.html" class="ghost">🔁 復習トラッカー</a>
+  </div>
+
+  <div class="foot" id="foot">CBT直前チェック｜高頻度・重点分野の要点整理（原理から自分の言葉で。問題文の転載なし）</div>
+</div>
+<script>
+  const EXAM=new Date('2026-09-25T00:00:00+09:00');
+  const days=Math.max(0,Math.ceil((EXAM-new Date())/86400000));
+  document.getElementById('days').textContent=days;
+</script>
+</body>
+</html>
